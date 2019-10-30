@@ -36,7 +36,7 @@ classifier.add(Flatten())
 
 # Step 4 - Full connection
 classifier.add(Dense(output_dim = 128, activation = 'relu'))
-classifier.add(Dense(output_dim = 6, activation = 'softmax'))
+classifier.add(Dense(output_dim = 11, activation = 'softmax'))
 
 # Compiling the CNN
 classifier.compile(optimizer = 'adam', loss = 'categorical_crossentropy', metrics = ['accuracy'])
@@ -67,7 +67,7 @@ test_set = test_datagen.flow_from_directory(
 classifier.fit_generator(
         training_set,
         steps_per_epoch=8000,
-        epochs=10,
+        epochs=6,
         validation_data=test_set,
         validation_steps=2000)
 

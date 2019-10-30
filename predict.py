@@ -24,6 +24,6 @@ img = image.load_img(image_path, target_size=(64,64))
 img = image.img_to_array(img)
 img = np.expand_dims(img, axis=0)
 result = classifier.predict(img)
-foods = ["com", "pho", "pho cuon"]
+foods = ["Banh mi", "Bun cha", "com", "Dau ran", "Ga luoc", "Nem ran", "Pho bo", "Pho cuon", "Trung ran", "Vit quay", "Xoi xeo"]
 
 print(result)
