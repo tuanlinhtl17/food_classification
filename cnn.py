@@ -17,26 +17,37 @@ from keras.layers import Convolution2D
 from keras.layers import MaxPooling2D
 from keras.layers import Flatten
 from keras.layers import Dense
+from keras.layers import Dropout, BatchNormalization
 
 # Initialising the CNN
 classifier = Sequential()
 
 # Step 1 - Convolution
 classifier.add(Convolution2D(32, 3, 3, input_shape = (64, 64, 3), activation = 'relu'))
+classifier.add(BatchNormalization())
 
 # Step 2 - Pooling
 classifier.add(MaxPooling2D(pool_size = (2, 2)))
+classifier.add(Dropout(0.25)) #han che overfitting
 
 # Adding a second convolutional layer
-classifier.add(Convolution2D(32, 3, 3, activation = 'relu'))
+classifier.add(Convolution2D(64, 3, 3, activation = 'relu'))
+classifier.add(BatchNormalization())
 classifier.add(MaxPooling2D(pool_size = (2, 2)))
+classifier.add(Dropout(0.25))
+
+# Adding a third convolutional layer
+classifier.add(Convolution2D(128, 3, 3, activation = 'relu'))
+classifier.add(Dropout(0.4))
 
 # Step 3 - Flattening
 classifier.add(Flatten())
 
 # Step 4 - Full connection
 classifier.add(Dense(output_dim = 128, activation = 'relu'))
-classifier.add(Dense(output_dim = 11, activation = 'softmax'))
+classifier.add(BatchNormalization())
+classifier.add(Dropout(0.5))
+classifier.add(Dense(output_dim = 3, activation = 'softmax'))
 
 # Compiling the CNN
 classifier.compile(optimizer = 'adam', loss = 'categorical_crossentropy', metrics = ['accuracy'])
@@ -66,10 +77,10 @@ test_set = test_datagen.flow_from_directory(
 
 classifier.fit_generator(
         training_set,
-        steps_per_epoch=8000,
-        epochs=6,
+        steps_per_epoch=1000,
+        epochs=2,
         validation_data=test_set,
-        validation_steps=2000)
+        validation_steps=200)
 
 #save model
 classifier.save('food_classifier.h5')
