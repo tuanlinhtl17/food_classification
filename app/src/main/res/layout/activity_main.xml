@@ -1,0 +1,286 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <RelativeLayout
+        android:id="@+id/header"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/layout_header"
+        android:background="@color/main_activity_background_header"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/layout_header"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:gravity="center_vertical"
+            android:text="@string/main_activity_title"
+            android:textAllCaps="false"
+            android:textColor="@color/main_activity_text_header"
+            android:textSize="@dimen/textSize_header" >
+        </TextView>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/calendar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/header"
+        android:layout_centerHorizontal="true"
+        android:background="@color/main_activity_background_header"
+        android:onClick="openCalendar"
+        android:paddingTop="@dimen/padding_top_bot_calendar"
+        android:paddingBottom="@dimen/padding_top_bot_calendar">
+
+        <TextView
+            android:id="@+id/activity_main_text_day_of_month"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:includeFontPadding="false"
+            android:text="22 Aug"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="@color/main_activity_text_header"
+            android:textSize="@dimen/textSize_header" >
+        </TextView>
+
+        <ImageView
+            android:layout_width="@dimen/layout_ic_left_right"
+            android:layout_height="@dimen/layout_ic_left_right"
+            android:layout_centerVertical="true"
+            android:onClick="previousDay"
+            android:src="@drawable/ic_left"
+            android:layout_marginLeft="@dimen/layout_ic_margin" />
+
+        <ImageView
+            android:layout_width="@dimen/layout_ic_left_right"
+            android:layout_height="@dimen/layout_ic_left_right"
+            android:layout_centerVertical="true"
+            android:onClick="nextDay"
+            android:src="@drawable/ic_right"
+            android:layout_marginRight="@dimen/layout_ic_margin"
+            android:layout_alignParentRight="true" />
+
+        <LinearLayout
+            android:id="@+id/activity_main_view_separator"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/activity_main_text_day_of_month"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/padding_top_bot_calendar"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <View
+                android:layout_width="70dp"
+                android:layout_height="2dp"
+                android:layout_gravity="center"
+                android:layout_marginRight="10dp"
+                android:background="@color/main_activity_text_header" />
+
+            <ImageView
+                android:layout_width="@dimen/layout_ic_calendar"
+                android:layout_height="@dimen/layout_ic_calendar"
+                android:src="@drawable/ic_date" />
+
+            <View
+                android:layout_width="70dp"
+                android:layout_height="2dp"
+                android:layout_gravity="center"
+                android:layout_marginLeft="10dp"
+                android:background="@color/main_activity_text_header" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/activity_main_text_day_of_week"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/activity_main_view_separator"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/padding_top_bot_calendar"
+            android:text="Monday"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textColor="@color/main_activity_text_header"
+            android:textSize="18sp" >
+        </TextView>
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/calories"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/calendar"
+        android:background="@color/main_activity_background_header"
+        android:orientation="horizontal"
+        android:paddingBottom="10dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:gravity="bottom"
+            android:orientation="horizontal"
+            android:layout_marginLeft="10dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="start"
+                        android:paddingTop="5dp"
+                        android:paddingBottom="5dp"
+                        android:text="Calorie"
+                        android:textColor="@color/main_activity_text_header"
+                        android:textSize="16sp" >
+                    </TextView>
+
+                    <TextView
+                        android:id="@+id/totalCal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="5dp"
+                        android:layout_marginEnd="5dp"
+                        android:text="00"
+                        android:textColor="@color/main_activity_text_header" >
+                    </TextView>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="1px"
+                android:layout_height="24dp"
+                android:layout_gravity="center"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="10dp"
+                android:background="#e1e5e9" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="5dp"
+                    android:text="Carbs"
+                    android:textColor="@color/main_activity_text_header"
+                    android:textSize="16sp" >
+
+                </TextView>
+
+                <TextView
+                    android:id="@+id/totalCarbs"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0 gms"
+                    android:textColor="@color/main_activity_text_header" >
+                </TextView>
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="1px"
+                android:layout_height="24dp"
+                android:layout_gravity="center"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="10dp"
+                android:background="#e1e5e9" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="5dp"
+                    android:text="Fats"
+                    android:textColor="@color/main_activity_text_header"
+                    android:textSize="16sp" >
+                </TextView>
+
+                <TextView
+                    android:id="@+id/totalFats"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0 gms"
+                    android:textColor="@color/main_activity_text_header" >
+                </TextView>
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="1px"
+                android:layout_height="24dp"
+                android:layout_gravity="center"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="10dp"
+                android:background="#e1e5e9" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="5dp"
+                    android:text="Proteins"
+                    android:textColor="@color/main_activity_text_header"
+                    android:textSize="16sp" >
+                </TextView>
+
+                <TextView
+                    android:id="@+id/totalProts"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0 gms"
+                    android:textColor="@color/main_activity_text_header" >
+                </TextView>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <ListView
+        android:id="@+id/list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/calories"
+        android:layout_centerHorizontal="true" />
+
+</RelativeLayout>

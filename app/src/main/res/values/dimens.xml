@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="layout_header">60sp</dimen>
+    <dimen name="textSize_header">25sp</dimen>
+    <dimen name="padding_top_bot_calendar">10sp</dimen>
+    <dimen name="layout_ic_left_right">24dp</dimen>
+    <dimen name="layout_ic_margin">40dp</dimen>
+    <dimen name="layout_ic_calendar">24dp</dimen>
+
+</resources>
