@@ -6,5 +6,6 @@
     <dimen name="layout_ic_left_right">24dp</dimen>
     <dimen name="layout_ic_margin">40dp</dimen>
     <dimen name="layout_ic_calendar">24dp</dimen>
+    <dimen name="food_item_attr_distance">7dp</dimen>
 
 </resources>

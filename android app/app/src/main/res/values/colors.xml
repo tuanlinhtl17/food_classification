@@ -5,4 +5,7 @@
     <color name="colorAccent">#D81B60</color>
     <color name="main_activity_background_header">#3947B9</color>
     <color name="main_activity_text_header">#F8F5F6</color>
+    <color name="gray">#888787</color>
+    <color name="black">#4D4D4D</color>
+    <color name="blue">#4E83D5</color>
 </resources>
