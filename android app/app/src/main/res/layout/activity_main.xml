@@ -126,7 +126,8 @@
             android:layout_gravity="bottom"
             android:gravity="bottom"
             android:orientation="horizontal"
-            android:layout_marginLeft="10dp">
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -282,5 +283,16 @@
         android:layout_height="match_parent"
         android:layout_below="@+id/calories"
         android:layout_centerHorizontal="true" />
+
+    <ImageView
+        android:id="@+id/addFood"
+        android:layout_alignParentBottom="true"
+        android:layout_gravity="bottom|end"
+        android:layout_marginBottom="25dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:src="@drawable/plus"
+        android:layout_marginRight="25dp"
+        android:layout_alignParentRight="true" />
 
 </RelativeLayout>

@@ -1,8 +1,10 @@
-package com.example.foodclassificationapp;
+package com.example.foodclassificationapp.Activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+
+import com.example.foodclassificationapp.R;
 
 public class FruitInfoActivity extends AppCompatActivity {
 
