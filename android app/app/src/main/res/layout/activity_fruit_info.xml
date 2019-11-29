@@ -30,6 +30,7 @@
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:gravity="center"
             android:text="Fruit Info"
+            android:id="@+id/foodName"
             android:textColor="@color/main_activity_text_header" >
 
         </TextView>
@@ -52,20 +53,29 @@
 
     </LinearLayout>
 
-    <ListView
-        android:visibility="visible"
-        android:layout_marginTop="20dp"
-        android:layout_marginLeft="10dp"
-        android:orientation="horizontal"
-        android:layout_below="@+id/imgPreview"
-        android:id="@+id/recyclerview1"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_alignParentTop="true"
-        android:scrollbars="horizontal"
-        >
+<!--    <ListView-->
+<!--        android:visibility="visible"-->
+<!--        android:layout_marginTop="20dp"-->
+<!--        android:layout_marginLeft="10dp"-->
+<!--        android:orientation="horizontal"-->
+<!--        android:layout_below="@+id/imgPreview"-->
+<!--        android:id="@+id/recyclerview1"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="60dp"-->
+<!--        android:layout_alignParentTop="true"-->
+<!--        android:scrollbars="horizontal"-->
+<!--        >-->
 
-    </ListView>
+<!--    </ListView>-->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Nutritions per 100g"
+        android:textSize="22sp"
+        android:gravity="center"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        />
 
     <LinearLayout
         android:layout_weight="50"
@@ -127,7 +137,7 @@
                 android:layout_weight="1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Fiber"
+                android:text="@string/carb"
                 android:textColor="@color/gray" >
 
             </TextView>
@@ -166,7 +176,7 @@
                 android:layout_weight="1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/proteins"
+                android:text="@string/fats"
                 android:textColor="@color/gray" />
 
             <TextView
@@ -203,7 +213,7 @@
                 android:layout_weight="1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Vitamin A"
+                android:text="@string/proteins"
                 android:textColor="@color/gray" >
 
             </TextView>

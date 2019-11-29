@@ -1,18 +1,26 @@
 package com.example.foodclassificationapp.Entity;
 
-public class FoodEntity {
+import java.io.Serializable;
+
+public class FoodEntity implements Serializable {
     private String name;
     private String image;
     private int id;
-    private String calories;
-    private String carbs;
-    private String fats;
-    private String proteins;
+    private double calories;
+    private double carbs;
+    private double fats;
+    private double proteins;
 
-    public FoodEntity(String name, String image, int id) {
+    public FoodEntity() {
+
+    }
+
+    public FoodEntity(String name, double calories, double carbs, double fats, double proteins) {
         this.name = name;
-        this.image = image;
-        this.id = id;
+        this.calories = calories;
+        this.carbs = carbs;
+        this.fats = fats;
+        this.proteins = proteins;
     }
 
     public String getName() {
@@ -39,35 +47,35 @@ public class FoodEntity {
         this.id = id;
     }
 
-    public String getCalories() {
+    public double getCalories() {
         return calories;
     }
 
-    public void setCalories(String calories) {
+    public void setCalories(double calories) {
         this.calories = calories;
     }
 
-    public String getCarbs() {
+    public double getCarbs() {
         return carbs;
     }
 
-    public void setCarbs(String carbs) {
+    public void setCarbs(double carbs) {
         this.carbs = carbs;
     }
 
-    public String getFats() {
+    public double getFats() {
         return fats;
     }
 
-    public void setFats(String fats) {
+    public void setFats(double fats) {
         this.fats = fats;
     }
 
-    public String getProteins() {
+    public double getProteins() {
         return proteins;
     }
 
-    public void setProteins(String proteins) {
+    public void setProteins(double proteins) {
         this.proteins = proteins;
     }
 }

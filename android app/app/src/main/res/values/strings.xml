@@ -2,7 +2,7 @@
     <string name="app_name">FoodClassificationApp</string>
     <string name="main_activity_title">Daily Statistics</string>
     <string name="calories">Calories</string>
-    <string name="carbs">Carbs</string>
+    <string name="carb">Carb</string>
     <string name="fats">Fats</string>
     <string name="proteins">Proteins</string>
 </resources>

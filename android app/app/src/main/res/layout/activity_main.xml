@@ -32,7 +32,6 @@
         android:layout_below="@+id/header"
         android:layout_centerHorizontal="true"
         android:background="@color/main_activity_background_header"
-        android:onClick="openCalendar"
         android:paddingTop="@dimen/padding_top_bot_calendar"
         android:paddingBottom="@dimen/padding_top_bot_calendar">
 
@@ -52,7 +51,6 @@
             android:layout_width="@dimen/layout_ic_left_right"
             android:layout_height="@dimen/layout_ic_left_right"
             android:layout_centerVertical="true"
-            android:onClick="previousDay"
             android:src="@drawable/ic_left"
             android:layout_marginLeft="@dimen/layout_ic_margin" />
 
@@ -60,7 +58,6 @@
             android:layout_width="@dimen/layout_ic_left_right"
             android:layout_height="@dimen/layout_ic_left_right"
             android:layout_centerVertical="true"
-            android:onClick="nextDay"
             android:src="@drawable/ic_right"
             android:layout_marginRight="@dimen/layout_ic_margin"
             android:layout_alignParentRight="true" />

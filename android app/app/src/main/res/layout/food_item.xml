@@ -25,10 +25,10 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/txt"
+                android:id="@+id/itemName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="15dp"
+                android:layout_marginLeft="22dp"
                 android:ellipsize="end"
                 android:maxLines="1"
                 android:text="Apple"
@@ -56,7 +56,8 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical">
+                        android:orientation="vertical"
+                        android:gravity="center">
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -103,13 +104,13 @@
                         android:layout_height="wrap_content"
                         android:paddingTop="5dp"
                         android:paddingBottom="5dp"
-                        android:text="@string/carbs"
+                        android:text="@string/carb"
                         android:textColor="#9f9f9f">
 
                     </TextView>
 
                     <TextView
-                        android:id="@+id/carbs"
+                        android:id="@+id/carb"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="10"
