@@ -1,19 +1,25 @@
 package com.example.foodclassificationapp.Activity;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import android.Manifest;
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.os.Parcelable;
 import android.provider.MediaStore;
 import android.view.View;
@@ -184,8 +190,6 @@ public class GetImageActivity extends AppCompatActivity implements SingleUploadB
         return path;
     }
 
-
-    //Requesting permission
     private void requestStoragePermission() {
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED)
             return;
@@ -220,7 +224,36 @@ public class GetImageActivity extends AppCompatActivity implements SingleUploadB
 
 
     @Override
-    public void onProgress(int progress) {
+    public void onProgress(final int progress) {
+        final ProgressDialog progressDialog = new ProgressDialog(this);
+        progressDialog.setTitle("Classifying Food");
+        progressDialog.setMessage("Please wait...");
+        progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        progressDialog.setMax(100);
+        progressDialog.show();
+        progressDialog.setCancelable(false);
+        final Handler handle = new Handler() {
+            public void handleMessage(Message msg) {
+                super.handleMessage(msg);
+                progressDialog.incrementProgressBy(2); // Incremented By Value 2
+            }
+        };
+        new Thread(new Runnable() {
+            public void run() {
+                try {
+                    while (progress < progressDialog.getMax()) {
+                        Thread.sleep(200);
+                        handle.sendMessage(handle.obtainMessage());
+                        if (progress == progressDialog.getMax()) {
+                            progressDialog.dismiss();
+                        }
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                progressDialog.dismiss();
+            }
+        }).start();
     }
 
     @Override
@@ -230,7 +263,24 @@ public class GetImageActivity extends AppCompatActivity implements SingleUploadB
 
     @Override
     public void onError(Exception exception) {
-
+        AlertDialog.Builder builder = new AlertDialog.Builder(getApplicationContext());
+        builder.setTitle("Error!");
+        builder.setMessage("Have an error while classify food. Please retry!");
+        builder.setCancelable(false);
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                uploadMultipart(getApplicationContext());
+            }
+        });
+        builder.setNegativeButton("Other Image", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                showFileChooser();
+            }
+        });
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
     }
 
     @Override
@@ -238,7 +288,7 @@ public class GetImageActivity extends AppCompatActivity implements SingleUploadB
         try {
             JSONObject response = new JSONObject(new String(serverResponseBody));
 
-            Toast.makeText(getApplicationContext(), "Upload Successfully",
+            Toast.makeText(getApplicationContext(), "Classify Successfully",
                     Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(getApplicationContext(), FruitInfoActivity.class);
 

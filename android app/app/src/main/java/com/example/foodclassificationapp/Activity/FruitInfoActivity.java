@@ -196,10 +196,10 @@ public class FruitInfoActivity extends AppCompatActivity {
 
     public void setupItemValues(FoodEntity foodEntity) {
         foodName.setText(foodEntity.getName());
-        itemCalos.setText(foodEntity.getCalories() + " gms");
-        itemCarbs.setText(foodEntity.getCarbs() + " gms");
-        itemFats.setText(foodEntity.getFats() + " gms");
-        itemProts.setText(foodEntity.getProteins() + " gms");
+        itemCalos.setText(String.valueOf(foodEntity.getCalories()));
+        itemCarbs.setText(String.format("%s gms", foodEntity.getCarbs()));
+        itemFats.setText(String.format("%s gms", foodEntity.getFats()));
+        itemProts.setText(String.format("%s gms", foodEntity.getProteins()));
     }
 
     private static int getRandomNumber(int min, int max) {

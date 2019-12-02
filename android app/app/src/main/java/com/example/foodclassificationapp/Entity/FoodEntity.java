@@ -5,7 +5,6 @@ import java.io.Serializable;
 public class FoodEntity implements Serializable {
     private String name;
     private String image;
-    private int id;
     private double calories;
     private double carbs;
     private double fats;
@@ -37,14 +36,6 @@ public class FoodEntity implements Serializable {
 
     public void setImage(String image) {
         this.image = image;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public double getCalories() {
