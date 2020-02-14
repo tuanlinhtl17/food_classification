@@ -12,15 +12,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Activity.GetImageActivity"></activity>
+        <activity android:name=".activity.GetImageActivity"></activity>
         <activity
-            android:name=".Activity.SearchFoodActivity"
+            android:name=".activity.SearchFoodActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
-            android:name=".Activity.FruitInfoActivity"
+            android:name=".activity.FruitInfoActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
-            android:name=".Activity.MainActivity"
+            android:name=".activity.MainActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -1,4 +1,4 @@
-package com.example.foodclassificationapp.Activity;
+package com.example.foodclassificationapp.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -17,14 +17,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.VideoView;
 
-import com.example.foodclassificationapp.Entity.FoodEntity;
+import com.example.foodclassificationapp.entity.FoodEntity;
 import com.example.foodclassificationapp.R;
 
 import java.io.File;
-import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
 import java.util.Locale;
 import java.util.Random;
 
@@ -32,7 +30,6 @@ public class FruitInfoActivity extends AppCompatActivity {
 
     // Activity request codes
     private static final int CAMERA_CAPTURE_IMAGE_REQUEST_CODE = 100;
-    private static final int CAMERA_CAPTURE_VIDEO_REQUEST_CODE = 200;
     public static final int MEDIA_TYPE_IMAGE = 1;
     public static final int MEDIA_TYPE_VIDEO = 2;
 
@@ -42,14 +39,7 @@ public class FruitInfoActivity extends AppCompatActivity {
     public Uri fileUri; // file url to store image/video
 
     private ImageView imgPreview;
-    private VideoView videoPreview;
     private TextView itemCalos, itemCarbs, itemFats, itemProts, foodName;
-
-    private static final int INPUT_SIZE = 224;
-    private static final int IMAGE_MEAN = 128;
-    private static final float IMAGE_STD = 128.0f;
-    private static final String INPUT_NAME = "input";
-    private static final String OUTPUT_NAME = "final_result";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

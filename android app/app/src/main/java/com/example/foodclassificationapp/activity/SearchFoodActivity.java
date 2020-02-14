@@ -1,4 +1,4 @@
-package com.example.foodclassificationapp.Activity;
+package com.example.foodclassificationapp.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
