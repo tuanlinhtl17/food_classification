@@ -9,8 +9,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 
 import android.database.Cursor;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
+
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -41,37 +40,27 @@ import java.util.UUID;
 
 public class GetImageActivity extends AppCompatActivity implements SingleUploadBroadcastReceiver.Delegate {
 
-    private ImageView imageView;
-
-    private static final String IMAGE_DIRECTORY_NAME = "FoodImages";
-    private static final int CAMERA_CAPTURE_IMAGE_REQUEST_CODE = 100;
     private static final String TAG = "AndroidUploadService";
+    private static final String IMAGE_DIRECTORY_NAME = "FoodImages";
+    private SingleUploadBroadcastReceiver uploadReceiver = new SingleUploadBroadcastReceiver();
 
-    private SingleUploadBroadcastReceiver uploadReceiver;
-
-    private Uri filePath;
+    private Uri fileUri;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fruit_info);
-        init();
         captureImage();
-    }
-
-    private void init() {
-        imageView = findViewById(R.id.imageView);
-        uploadReceiver = new SingleUploadBroadcastReceiver();
     }
 
     private void captureImage() {
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 
-        filePath = getOutputMediaFileUri();
+        fileUri = getOutputMediaFileUri();
 
-        intent.putExtra(MediaStore.EXTRA_OUTPUT, filePath);
+        intent.putExtra(MediaStore.EXTRA_OUTPUT, fileUri);
 
-        startActivityForResult(intent, CAMERA_CAPTURE_IMAGE_REQUEST_CODE);
+        startActivityForResult(intent, Constant.CAMERA_IMAGE_REQUEST_CODE);
     }
 
     private Uri getOutputMediaFileUri() {
@@ -113,7 +102,7 @@ public class GetImageActivity extends AppCompatActivity implements SingleUploadB
     public void uploadMultipart(final Context context) {
 
         //getting the actual path of the image
-        String path = getPath(filePath);
+        String path = getPath(fileUri);
 
         //Uploading code
         try {
@@ -136,36 +125,26 @@ public class GetImageActivity extends AppCompatActivity implements SingleUploadB
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         // if the result is capturing Image
-        Log.i(TAG, "onActivityResult()");
-        if (requestCode == CAMERA_CAPTURE_IMAGE_REQUEST_CODE) {
+//        Log.i(TAG, "onActivityResult()");
+        if (requestCode == Constant.CAMERA_IMAGE_REQUEST_CODE) {
             if (resultCode == RESULT_OK) {
                 // successfully captured the image
-                // display it in image view
-                previewCapturedImage();
+                // classify image
+                uploadMultipart(getApplicationContext());
             } else if (resultCode == RESULT_CANCELED) {
                 // user cancelled Image capture
                 Toast.makeText(getApplicationContext(),
                         "User cancelled image capture", Toast.LENGTH_SHORT)
                         .show();
+                captureImage();
             } else {
                 // failed to capture image
                 Toast.makeText(getApplicationContext(),
                         "Sorry! Failed to capture image", Toast.LENGTH_SHORT)
                         .show();
-            }
-        }
-    }
+                finish();
 
-    private void previewCapturedImage() {
-        Log.i(TAG, "previewCapturedImage()");
-        try {
-            BitmapFactory.Options options = new BitmapFactory.Options();
-            options.inSampleSize = 8;
-            final Bitmap bitmap = BitmapFactory.decodeFile(filePath.getPath(),
-                    options);
-            imageView.setImageBitmap(bitmap);
-        } catch (NullPointerException e) {
-            e.printStackTrace();
+            }
         }
     }
 
@@ -274,7 +253,7 @@ public class GetImageActivity extends AppCompatActivity implements SingleUploadB
             double cacbohydrat = response.getJSONObject("nutritions").getDouble("cacbohydrat");
             double fat = response.getJSONObject("nutritions").getDouble("fat");
             FoodEntity foodItem = new FoodEntity(foodName, calories, protein, cacbohydrat, fat);
-            String path = getPath(filePath);
+            String path = getPath(fileUri);
             foodItem.setImage(path);
             Bundle bundle = new Bundle();
             bundle.putSerializable("foodObj", foodItem);
