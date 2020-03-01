@@ -8,4 +8,9 @@
     <color name="gray">#888787</color>
     <color name="black">#4D4D4D</color>
     <color name="blue">#4E83D5</color>
+
+    <color name="background_color">#F13232</color>
+    <color name="white">#FFFFFF</color>
+    <color name="white_greyish">#EEEEEE</color>
+    <color name="button_login_color">#D11919</color>
 </resources>

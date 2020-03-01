@@ -12,7 +12,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.GetImageActivity"></activity>
+        <activity
+            android:name=".activity.MainActivity"
+            android:label="@string/main_activity_title"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity android:name=".activity.GetImageActivity" />
         <activity
             android:name=".activity.SearchFoodActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
@@ -20,7 +24,7 @@
             android:name=".activity.FruitInfoActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
-            android:name=".activity.MainActivity"
+            android:name=".activity.LoginActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
