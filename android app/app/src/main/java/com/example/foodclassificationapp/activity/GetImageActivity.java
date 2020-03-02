@@ -17,12 +17,11 @@ import android.os.Handler;
 import android.os.Message;
 import android.provider.MediaStore;
 import android.util.Log;
-import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.foodclassificationapp.common.SingleUploadBroadcastReceiver;
 import com.example.foodclassificationapp.constant.Constant;
-import com.example.foodclassificationapp.entity.FoodEntity;
+import com.example.foodclassificationapp.entity.FoodItem;
 import com.example.foodclassificationapp.R;
 
 import net.gotev.uploadservice.MultipartUploadRequest;
@@ -102,7 +101,8 @@ public class GetImageActivity extends AppCompatActivity implements SingleUploadB
     public void uploadMultipart(final Context context) {
 
         //getting the actual path of the image
-        String path = getPath(fileUri);
+        String path = fileUri.getPath();
+        Log.i(TAG, path);
 
         //Uploading code
         try {
@@ -252,8 +252,8 @@ public class GetImageActivity extends AppCompatActivity implements SingleUploadB
             double protein = response.getJSONObject("nutritions").getDouble("protein");
             double cacbohydrat = response.getJSONObject("nutritions").getDouble("cacbohydrat");
             double fat = response.getJSONObject("nutritions").getDouble("fat");
-            FoodEntity foodItem = new FoodEntity(foodName, calories, protein, cacbohydrat, fat);
-            String path = getPath(fileUri);
+            FoodItem foodItem = new FoodItem(foodName, calories, protein, cacbohydrat, fat);
+            String path = fileUri.getPath();
             foodItem.setImage(path);
             Bundle bundle = new Bundle();
             bundle.putSerializable("foodObj", foodItem);

@@ -2,7 +2,7 @@ package com.example.foodclassificationapp.entity;
 
 import java.io.Serializable;
 
-public class FoodEntity implements Serializable {
+public class FoodItem implements Serializable {
     private String name;
     private String image;
     private double calories;
@@ -10,11 +10,11 @@ public class FoodEntity implements Serializable {
     private double fats;
     private double proteins;
 
-    public FoodEntity() {
+    public FoodItem() {
 
     }
 
-    public FoodEntity(String name, double calories, double carbs, double fats, double proteins) {
+    public FoodItem(String name, double calories, double carbs, double fats, double proteins) {
         this.name = name;
         this.calories = calories;
         this.carbs = carbs;

@@ -7,7 +7,7 @@
 
     <LinearLayout
         android:id="@+id/login_layout"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:layout_marginTop="100dp"
@@ -39,7 +39,7 @@
             android:padding="10dp"
             android:textColor="@color/white"
             android:textColorHint="@color/white"
-            android:textSize="16sp" 
+            android:textSize="16sp"
             android:fontFamily="sans-serif-light"
             android:drawableStart="@drawable/email"
             android:drawableLeft="@drawable/email"
@@ -63,7 +63,7 @@
             android:padding="10dp"
             android:textColor="@color/white"
             android:textColorHint="@color/white"
-            android:textSize="16sp" 
+            android:textSize="16sp"
             android:fontFamily="sans-serif-light"
             android:drawableLeft="@drawable/password"
             android:drawableStart="@drawable/password"
@@ -104,21 +104,19 @@
             android:fontFamily="sans-serif-light"
             />
 
-    </LinearLayout>
+        <TextView
+            android:id="@id/signUp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:gravity="center"
+            android:padding="5dp"
+            android:text="@string/newUser"
+            android:textColor="@color/white"
+            android:textSize="15sp"
+            android:fontFamily="sans-serif-light"
+            />
 
-    <TextView
-        android:id="@+id/createAccount"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/login_layout"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="15dp"
-        android:gravity="center"
-        android:padding="5dp"
-        android:text="@string/newUser"
-        android:textColor="@color/white"
-        android:textSize="15sp"
-        android:fontFamily="sans-serif-light"
-        />
+    </LinearLayout>
 
 </RelativeLayout>

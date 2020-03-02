@@ -35,12 +35,14 @@ public class MainActivity extends AppCompatActivity {
         btnAddFood.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!checkPermissons()) {
+//                if (!checkPermissons()) {
+//                    System.out.println("permiss");
                     requestPermissons();
-                } else {
+//                } else {
+                    System.out.println("intent");
                     Intent intent = new Intent(getApplicationContext(), GetImageActivity.class);
                     startActivity(intent);
-                }
+//                }
             }
         });
     }

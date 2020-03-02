@@ -7,17 +7,18 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.foodclassificationapp.entity.FoodEntity;
+import com.example.foodclassificationapp.entity.FoodItem;
 import com.example.foodclassificationapp.R;
+
+import java.io.File;
 
 
 public class FruitInfoActivity extends AppCompatActivity {
-
-    private Bitmap bitmap;
 
     private ImageView imgPreview;
     private TextView itemCalos, itemCarbs, itemFats, itemProts, foodName;
@@ -39,7 +40,7 @@ public class FruitInfoActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
-        FoodEntity foodItem = (FoodEntity) bundle.getSerializable("foodObj");
+        FoodItem foodItem = (FoodItem) bundle.getSerializable("foodObj");
 
 //        BitmapFactory.Options options = new BitmapFactory.Options();
 //
@@ -54,12 +55,20 @@ public class FruitInfoActivity extends AppCompatActivity {
     }
 
     private void previewCapturedImage(String filepath) {
-//        Log.i(TAG, "previewCapturedImage()");
+        Log.i("file path: ", filepath);
         try {
-            BitmapFactory.Options options = new BitmapFactory.Options();
-            options.inSampleSize = 8;
-            bitmap = BitmapFactory.decodeFile(filepath, options);
-            imgPreview.setImageBitmap(bitmap);
+            File imgFile = new  File(filepath);
+
+            if(imgFile.exists()){
+                BitmapFactory.Options options = new BitmapFactory.Options();
+                options.inSampleSize = 8;
+                Bitmap myBitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath(), options);
+                imgPreview.setImageBitmap(myBitmap);
+            }
+//            BitmapFactory.Options options = new BitmapFactory.Options();
+//            options.inSampleSize = 8;
+//            bitmap = BitmapFactory.decodeFile(filepath, options);
+//            imgPreview.setImageBitmap(bitmap);
         } catch (NullPointerException e) {
             e.printStackTrace();
         }
@@ -69,12 +78,12 @@ public class FruitInfoActivity extends AppCompatActivity {
         finish();
     }
 
-    public void setupItemValues(FoodEntity foodEntity) {
-        foodName.setText(foodEntity.getName());
-        itemCalos.setText(String.valueOf(foodEntity.getCalories()));
-        itemCarbs.setText(String.format("%s gms", foodEntity.getCarbs()));
-        itemFats.setText(String.format("%s gms", foodEntity.getFats()));
-        itemProts.setText(String.format("%s gms", foodEntity.getProteins()));
+    public void setupItemValues(FoodItem foodItem) {
+        foodName.setText(foodItem.getName());
+        itemCalos.setText(String.valueOf(foodItem.getCalories()));
+        itemCarbs.setText(String.format("%s gms", foodItem.getCarbs()));
+        itemFats.setText(String.format("%s gms", foodItem.getFats()));
+        itemProts.setText(String.format("%s gms", foodItem.getProteins()));
     }
 
 }
