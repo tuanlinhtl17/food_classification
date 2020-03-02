@@ -126,6 +126,7 @@ public class GetImageActivity extends AppCompatActivity implements SingleUploadB
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         // if the result is capturing Image
 //        Log.i(TAG, "onActivityResult()");
+        super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == Constant.CAMERA_IMAGE_REQUEST_CODE) {
             if (resultCode == RESULT_OK) {
                 // successfully captured the image
@@ -143,7 +144,6 @@ public class GetImageActivity extends AppCompatActivity implements SingleUploadB
                         "Sorry! Failed to capture image", Toast.LENGTH_SHORT)
                         .show();
                 finish();
-
             }
         }
     }
