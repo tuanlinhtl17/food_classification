@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">FoodClassificationApp</string>
+    <string name="app_name">UrHeath</string>
     <string name="main_activity_title">Daily Statistics</string>
     <string name="calories">Calories</string>
     <string name="carb">Carb</string>
@@ -29,4 +29,11 @@
     <string name="submit">SUBMIT</string>
     <string name="back">BACK</string>
     <string name="title_activity_login">LoginActivity</string>
+    <string name="add_food">Add Food</string>
+    <string name="previous_day">Previous Day</string>
+    <string name="next_day">Next Day</string>
+    <string name="calendar">Calendar</string>
+    <string name="home">Home</string>
+    <string name="search">Search</string>
+    <string name="user">User</string>
 </resources>

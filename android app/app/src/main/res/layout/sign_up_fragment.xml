@@ -32,7 +32,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@android:color/transparent"
-            android:drawableLeft="@drawable/user_32"
+            android:drawableLeft="@drawable/user"
             android:drawablePadding="10dp"
             android:gravity="center_vertical"
             android:hint="@string/fullName"
@@ -55,7 +55,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@android:color/transparent"
-            android:drawableLeft="@drawable/mail_32"
+            android:drawableLeft="@drawable/mail_ios"
             android:drawablePadding="10dp"
             android:gravity="center_vertical"
             android:hint="@string/email"
@@ -86,7 +86,7 @@
                 android:layout_height="wrap_content"
                 android:inputType="number"
                 android:background="@android:color/transparent"
-                android:drawableLeft="@drawable/birthday_32"
+                android:drawableLeft="@drawable/age_ios"
                 android:drawablePadding="10dp"
                 android:gravity="center_vertical"
                 android:hint="@string/age"
@@ -96,7 +96,7 @@
                 android:textColorHint="@color/white"
                 android:textSize="16sp"
                 android:fontFamily="sans-serif-light"
-                android:drawableStart="@drawable/birthday_32" />
+                android:drawableStart="@drawable/age_ios" />
 
             <View
                 android:layout_width="1px"
@@ -176,7 +176,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@android:color/transparent"
-                    android:drawableLeft="@drawable/height_32"
+                    android:drawableLeft="@drawable/height_ios"
                     android:drawablePadding="8dp"
                     android:gravity="center_vertical"
                     android:hint="@string/height"
@@ -186,7 +186,7 @@
                     android:textColor="@color/white"
                     android:textColorHint="@color/white"
                     android:textSize="16sp"
-                    android:drawableStart="@drawable/height_32"
+                    android:drawableStart="@drawable/height_ios"
                     android:fontFamily="sans-serif-light"/>
                 <TextView
                     android:layout_width="wrap_content"
@@ -221,7 +221,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@android:color/transparent"
-                    android:drawableLeft="@drawable/weight_32"
+                    android:drawableLeft="@drawable/weight_ios"
                     android:drawablePadding="8dp"
                     android:gravity="center_vertical"
                     android:hint="@string/weight"
@@ -231,7 +231,7 @@
                     android:textColor="@color/white"
                     android:textColorHint="@color/white"
                     android:textSize="16sp"
-                    android:drawableStart="@drawable/weight_32"
+                    android:drawableStart="@drawable/weight_ios"
                     android:fontFamily="sans-serif-light"
                     />
                 <TextView
@@ -259,7 +259,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:background="@android:color/transparent"
-            android:drawableLeft="@drawable/pass_32"
+            android:drawableLeft="@drawable/pass_ios"
             android:drawablePadding="8dp"
             android:gravity="center_vertical"
             android:hint="@string/password"
@@ -269,7 +269,7 @@
             android:textColor="@color/white"
             android:textColorHint="@color/white"
             android:textSize="16sp"
-            android:drawableStart="@drawable/pass_32"
+            android:drawableStart="@drawable/pass_ios"
             android:fontFamily="sans-serif-light"/>
 
         <View
@@ -283,7 +283,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:background="@android:color/transparent"
-            android:drawableLeft="@drawable/pass_confirm"
+            android:drawableLeft="@drawable/pass_confirm_ios"
             android:drawablePadding="8dp"
             android:gravity="center_vertical"
             android:hint="@string/confirmPassword"
@@ -293,7 +293,7 @@
             android:textColor="@color/white"
             android:textColorHint="@color/white"
             android:textSize="16sp"
-            android:drawableStart="@drawable/pass_confirm"
+            android:drawableStart="@drawable/pass_confirm_ios"
             android:fontFamily="sans-serif-light"/>
 
         <CheckBox

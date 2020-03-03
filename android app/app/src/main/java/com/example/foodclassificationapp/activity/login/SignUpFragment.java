@@ -23,6 +23,10 @@ public class SignUpFragment extends Fragment implements View.OnClickListener {
     private Button signUp;
     private CheckBox termsConditions;
 
+    public SignUpFragment() {
+
+    }
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -49,7 +53,7 @@ public class SignUpFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.already_user:
+            case R.id.alreadyUser:
                 new LoginActivity().startLoginFragment();
                 break;
             case R.id.signUp:

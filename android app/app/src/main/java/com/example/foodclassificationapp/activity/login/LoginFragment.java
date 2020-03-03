@@ -11,12 +11,11 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
 import com.example.foodclassificationapp.R;
-import com.example.foodclassificationapp.activity.MainActivity;
+import com.example.foodclassificationapp.activity.main.MainActivity;
 import com.example.foodclassificationapp.constant.Constant;
 
 
@@ -63,7 +62,7 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
                 break;
             case R.id.signUp:
                 fragmentManager.beginTransaction()
-                        .replace(R.id.frameContainer, new SignUpFragment(), Constant.SignUp_Fragment).commit();
+                        .replace(R.id.loginContainer, new SignUpFragment(), Constant.SIGNUP_FRAGMENT).commit();
                 break;
         }
     }
