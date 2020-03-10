@@ -7,7 +7,7 @@
 
     <LinearLayout
         android:id="@+id/login_layout"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:layout_marginTop="100dp"
@@ -41,8 +41,8 @@
             android:textColorHint="@color/white"
             android:textSize="16sp"
             android:fontFamily="sans-serif-light"
-            android:drawableStart="@drawable/email"
-            android:drawableLeft="@drawable/email"
+            android:drawableStart="@drawable/mail_ios"
+            android:drawableLeft="@drawable/mail_ios"
             android:importantForAutofill="no" />
 
         <View
@@ -105,7 +105,7 @@
             />
 
         <TextView
-            android:id="@+id/signUp"
+            android:id="@id/signUp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
