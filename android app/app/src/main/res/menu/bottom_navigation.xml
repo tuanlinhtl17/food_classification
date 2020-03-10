@@ -2,17 +2,17 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/home"
-        android:icon="@drawable/home_ios"
-        android:title="@string/home"
+        android:icon="@drawable/my_day"
+        android:title="@string/my_day"
         />
     <item
         android:id="@+id/search_food"
-        android:icon="@drawable/search_ios"
-        android:title="@string/search"
+        android:icon="@drawable/food"
+        android:title="@string/food"
         />
     <item
         android:id="@+id/user"
-        android:icon="@drawable/user"
-        android:title="@string/user"
+        android:icon="@drawable/star"
+        android:title="@string/goal"
         />
 </menu>

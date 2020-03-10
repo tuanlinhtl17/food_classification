@@ -3,7 +3,6 @@ package com.example.foodclassificationapp.activity.main;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Bundle;
@@ -46,8 +45,9 @@ public class MainActivity extends AppCompatActivity {
                         case R.id.user:
                             openFragment(new UserFragment());
                             return true;
+                        default:
+                            return false;
                     }
-                    return false;
                 }
             };
 

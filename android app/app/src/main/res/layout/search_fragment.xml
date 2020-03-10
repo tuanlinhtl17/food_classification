@@ -1,12 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#ffffff"
+    >
+    <LinearLayout
+        android:padding="20dp"
+        android:id="@+id/headerSearch"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@color/main_activity_background_header"
+        >
+        <TextView
+            android:id="@+id/headingLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/tittle_search"
+            android:textColor="@color/white"
+            android:textSize="24sp"
+            />
 
-    <TextView
+        <EditText
+            android:id="@+id/searchBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/search_layout"
+            android:layout_marginTop="10dp"
+            android:ems="10"
+            android:hint="@string/search_here"
+            android:textColorHint="#F1D7D7"
+            android:inputType="text"
+            android:paddingBottom="10dp"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:paddingTop="10dp"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            android:drawablePadding="10dp"
+            android:drawableEnd="@drawable/microphone_white_20"
+            android:drawableRight="@drawable/microphone_white_20"
+            android:drawableStart="@drawable/search_white"
+            android:drawableLeft="@drawable/search_white"
+            android:autofillHints="@string/search_here" />
+
+    </LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/foodSearchList"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Search"
-        android:gravity="center"/>
-</LinearLayout>
+        android:layout_below="@+id/headerSearch"
+        android:layout_marginTop="10dp"
+        />
+
+</RelativeLayout>

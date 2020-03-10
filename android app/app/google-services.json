@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "683942438297",
+    "firebase_url": "https://hasagi-it.firebaseio.com",
+    "project_id": "hasagi-it",
+    "storage_bucket": "hasagi-it.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:683942438297:android:6e88527b2c156313d7df08",
+        "android_client_info": {
+          "package_name": "com.example.foodclassificationapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "683942438297-dmlhkfmo8qcuitkumq52vfhc1a37snc3.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.foodclassificationapp",
+            "certificate_hash": "e4a3adc4959d5c2b745d8757142750a744d00062"
+          }
+        },
+        {
+          "client_id": "683942438297-9ns0u3g8u5778vg87q7sh1uclei8q0md.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB8gjTORI7w9_l-WRbW23D2SblvH9YyJ6o"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "683942438297-9ns0u3g8u5778vg87q7sh1uclei8q0md.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

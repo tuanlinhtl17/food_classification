@@ -10,10 +10,6 @@ public class FoodItem implements Serializable {
     private double fats;
     private double proteins;
 
-    public FoodItem() {
-
-    }
-
     public FoodItem(String name, double calories, double carbs, double fats, double proteins) {
         this.name = name;
         this.calories = calories;

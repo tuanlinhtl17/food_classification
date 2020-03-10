@@ -9,5 +9,6 @@ public class Constant {
     public static final String HOME_FRAGMENT = "homeFragment";
     public static final String SEARCH_FRAGMENT = "searchFragment";
     public static final String USER_FRAGMENT = "userFragment";
+    public static final String FIREBASE_DB = "hasagi-it";
 
 }

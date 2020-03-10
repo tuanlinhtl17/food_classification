@@ -13,7 +13,7 @@
         android:orientation="horizontal">
 
         <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/img"
+            android:id="@+id/imgFood"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_marginTop="10dp"
@@ -25,7 +25,7 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/itemName"
+                android:id="@+id/foodItemName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="22dp"
@@ -71,7 +71,7 @@
                         </TextView>
 
                         <TextView
-                            android:id="@+id/cals"
+                            android:id="@+id/itemCals"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="5dp"
@@ -110,7 +110,7 @@
                     </TextView>
 
                     <TextView
-                        android:id="@+id/carb"
+                        android:id="@+id/itemCarbs"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="10"
@@ -147,7 +147,7 @@
                     </TextView>
 
                     <TextView
-                        android:id="@+id/fats"
+                        android:id="@+id/itemFats"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="10"
@@ -184,7 +184,7 @@
                     </TextView>
 
                     <TextView
-                        android:id="@+id/prots"
+                        android:id="@+id/itemProtein"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="10"
