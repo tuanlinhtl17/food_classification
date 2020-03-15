@@ -22,6 +22,7 @@ import androidx.fragment.app.Fragment;
 
 import com.example.foodclassificationapp.R;
 import com.example.foodclassificationapp.activity.login.LoginActivity;
+import com.example.foodclassificationapp.constant.Constant;
 import com.example.foodclassificationapp.entity.UserProfile;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -31,6 +32,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+
+import java.util.Objects;
 
 
 public class UserFragment extends Fragment implements View.OnClickListener {
@@ -101,7 +104,7 @@ public class UserFragment extends Fragment implements View.OnClickListener {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 //                            String imgUrl = String.valueOf(dataSnapshot.child("image").getValue());
-                            nameProfile.setText(String.valueOf(dataSnapshot.child("name").getValue()));
+                            nameProfile.setText(String.valueOf(dataSnapshot.child("fullName").getValue()));
                             ageProfile.setText(String.valueOf(dataSnapshot.child("age").getValue()));
                             heightProfile.setText(String.valueOf(dataSnapshot.child("height").getValue()));
                             weightProfile.setText(String.valueOf(dataSnapshot.child("weight").getValue()));
@@ -146,7 +149,6 @@ public class UserFragment extends Fragment implements View.OnClickListener {
                 }
                 break;
             case R.id.agePro:
-                ageProfile.setEnabled(true);
                 ageProfile.addTextChangedListener(new TextWatcher() {
                     @Override
                     public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -160,12 +162,11 @@ public class UserFragment extends Fragment implements View.OnClickListener {
 
                     @Override
                     public void afterTextChanged(Editable s) {
-                        // update
+                        updateProfile();
                     }
                 });
                 break;
             case R.id.heightPro:
-                heightProfile.setEnabled(true);
                 heightProfile.addTextChangedListener(new TextWatcher() {
                     @Override
                     public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -179,12 +180,11 @@ public class UserFragment extends Fragment implements View.OnClickListener {
 
                     @Override
                     public void afterTextChanged(Editable s) {
-                        // update
+                        updateProfile();
                     }
                 });
                 break;
             case R.id.weightPro:
-                weightProfile.setEnabled(true);
                 weightProfile.addTextChangedListener(new TextWatcher() {
                     @Override
                     public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -198,7 +198,7 @@ public class UserFragment extends Fragment implements View.OnClickListener {
 
                     @Override
                     public void afterTextChanged(Editable s) {
-                        // update
+                        updateProfile();
                     }
                 });
                 break;
@@ -207,7 +207,8 @@ public class UserFragment extends Fragment implements View.OnClickListener {
         }
     }
 
-    public void updateProfile() {
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+    private void updateProfile() {
         int age = Integer.parseInt(ageProfile.getText().toString().trim());
         float height = Float.parseFloat(heightProfile.getText().toString().trim());
         float weight = Float.parseFloat(weightProfile.getText().toString().trim());
@@ -216,7 +217,10 @@ public class UserFragment extends Fragment implements View.OnClickListener {
         String image = "image";
         String gender = genderProfile.getText().toString().trim();
 
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child(Constant.USER_DB);
+        DatabaseReference registerUserDB = databaseReference.child(Objects.requireNonNull(fiAuth.getCurrentUser()).getUid());
+
         UserProfile userProfile = new UserProfile(image, fullName, email, age, height, weight, gender);
-        dbRef.setValue(userProfile);
+        registerUserDB.setValue(userProfile);
     }
 }

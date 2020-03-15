@@ -54,9 +54,9 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         fiAuthStateListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                if (firebaseAuth.getCurrentUser() != null) {
-                    startActivity(new Intent(SignUpActivity.this, LoginActivity.class));
-                }
+//                if (firebaseAuth.getCurrentUser() != null) {
+//                    startActivity(new Intent(SignUpActivity.this, LoginActivity.class));
+//                }
             }
         };
     }
@@ -93,16 +93,13 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                 break;
             case R.id.signUpBtn:
                 register();
-                if (register()) {
-                    startActivity(new Intent(SignUpActivity.this, MainActivity.class));
-                }
                 break;
             default:
                 // do nothing
         }
     }
 
-    private boolean register() {
+    private void register() {
         Log.i("Sign up", fullNameET.getText().toString());
         final String fullName = fullNameET.getText().toString().trim();
         final String email = emailET.getText().toString().trim();
@@ -110,7 +107,6 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         final String height = heightET.getText().toString().trim();
         final String weight = weightET.getText().toString().trim();
         final String password = passwordET.getText().toString().trim();
-        final boolean[] res = new boolean[1];
 
         int selectedId = genderGroup.getCheckedRadioButtonId();
         RadioButton genderBtn = findViewById(selectedId);
@@ -134,29 +130,26 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
 
                                 DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference().child(Constant.USER_DB);
                                 DatabaseReference registerUserDB = dbRef.child(Objects.requireNonNull(firebaseAuth.getCurrentUser()).getUid());
-                                registerUserDB.child("name").setValue(fullName);
-                                registerUserDB.child("age").setValue(Integer.parseInt(age));
-                                registerUserDB.child("image").setValue("img");
-                                registerUserDB.child("height").setValue(Float.parseFloat(height));
-                                registerUserDB.child("weight").setValue(Float.parseFloat(weight));
-                                registerUserDB.child("gender").setValue(gender);
-                                registerUserDB.child("email").setValue(email);
+//                                registerUserDB.child("name").setValue(fullName);
+//                                registerUserDB.child("age").setValue(Integer.parseInt(age));
+//                                registerUserDB.child("image").setValue("img");
+//                                registerUserDB.child("height").setValue(Float.parseFloat(height));
+//                                registerUserDB.child("weight").setValue(Float.parseFloat(weight));
+//                                registerUserDB.child("gender").setValue(gender);
+//                                registerUserDB.child("email").setValue(email);
 
-//                                UserProfile userProfile = new UserProfile("", fullName, email, Integer.parseInt(age),
-//                                        Float.parseFloat(height), Float.parseFloat(weight), gender);
-//                                registerUserDB.setValue(userProfile);
-                                res[0] = true;
+                                UserProfile userProfile = new UserProfile("", fullName, email, Integer.parseInt(age),
+                                        Float.parseFloat(height), Float.parseFloat(weight), gender);
+                                registerUserDB.setValue(userProfile);
+                                startActivity(new Intent(SignUpActivity.this, MainActivity.class));
                             }
                             else {
                                 Toast.makeText(SignUpActivity.this, "Register Error!", Toast.LENGTH_SHORT).show();
-                                res[0] = false;
                             }
                         }
                     });
-            res[0] = true;
         } else {
             Toast.makeText(SignUpActivity.this, "Please fill all input!", Toast.LENGTH_SHORT).show();
         }
-        return res[0];
     }
 }
