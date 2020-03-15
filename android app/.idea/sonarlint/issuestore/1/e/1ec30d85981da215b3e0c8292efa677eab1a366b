@@ -1,0 +1,16 @@
+
+¤
+java:S1186Œ"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(õŸ°Èşÿÿÿÿ8Ò¿üÕ‰.
+J
+java:S1066P"/Merge this if statement with the enclosing one.(Çü»ßûÿÿÿÿ
+h
+java:S3027œ"JPut single-quotes around ':' to use the faster "lastIndexOf(char)" method.(¹º¹Æ8Ò¿üÕ‰.
+F
+java:S1148Ï"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ8Ò¿üÕ‰.
+n	java:S117›"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(„Ë€8Ò¿üÕ‰.
+Ÿ
+java:S1186×"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(ªğş¾8Ò¿üÕ‰.
+i
+java:S1192û"KDefine a constant instead of duplicating this literal "nutritions" 4 times.(Ô²ş†8Ò¿üÕ‰.
+^	java:S125¥"<This block of commented-out lines of code should be removed.(ƒğöíıÿÿÿÿ8Ò¿üÕ‰.
+R	java:S125€"<This block of commented-out lines of code should be removed.(ü­Åµ

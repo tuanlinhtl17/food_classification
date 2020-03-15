@@ -1,0 +1,8 @@
+
+C	java:S131C""Add a default case to this switch.(×“¾ñùÿÿÿÿ8ÂéˆŠŠ.
+X	java:S125G"<This block of commented-out lines of code should be removed.(¡Õ±š8°»‹ŠŠ.
+U	java:S106H"9Replace this use of System.out or System.err by a logger.(‰Ê¶´8°»‹ŠŠ.
+]	java:S125K"<This block of commented-out lines of code should be removed.(éØ»Úûÿÿÿÿ8°»‹ŠŠ.
+m
+java:S1301C"KReplace this "switch" statement by "if" statements to increase readability.(×“¾ñùÿÿÿÿ8ÂéˆŠŠ.
+]	java:S125E"<This block of commented-out lines of code should be removed.(ôÊööýÿÿÿÿ8°»‹ŠŠ.

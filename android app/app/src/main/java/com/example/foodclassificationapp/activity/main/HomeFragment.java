@@ -52,7 +52,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         TextView date = homeView.findViewById(R.id.activity_main_text_day_of_month);
         TextView dayOfWeek = homeView.findViewById(R.id.activity_main_text_day_of_week);
         LocalDate currentdate = LocalDate.now();
-        date.setText(String.valueOf(currentdate.getDayOfMonth()) + currentdate.getMonth());
+        date.setText((currentdate.getDayOfMonth()) + " " + currentdate.getMonth());
         dayOfWeek.setText(currentdate.getDayOfWeek().toString());
 
     }

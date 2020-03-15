@@ -1,7 +1,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background_color"
+    android:background="@drawable/header_main"
     android:padding="20dp"
     >
 
@@ -41,8 +41,8 @@
             android:textColorHint="@color/white"
             android:textSize="16sp"
             android:fontFamily="sans-serif-light"
-            android:drawableStart="@drawable/mail_ios"
-            android:drawableLeft="@drawable/mail_ios"
+            android:drawableStart="@drawable/email"
+            android:drawableLeft="@drawable/email"
             android:importantForAutofill="no" />
 
         <View
