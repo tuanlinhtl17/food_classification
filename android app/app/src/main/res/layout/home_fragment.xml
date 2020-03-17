@@ -71,6 +71,7 @@
         </TextView>
 
         <ImageView
+            android:id="@+id/preDay"
             android:layout_width="@dimen/layout_ic_left_right"
             android:layout_height="@dimen/layout_ic_left_right"
             android:layout_centerVertical="true"
@@ -80,6 +81,7 @@
             android:layout_marginStart="@dimen/layout_ic_margin" />
 
         <ImageView
+            android:id="@+id/nextDay"
             android:layout_width="@dimen/layout_ic_left_right"
             android:layout_height="@dimen/layout_ic_left_right"
             android:layout_centerVertical="true"
@@ -109,6 +111,7 @@
                 android:layout_marginEnd="10dp" />
 
             <ImageView
+                android:id="@+id/datePicker"
                 android:layout_width="@dimen/layout_ic_calendar"
                 android:layout_height="@dimen/layout_ic_calendar"
                 android:src="@drawable/calendar_ios"
@@ -308,11 +311,10 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/calories"
-        android:layout_marginTop="5dp"
+        android:background="#B1D4FB"
         >
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/result_list"
+            android:id="@+id/foodList"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             />

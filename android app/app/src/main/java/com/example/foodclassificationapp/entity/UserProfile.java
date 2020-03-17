@@ -2,21 +2,25 @@ package com.example.foodclassificationapp.entity;
 
 public class UserProfile {
     String image;
-    String fullName;
+    String name;
     String email;
     int age;
     float height;
     float weight;
     String gender;
 
-    public UserProfile(String image, String fullName, String email, int age, float height, float weight, String gender) {
+    public UserProfile(String image, String name, String email, int age, float height, float weight, String gender) {
         this.image = image;
-        this.fullName = fullName;
+        this.name = name;
         this.email = email;
         this.age = age;
         this.height = height;
         this.weight = weight;
         this.gender = gender;
+    }
+
+    public UserProfile() {
+
     }
 
     public String getImage() {
@@ -27,12 +31,12 @@ public class UserProfile {
         this.image = image;
     }
 
-    public String getFullName() {
-        return fullName;
+    public String getName() {
+        return name;
     }
 
-    public void setFullName(String fullName) {
-        this.fullName = fullName;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getEmail() {

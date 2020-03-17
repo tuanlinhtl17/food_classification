@@ -1,4 +1,5 @@
 
-{	java:S1166"_Rename this field "CAMRERA_REQUEST_CODE" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(´çü8ßÒû¸.
-Ÿ
-java:S1186Ì"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(ÓãÊì8©Ô».
+P
+java:S10684".Remove this unused "firebaseDb" private field.(·»ìøÿÿÿÿ8…üÿó.
+{
+java:S14504"YRemove the "firebaseDb" field and declare it as a local variable in the relevant methods.(·»ìøÿÿÿÿ8…üÿó.

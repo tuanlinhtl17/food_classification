@@ -99,8 +99,8 @@ public class SearchFragment extends Fragment implements View.OnClickListener {
                 foodSearchList.add(foodItem);
             }
         }
-        FoodListAdapter foodListAdapter = new FoodListAdapter(foodSearchList, getContext());
-        recyclerView.setAdapter(foodListAdapter);
+//        FoodListAdapter foodListAdapter = new FoodListAdapter(foodSearchList, getContext());
+//        recyclerView.setAdapter(foodListAdapter);
     }
 
     @Override

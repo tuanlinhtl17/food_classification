@@ -1,19 +1,15 @@
 
+=
+java:S1659"'Declare "itemCarbs" on a separate line.(ÀŠ¿
 <
 java:S1659"&Declare "itemFats" on a separate line.(ÀŠ¿
 =
 java:S1659"'Declare "itemProts" on a separate line.(ÀŠ¿
-Q	java:S125D"<This block of commented-out lines of code should be removed.(†¶Üš
 <
 java:S1659"&Declare "foodName" on a separate line.(ÀŠ¿
 A
 java:S1172M"+Remove this unused method parameter "view".(ü‚à„
-Q	java:S125/"<This block of commented-out lines of code should be removed.(ë†Ú
-V	java:S1252"<This block of commented-out lines of code should be removed.(¿·Ìıÿÿÿÿ
->
-java:S1148I"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ
-=
-java:S1659"'Declare "itemCarbs" on a separate line.(ÀŠ¿
 ]
 java:S1192T"GDefine a constant instead of duplicating this literal "%s gms" 3 times.(¯’Ãù
-Q	java:S125-"<This block of commented-out lines of code should be removed.(†¶Üš
+>
+java:S1148I"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ

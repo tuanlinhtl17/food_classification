@@ -104,7 +104,7 @@ public class UserFragment extends Fragment implements View.OnClickListener {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 //                            String imgUrl = String.valueOf(dataSnapshot.child("image").getValue());
-                            nameProfile.setText(String.valueOf(dataSnapshot.child("fullName").getValue()));
+                            nameProfile.setText(String.valueOf(dataSnapshot.child("name").getValue()));
                             ageProfile.setText(String.valueOf(dataSnapshot.child("age").getValue()));
                             heightProfile.setText(String.valueOf(dataSnapshot.child("height").getValue()));
                             weightProfile.setText(String.valueOf(dataSnapshot.child("weight").getValue()));

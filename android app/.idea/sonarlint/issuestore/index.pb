@@ -1,14 +1,10 @@
 
-…
-Uapp/src/main/java/com/example/foodclassificationapp/activity/login/LoginFragment.java,d/c/dc14c3cafd62245e3e8652bbc4749f9976243ffe
 z
 Japp/src/main/java/com/example/foodclassificationapp/constant/Constant.java,9/8/98089f26d79e4e47acd446b9eec2308f77c17702
 …
 Uapp/src/main/java/com/example/foodclassificationapp/activity/login/LoginActivity.java,9/f/9fb6be67d87ebdb5fe10c3877441d9c34652fb0f
 ƒ
 Sapp/src/main/java/com/example/foodclassificationapp/activity/FruitInfoActivity.java,a/5/a57bf8fb821acf112979c58142e84c67858801ae
-†
-Vapp/src/main/java/com/example/foodclassificationapp/activity/login/SignUpFragment.java,0/0/0060a3958b29d874ca611cdb4e5679330e666ca9
 x
 Happ/src/main/java/com/example/foodclassificationapp/entity/FoodItem.java,4/e/4eee66e81c55f6e1fb5afe03ab685e3903dd28b8
 P
@@ -35,3 +31,19 @@ Papp/src/main/java/com/example/foodclassificationapp/control/FoodListAdapter.jav
 +app/src/main/res/drawable/search_layout.xml,3/0/302f430373f28bb2cd34cac8e82ad0a079aa9052
 H
 app/google-services.json,f/d/fd8d34b142d02ec743a8efefefd2c097961666e9
+{
+Kapp/src/main/java/com/example/foodclassificationapp/entity/UserProfile.java,9/e/9e6e5ba4d30d3c81f99db53ed3a615e83601eded
+Y
+)app/src/main/res/drawable/header_main.xml,5/5/55f6f2f14f385aa27018aad54e1102810a651c94
+Z
+*app/src/main/res/layout/activity_login.xml,1/f/1f7e901185d74bf05f9fcb38f9ed35ea78cd4c6e
+[
++app/src/main/res/menu/bottom_navigation.xml,3/6/363f4aaa59b36cd3ab03be8fdbea6ad0ae6319d0
+R
+"app/src/main/res/values/colors.xml,9/6/969faa2a5d9f5e8390e958d2c07f2cfd54676e6b
+S
+#app/src/main/res/values/strings.xml,d/2/d2281fbb3027de2722081a53408dd77628bf080e
+R
+"app/src/main/res/values/styles.xml,f/7/f79cc2688e29fcbc286fda14ae07b27c9e83690f
+†
+Vapp/src/main/java/com/example/foodclassificationapp/activity/login/SignUpActivity.java,a/7/a77e05bdb70793accd8e72fdd37ac8a5b81fc2bb

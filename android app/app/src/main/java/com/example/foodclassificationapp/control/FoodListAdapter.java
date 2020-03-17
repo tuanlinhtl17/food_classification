@@ -14,11 +14,13 @@ import com.bumptech.glide.Glide;
 import com.example.foodclassificationapp.R;
 import com.example.foodclassificationapp.entity.FoodItem;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class FoodListAdapter extends RecyclerView.Adapter<FoodListAdapter.ListFoodViewHolder> {
-    Context context;
-    List<FoodItem> foodList;
+    private Context context;
+    private List<FoodItem> foodList = new ArrayList<>();
+    private OnFoodListener mOnFoodListener;
 
     public FoodListAdapter(List<FoodItem> foodList, Context context) {
         this.context = context;
@@ -29,7 +31,7 @@ public class FoodListAdapter extends RecyclerView.Adapter<FoodListAdapter.ListFo
     @Override
     public ListFoodViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.food_item, parent, false);
-        return new ListFoodViewHolder(view);
+        return new ListFoodViewHolder(view, mOnFoodListener);
     }
 
     @Override
@@ -38,7 +40,7 @@ public class FoodListAdapter extends RecyclerView.Adapter<FoodListAdapter.ListFo
         holder.itemCal.setText(String.valueOf(foodList.get(position).getCalories()));
         holder.itemCarb.setText(String.valueOf(foodList.get(position).getCarbs()));
         holder.itemFat.setText(String.valueOf(foodList.get(position).getFats()));
-        holder.itemProtenin.setText((String.valueOf(foodList.get(position).getProteins())));
+        holder.itemProtein.setText((String.valueOf(foodList.get(position).getProteins())));
 
         Glide.with(context).load(foodList.get(position).getImage()).into(holder.imageFood);
     }
@@ -48,17 +50,20 @@ public class FoodListAdapter extends RecyclerView.Adapter<FoodListAdapter.ListFo
         return foodList.size();
     }
 
-     static class ListFoodViewHolder extends RecyclerView.ViewHolder {
+    public class ListFoodViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         ImageView imageFood;
         TextView itemCal;
         TextView itemCarb;
         TextView itemFat;
-        TextView itemProtenin;
+        TextView itemProtein;
         TextView itemName;
+        OnFoodListener mOnFoodListener;
 
-        ListFoodViewHolder(@NonNull View itemView) {
+        ListFoodViewHolder(@NonNull View itemView, OnFoodListener onFoodListener) {
             super(itemView);
             initItemView(itemView);
+            mOnFoodListener = onFoodListener;
+            itemView.setOnClickListener(this);
         }
 
         private void initItemView(View view) {
@@ -66,9 +71,17 @@ public class FoodListAdapter extends RecyclerView.Adapter<FoodListAdapter.ListFo
             itemCal = view.findViewById(R.id.itemCals);
             itemCarb = view.findViewById(R.id.itemCarbs);
             itemFat = view.findViewById(R.id.itemFats);
-            itemProtenin = view.findViewById(R.id.itemProtein);
+            itemProtein = view.findViewById(R.id.itemProtein);
             itemName = view.findViewById(R.id.foodItemName);
         }
 
+        @Override
+        public void onClick(View v) {
+            mOnFoodListener.onFoodClick(getAdapterPosition());
+        }
+    }
+
+    public interface OnFoodListener{
+        void onFoodClick(int position);
     }
 }

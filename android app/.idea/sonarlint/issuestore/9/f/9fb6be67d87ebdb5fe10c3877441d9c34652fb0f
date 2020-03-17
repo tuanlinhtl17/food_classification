@@ -1,0 +1,7 @@
+
+
+java:S1450"bRemove the "fiAuthStateListener" field and declare it as a local variable in the relevant methods.(Êˆœ¤8ˆ°œğ.
+D
+java:S1185?"(Remove this method to simply inherit it.(ºŠñ=8ˆ°œğ.
+T
+java:S1068"7Remove this unused "fiAuthStateListener" private field.(Êˆœ¤8ˆ°œğ.

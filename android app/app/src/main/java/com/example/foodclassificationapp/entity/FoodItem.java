@@ -6,16 +6,17 @@ public class FoodItem implements Serializable {
     private String name;
     private String image;
     private double calories;
-    private double carbs;
-    private double fats;
-    private double proteins;
+    private double cacbohydrat;
+    private double fat;
+    private double protein;
 
-    public FoodItem(String name, double calories, double carbs, double fats, double proteins) {
+    public FoodItem(String name, double calories, double carbs, double fats, double proteins, String image) {
         this.name = name;
         this.calories = calories;
-        this.carbs = carbs;
-        this.fats = fats;
-        this.proteins = proteins;
+        this.cacbohydrat = carbs;
+        this.fat = fats;
+        this.protein = proteins;
+        this.image = image;
     }
 
     public String getName() {
@@ -43,26 +44,26 @@ public class FoodItem implements Serializable {
     }
 
     public double getCarbs() {
-        return carbs;
+        return cacbohydrat;
     }
 
     public void setCarbs(double carbs) {
-        this.carbs = carbs;
+        this.cacbohydrat = carbs;
     }
 
     public double getFats() {
-        return fats;
+        return fat;
     }
 
     public void setFats(double fats) {
-        this.fats = fats;
+        this.fat = fats;
     }
 
     public double getProteins() {
-        return proteins;
+        return protein;
     }
 
     public void setProteins(double proteins) {
-        this.proteins = proteins;
+        this.protein = proteins;
     }
 }

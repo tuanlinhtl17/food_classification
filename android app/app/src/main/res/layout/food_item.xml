@@ -2,15 +2,18 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="#B1D4FB"
+    >
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="15dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginRight="15dp"
-        android:orientation="horizontal">
+        android:paddingLeft="15dp"
+        android:paddingTop="10dp"
+        android:paddingRight="15dp"
+        android:orientation="horizontal"
+        >
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/imgFood"
@@ -66,7 +69,7 @@
                             android:paddingTop="5dp"
                             android:paddingBottom="5dp"
                             android:text="@string/calories"
-                            android:textColor="#9f9f9f">
+                            android:textColor="#3B3B3B">
 
                         </TextView>
 
@@ -77,7 +80,7 @@
                             android:layout_marginStart="5dp"
                             android:layout_marginEnd="5dp"
                             android:text="10"
-                            android:textColor="#9f9f9f">
+                            android:textColor="#3B3B3B">
 
                         </TextView>
                     </LinearLayout>
@@ -90,7 +93,7 @@
                     android:layout_marginStart="@dimen/food_item_attr_distance"
                     android:layout_marginTop="16dp"
                     android:layout_marginEnd="@dimen/food_item_attr_distance"
-                    android:background="#e1e5e9" />
+                    android:background="#3B3B3B" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -105,7 +108,7 @@
                         android:paddingTop="5dp"
                         android:paddingBottom="5dp"
                         android:text="@string/carb"
-                        android:textColor="#9f9f9f">
+                        android:textColor="#3B3B3B">
 
                     </TextView>
 
@@ -114,7 +117,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="10"
-                        android:textColor="#9f9f9f">
+                        android:textColor="#3B3B3B">
 
                     </TextView>
 
@@ -127,7 +130,7 @@
                     android:layout_marginStart="@dimen/food_item_attr_distance"
                     android:layout_marginTop="16dp"
                     android:layout_marginEnd="@dimen/food_item_attr_distance"
-                    android:background="#e1e5e9" />
+                    android:background="#3B3B3B" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -142,7 +145,7 @@
                         android:paddingTop="5dp"
                         android:paddingBottom="5dp"
                         android:text="@string/fats"
-                        android:textColor="#9f9f9f">
+                        android:textColor="#3B3B3B">
 
                     </TextView>
 
@@ -151,7 +154,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="10"
-                        android:textColor="#9f9f9f">
+                        android:textColor="#3B3B3B">
 
                     </TextView>
 
@@ -164,7 +167,7 @@
                     android:layout_marginStart="@dimen/food_item_attr_distance"
                     android:layout_marginTop="16dp"
                     android:layout_marginEnd="@dimen/food_item_attr_distance"
-                    android:background="#e1e5e9" />
+                    android:background="#3B3B3B" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -179,7 +182,7 @@
                         android:paddingTop="5dp"
                         android:paddingBottom="5dp"
                         android:text="@string/proteins"
-                        android:textColor="#9f9f9f">
+                        android:textColor="#3B3B3B">
 
                     </TextView>
 
@@ -188,7 +191,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="10"
-                        android:textColor="#9f9f9f">
+                        android:textColor="#3B3B3B">
 
                     </TextView>
 
@@ -206,5 +209,5 @@
         android:layout_marginStart="15dp"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="15dp"
-        android:background="#e1e5e9" />
+        android:background="#3B3B3B" />
 </LinearLayout>
