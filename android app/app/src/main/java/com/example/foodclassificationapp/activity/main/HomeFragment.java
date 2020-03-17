@@ -2,6 +2,7 @@ package com.example.foodclassificationapp.activity.main;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
@@ -9,9 +10,9 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.DatePicker;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -33,15 +34,13 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class HomeFragment extends Fragment implements View.OnClickListener, FoodListAdapter.OnFoodListener {
+public class HomeFragment extends Fragment implements View.OnClickListener {
 
     private View homeView;
     private ImageView addFood;
@@ -51,10 +50,10 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Food
     private RecyclerView recyclerView;
     private TextView date;
     private TextView dayOfWeek;
-    TextView totalCalo;
-    TextView totalCacbo;
-    TextView totalFat;
-    TextView totalPro;
+    private TextView totalCalo;
+    private TextView totalCacbo;
+    private TextView totalFat;
+    private TextView totalPro;
     private static final String[] PERMISSIONS = {
             Manifest.permission.CAMERA,
             Manifest.permission.WRITE_EXTERNAL_STORAGE
@@ -62,16 +61,12 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Food
     private static final int MULTIPLE_PERMISSION = 1;
 
     private LocalDate currentDate;
-    private List<FoodItem> foodList = new ArrayList<>();
+    private ArrayList<FoodItem> foodList = new ArrayList<>();
     private FoodListAdapter foodListAdapter;
-    String dateKey;
+    private String dateKey;
 
     private FirebaseAuth fiAuth;
-    private FirebaseDatabase firebaseDb;
-    private FirebaseAuth.AuthStateListener fiAuthStateListener;
-    private StorageReference storageRef;
-    private DatabaseReference dbRef;
-
+//    private FirebaseAuth.AuthStateListener fiAuthStateListener;
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Nullable
@@ -79,12 +74,11 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Food
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         homeView = inflater.inflate(R.layout.home_fragment, container, false);
         initialize();
-        getFoodList();
         setEvents();
+        getFoodList();
         return homeView;
     }
 
-    @SuppressLint("SetTextI18n")
     @RequiresApi(api = Build.VERSION_CODES.O)
     private void initialize() {
         addFood = homeView.findViewById(R.id.addFood);
@@ -102,12 +96,9 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Food
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         fiAuth = FirebaseAuth.getInstance();
-        firebaseDb = FirebaseDatabase.getInstance();
 
         currentDate = LocalDate.now();
-        date.setText((currentDate.getDayOfMonth()) + " " + currentDate.getMonth());
-        dateKey = String.valueOf(currentDate.getDayOfMonth()) + currentDate.getMonth();
-        dayOfWeek.setText(currentDate.getDayOfWeek().toString());
+        setDate(currentDate);
     }
 
     private void setEvents() {
@@ -135,23 +126,53 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Food
         totalPro.setText(Double.toString(totalProtein));
     }
 
+    @SuppressLint("SetTextI18n")
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    private void setDate(LocalDate localDate) {
+        dateKey = String.valueOf(localDate.getDayOfMonth()) + localDate.getMonth();
+        dayOfWeek.setText(localDate.getDayOfWeek().toString());
+        date.setText(dateKey);
+    }
+
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.addFood:
 //              if (!checkPermissons()) {
-                    requestPermissons();
+                    requestPermissions();
     //                } else {
                     Intent intent = new Intent(getContext(), GetImageActivity.class);
                     startActivity(intent);
 //                }
                 break;
             case R.id.datePicker:
+                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+                    DatePickerDialog datePickerDialog = new DatePickerDialog(Objects.requireNonNull(getContext()), new DatePickerDialog.OnDateSetListener() {
+                        @Override
+                        public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                            currentDate = LocalDate.of(year, month+1, dayOfMonth);
+                            setDate(currentDate);
+                            getFoodList();
+
+                        }
+                    }, currentDate.getYear(), currentDate.getMonthValue()-1, currentDate.getDayOfMonth());
+                    datePickerDialog.show();
+                }
                 break;
             case R.id.nextDay:
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                    currentDate = currentDate.plusDays(1);
+                    setDate(currentDate);
+                    getFoodList();
+                }
                 break;
             case R.id.preDay:
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                    currentDate = currentDate.minusDays(1);
+                    setDate(currentDate);
+                    getFoodList();
+                }
                 break;
             default:
                 break;
@@ -169,59 +190,37 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Food
     }
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
-    private void requestPermissons() {
+    private void requestPermissions() {
         ActivityCompat.requestPermissions(Objects.requireNonNull(getActivity()), PERMISSIONS, MULTIPLE_PERMISSION);
     }
 
-    @Override
-    public void onStart() {
-        super.onStart();
-        fiAuth.addAuthStateListener(fiAuthStateListener);
-    }
-
-    @Override
-    public void onFoodClick(int position) {
-
-    }
-
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     private void getFoodList() {
-        fiAuthStateListener = new FirebaseAuth.AuthStateListener() {
+        DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference().child(Constant.HASAGI_DB);
+        dbRef.child(Objects.requireNonNull(fiAuth.getCurrentUser()).getUid()).child(dateKey).addValueEventListener(new ValueEventListener() {
             @Override
-            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                if (fiAuth.getCurrentUser() != null) {
-                    storageRef = FirebaseStorage.getInstance().getReference();
-                    dbRef = FirebaseDatabase.getInstance().getReference().child(Constant.HASAGI_DB);
-                    dbRef.child(fiAuth.getCurrentUser().getUid()).child(dateKey).addValueEventListener(new ValueEventListener() {
-                        @RequiresApi(api = Build.VERSION_CODES.KITKAT)
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                            for (DataSnapshot item : dataSnapshot.getChildren()) {
-                                FoodItem foodItem = new FoodItem(
-                                    String.valueOf(item.child("name").getValue()),
-                                    Double.parseDouble(String.valueOf(item.child("calories").getValue())),
-                                    Double.parseDouble(String.valueOf(item.child("cacbohydrat").getValue())),
-                                    Double.parseDouble(String.valueOf(item.child("fat").getValue())),
-                                    Double.parseDouble(String.valueOf(item.child("protein").getValue())),
-                                    String.valueOf(item.child("image").getValue())
-                                );
-                                foodList.add(foodItem);
-                            }
-//                            Toast.makeText(getContext(), foodList.size(), Toast.LENGTH_SHORT).show();
-                            foodListAdapter = new FoodListAdapter(foodList, getContext());
-                            recyclerView.setAdapter(foodListAdapter);
-                            setValue(foodList);
-                        }
-
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError databaseError) {
-                            // do nothing
-                        }
-                    });
-                } else {
-                    Toast.makeText(getContext(), "Error load food", Toast.LENGTH_SHORT).show();
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                foodList.clear();
+                for (DataSnapshot item : dataSnapshot.getChildren()) {
+                    FoodItem foodItem = new FoodItem(
+                            String.valueOf(item.child("name").getValue()),
+                            Double.parseDouble(String.valueOf(item.child("calories").getValue())),
+                            Double.parseDouble(String.valueOf(item.child("cacbohydrat").getValue())),
+                            Double.parseDouble(String.valueOf(item.child("fat").getValue())),
+                            Double.parseDouble(String.valueOf(item.child("protein").getValue())),
+                            String.valueOf(item.child("image").getValue())
+                    );
+                    foodList.add(foodItem);
                 }
+                foodListAdapter = new FoodListAdapter(foodList, getContext());
+                recyclerView.setAdapter(foodListAdapter);
+                setValue(foodList);
             }
-        };
 
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                // do nothing
+            }
+        });
     }
 }

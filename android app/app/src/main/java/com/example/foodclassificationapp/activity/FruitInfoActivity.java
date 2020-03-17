@@ -11,7 +11,9 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.example.foodclassificationapp.entity.FoodItem;
 import com.example.foodclassificationapp.R;
 
@@ -21,13 +23,19 @@ import java.io.File;
 public class FruitInfoActivity extends AppCompatActivity {
 
     private ImageView imgPreview;
-    private TextView itemCalos, itemCarbs, itemFats, itemProts, foodName;
+    private TextView itemCalos;
+    private TextView itemCarbs;
+    private TextView itemFats;
+    private TextView itemProts;
+    private TextView foodName;
+    private boolean isNewFood = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fruit_info);
         init();
+        getFoodIntent();
     }
 
     private void init() {
@@ -38,10 +46,12 @@ public class FruitInfoActivity extends AppCompatActivity {
         itemProts = findViewById(R.id.itemProts);
         foodName = findViewById(R.id.foodName);
 
-        Intent intent = getIntent();
-        Bundle bundle = intent.getExtras();
-        FoodItem foodItem = (FoodItem) bundle.getSerializable("foodObj");
+        // code
+//        Intent intent = getIntent();
+//        Bundle bundle = intent.getExtras();
+//        FoodItem foodItem = (FoodItem) bundle.getSerializable("foodObj");
 
+        // review
 //        BitmapFactory.Options options = new BitmapFactory.Options();
 //
 //        options.inSampleSize = 8;
@@ -50,8 +60,19 @@ public class FruitInfoActivity extends AppCompatActivity {
 //        bitmap = BitmapFactory.decodeFile(foodItem.getImage(), options);
 //        imgPreview.setImageBitmap(bitmap);
 
-        previewCapturedImage(foodItem.getImage());
-        setupItemValues(foodItem);
+        // code
+//        previewCapturedImage(foodItem.getImage());
+//        setupItemValues(foodItem);
+    }
+
+    private void getFoodIntent() {
+        Intent intent = getIntent();
+        if (getIntent().hasExtra("foodItem")) {
+            isNewFood = false;
+            Bundle bundle = intent.getExtras();
+            FoodItem foodItem = (FoodItem) bundle.getSerializable("foodItem");
+            setupItemValues(foodItem);
+        }
     }
 
     private void previewCapturedImage(String filepath) {
@@ -79,11 +100,14 @@ public class FruitInfoActivity extends AppCompatActivity {
     }
 
     public void setupItemValues(FoodItem foodItem) {
+        Toast.makeText(FruitInfoActivity.this, foodItem.getName(), Toast.LENGTH_SHORT).show();
         foodName.setText(foodItem.getName());
         itemCalos.setText(String.valueOf(foodItem.getCalories()));
         itemCarbs.setText(String.format("%s gms", foodItem.getCarbs()));
         itemFats.setText(String.format("%s gms", foodItem.getFats()));
         itemProts.setText(String.format("%s gms", foodItem.getProteins()));
+
+        Glide.with(FruitInfoActivity.this).load(foodItem.getImage()).into(imgPreview);
     }
 
 }

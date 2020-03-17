@@ -45,8 +45,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         fiAuthStateListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                startActivity(intent);
+                if (firebaseAuth.getCurrentUser() != null) {
+                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                    startActivity(intent);
+                }
             }
         };
     }
@@ -62,7 +64,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     @Override
     protected void onStart() {
         super.onStart();
-//        fiAuth.addAuthStateListener(fiAuthStateListener);
+        fiAuth.addAuthStateListener(fiAuthStateListener);
     }
 
     private void setEvents() {

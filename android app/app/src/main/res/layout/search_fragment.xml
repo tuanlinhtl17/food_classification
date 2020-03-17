@@ -46,12 +46,17 @@
 
     </LinearLayout>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/foodSearchList"
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/headerSearch"
-        android:layout_marginTop="10dp"
-        />
+        android:background="#B1D4FB"
+        >
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/foodSearchList"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            />
+    </ScrollView>
 
 </RelativeLayout>
