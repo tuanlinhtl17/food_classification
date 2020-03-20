@@ -4,23 +4,18 @@ import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Build;
 import android.os.Bundle;
 
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.example.foodclassificationapp.activity.login.SignUpActivity;
 import com.example.foodclassificationapp.activity.main.MainActivity;
 import com.example.foodclassificationapp.constant.Constant;
 import com.example.foodclassificationapp.entity.FoodItem;
@@ -34,13 +29,12 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.io.File;
 import java.time.LocalDate;
 import java.util.Objects;
 
 
 public class FruitInfoActivity extends AppCompatActivity implements View.OnClickListener {
-    private String FOOD_IMAGE = "FOOD_IMAGE_SHARED";
+    private static final String FOOD_IMAGE = "FOOD_IMAGE_SHARED";
 
     private ImageView imgPreview;
     private TextView itemCalos;
@@ -112,13 +106,16 @@ public class FruitInfoActivity extends AppCompatActivity implements View.OnClick
 //            FoodItem foodItem = (FoodItem) Objects.requireNonNull(bundle).getSerializable("foodItem");
             foodNameRe = intent.getStringExtra("foodName");
             isMyFood = intent.getBooleanExtra("isMyFood", false);
-            getFoodInfo(foodNameRe, isMyFood, new Callback() {
-                @Override
-                public void setFood(FoodItem food) {
-                    setupItemValues(food);
-                }
-            });
+        } else if (getIntent().hasExtra("foodCamera")) {
+            foodNameRe = intent.getStringExtra("foodCamera");
+            isMyFood = false;
         }
+        getFoodInfo(foodNameRe, isMyFood, new Callback() {
+            @Override
+            public void setFood(FoodItem food) {
+                setupItemValues(food);
+            }
+        });
     }
 
     private void getFoodInfo(String foodName, final boolean isMyFood, final Callback callback) {
@@ -141,7 +138,6 @@ public class FruitInfoActivity extends AppCompatActivity implements View.OnClick
                          isMyFood,
                          foodRecipe.toString()
                 );
-//                setupItemValues(food);
                 callback.setFood(food);
                 sharedPreferences = getApplicationContext().getSharedPreferences(FOOD_IMAGE, Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -156,26 +152,26 @@ public class FruitInfoActivity extends AppCompatActivity implements View.OnClick
         });
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
-    private void previewCapturedImage(String filepath) {
-        Log.i("file path: ", filepath);
-        try {
-            File imgFile = new  File(filepath);
-
-            if(imgFile.exists()){
-                BitmapFactory.Options options = new BitmapFactory.Options();
-                options.inSampleSize = 8;
-                Bitmap myBitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath(), options);
-                imgPreview.setImageBitmap(myBitmap);
-            }
+//    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+//    private void previewCapturedImage(String filepath) {
+//        Log.i("file path: ", filepath);
+//        try {
+//            File imgFile = new  File(filepath);
+//
+//            if(imgFile.exists()){
+//                BitmapFactory.Options options = new BitmapFactory.Options();
+//                options.inSampleSize = 8;
+//                Bitmap myBitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath(), options);
+//                imgPreview.setImageBitmap(myBitmap);
+//            }
 //            BitmapFactory.Options options = new BitmapFactory.Options();
 //            options.inSampleSize = 8;
 //            bitmap = BitmapFactory.decodeFile(filepath, options);
 //            imgPreview.setImageBitmap(bitmap);
-        } catch (NullPointerException e) {
-            Log.d("previewCapturedImage", Objects.requireNonNull(e.getMessage()));
-        }
-    }
+//        } catch (NullPointerException e) {
+//            Log.d("previewCapturedImage", Objects.requireNonNull(e.getMessage()));
+//        }
+//    }
 
     public void setupItemValues(FoodItem foodItem) {
         foodName.setText(foodItem.getName());

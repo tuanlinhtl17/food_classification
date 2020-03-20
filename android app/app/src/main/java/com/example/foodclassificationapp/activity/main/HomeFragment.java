@@ -4,7 +4,6 @@ import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -18,7 +17,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -139,7 +137,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.addFood:
-//              if (!checkPermissons()) {
+//              if (!checkPermissions()) {
                     requestPermissions();
     //                } else {
                     Intent intent = new Intent(getContext(), GetImageActivity.class);
@@ -179,15 +177,15 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         }
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
-    private boolean checkPermissons() {
-        for (String permisson : PERMISSIONS) {
-            if(ContextCompat.checkSelfPermission(Objects.requireNonNull(getActivity()), permisson) != PackageManager.PERMISSION_GRANTED) {
-                return false;
-            }
-        }
-        return true;
-    }
+//    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+//    private boolean checkPermissions() {
+//        for (String permission : PERMISSIONS) {
+//            if(ContextCompat.checkSelfPermission(Objects.requireNonNull(getActivity()), permission) != PackageManager.PERMISSION_GRANTED) {
+//                return false;
+//            }
+//        }
+//        return true;
+//    }
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     private void requestPermissions() {

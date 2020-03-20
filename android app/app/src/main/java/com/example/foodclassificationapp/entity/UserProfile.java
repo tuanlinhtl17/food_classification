@@ -1,13 +1,13 @@
 package com.example.foodclassificationapp.entity;
 
 public class UserProfile {
-    String image;
-    String name;
-    String email;
-    int age;
-    float height;
-    float weight;
-    String gender;
+    private String image;
+    private String name;
+    private String email;
+    private int age;
+    private float height;
+    private float weight;
+    private String gender;
 
     public UserProfile(String image, String name, String email, int age, float height, float weight, String gender) {
         this.image = image;
@@ -17,10 +17,6 @@ public class UserProfile {
         this.height = height;
         this.weight = weight;
         this.gender = gender;
-    }
-
-    public UserProfile() {
-
     }
 
     public String getImage() {

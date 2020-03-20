@@ -5,12 +5,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
-    android:weightSum="6">
+    android:weightSum="7.5">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="4"
+        android:layout_weight="5"
         tools:ignore="NestedWeights">
 
         <LinearLayout
@@ -21,8 +21,8 @@
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/imgUser"
-                android:layout_width="150dp"
-                android:layout_height="150dp"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="45dp"
                 android:src="@drawable/apple" />
@@ -36,7 +36,7 @@
                 android:textColor="#fff"
                 android:textSize="21sp"
                 android:textStyle="bold"
-                android:text="TuanNA"/>
+                />
         </LinearLayout>
 
         <androidx.cardview.widget.CardView
@@ -44,7 +44,7 @@
             android:layout_height="140dp"
             android:layout_centerHorizontal="true"
             android:layout_marginLeft="30dp"
-            android:layout_marginTop="280dp"
+            android:layout_marginTop="250dp"
             android:layout_marginRight="30dp"
             app:cardCornerRadius="20dp">
 
@@ -76,7 +76,6 @@
                         android:importantForAutofill="no"
                         android:inputType="number"
                         android:paddingTop="10dp"
-                        android:text="21"
                         android:textColor="@color/main_activity_background_header"
                         android:textSize="20sp"
                         android:textStyle="bold"
@@ -105,7 +104,6 @@
                         android:importantForAutofill="no"
                         android:inputType="number"
                         android:paddingTop="10dp"
-                        android:text="170"
                         android:textColor="@color/main_activity_background_header"
                         android:textSize="20sp"
                         android:textStyle="bold"
@@ -134,7 +132,6 @@
                         android:importantForAutofill="no"
                         android:inputType="number"
                         android:paddingTop="10dp"
-                        android:text="65"
                         android:textColor="@color/main_activity_background_header"
                         android:textSize="20sp"
                         android:textStyle="bold"
@@ -150,7 +147,7 @@
         android:layout_height="0dp"
         android:layout_gravity="center"
         android:layout_margin="30dp"
-        android:layout_weight="1"
+        android:layout_weight="1.5"
         android:orientation="vertical">
 
         <LinearLayout
@@ -175,7 +172,6 @@
                 android:paddingStart="20dp"
                 android:paddingLeft="20dp"
                 android:textStyle="bold"
-                android:text="tuanna@gmail.com"
                 tools:ignore="RtlHardcoded" />
         </LinearLayout>
 
@@ -201,7 +197,6 @@
                 android:layout_gravity="center_vertical"
                 android:paddingStart="20dp"
                 android:paddingLeft="20dp"
-                android:text="Male"
                 android:textStyle="bold" />
         </LinearLayout>
 
@@ -220,6 +215,7 @@
             android:layout_gravity="center_horizontal"
             android:background="@color/main_activity_background_header"
             android:padding="15dp"
+            android:layout_marginBottom="10dp"
             android:text="@string/switch_user"
             android:textColor="#fff" />
 

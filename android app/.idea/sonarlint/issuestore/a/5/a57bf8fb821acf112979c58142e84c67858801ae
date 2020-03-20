@@ -1,6 +1,6 @@
 
-T
-java:S1128"7Remove this unused import 'android.app.ProgressDialog'.(¶ÍÔÓ8·¨ˆ˜.
-v	java:S116+"URename this field "FOOD_IMAGE" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(í¹öÄşÿÿÿÿ8à´¦™.
 ~
 java:S1128"\Remove this unused import 'com.example.foodclassificationapp.activity.login.SignUpActivity'.(ãå‹îøÿÿÿÿ8ô‰ğ—.
+v	java:S116+"URename this field "FOOD_IMAGE" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(í¹öÄşÿÿÿÿ8à´¦™.
+T
+java:S1128"7Remove this unused import 'android.app.ProgressDialog'.(¶ÍÔÓ8·¨ˆ˜.

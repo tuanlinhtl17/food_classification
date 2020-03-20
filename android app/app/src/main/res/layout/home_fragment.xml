@@ -51,8 +51,6 @@
         android:id="@+id/calendar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/header"
-        android:layout_centerHorizontal="true"
         android:background="@color/main_activity_background_header"
         android:paddingTop="@dimen/padding_top_bot_calendar"
         android:paddingBottom="@dimen/padding_top_bot_calendar">
@@ -63,7 +61,6 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:includeFontPadding="false"
-            android:text="22 Aug"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:textColor="@color/main_activity_text_header"
             android:textSize="@dimen/textSize_header"
@@ -134,7 +131,6 @@
             android:layout_below="@id/activity_main_view_separator"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="@dimen/padding_top_bot_calendar"
-            android:text="Monday"
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:textColor="@color/main_activity_text_header"
             android:textSize="18sp" />
@@ -145,7 +141,6 @@
         android:id="@+id/calories"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/calendar"
         android:background="@color/main_activity_background_header"
         android:orientation="horizontal"
         android:paddingBottom="10dp">
@@ -189,7 +184,6 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="5dp"
                         android:layout_marginEnd="5dp"
-                        android:text="00"
                         android:textColor="@color/main_activity_text_header" >
                     </TextView>
 
@@ -227,7 +221,6 @@
                     android:id="@+id/totalCarbs"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="0 gms"
                     android:textColor="@color/main_activity_text_header" >
                 </TextView>
 
@@ -262,7 +255,6 @@
                     android:id="@+id/totalFats"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="0 gms"
                     android:textColor="@color/main_activity_text_header" >
                 </TextView>
 
@@ -298,7 +290,6 @@
                     android:id="@+id/totalProts"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="0 gms"
                     android:textColor="@color/main_activity_text_header" >
                 </TextView>
 

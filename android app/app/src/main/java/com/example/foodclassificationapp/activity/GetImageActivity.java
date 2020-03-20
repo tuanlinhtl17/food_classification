@@ -1,5 +1,6 @@
 package com.example.foodclassificationapp.activity;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.AlertDialog;
@@ -11,6 +12,7 @@ import android.content.Intent;
 import android.database.Cursor;
 
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
@@ -21,7 +23,6 @@ import android.widget.Toast;
 
 import com.example.foodclassificationapp.common.SingleUploadBroadcastReceiver;
 import com.example.foodclassificationapp.constant.Constant;
-import com.example.foodclassificationapp.entity.FoodItem;
 import com.example.foodclassificationapp.R;
 
 import net.gotev.uploadservice.MultipartUploadRequest;
@@ -34,6 +35,7 @@ import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
+import java.util.Objects;
 import java.util.UUID;
 
 
@@ -76,12 +78,10 @@ public class GetImageActivity extends AppCompatActivity implements SingleUploadB
                 IMAGE_DIRECTORY_NAME);
 
         // Create the storage directory if it does not exist
-        if (!mediaStorageDir.exists()) {
-            if (!mediaStorageDir.mkdirs()) {
-                Log.d(IMAGE_DIRECTORY_NAME, "Oops! Failed create "
-                        + IMAGE_DIRECTORY_NAME + " directory");
-                return null;
-            }
+        if (!mediaStorageDir.exists() && !mediaStorageDir.mkdirs()) {
+            Log.d(IMAGE_DIRECTORY_NAME, "Oops! Failed create "
+                    + IMAGE_DIRECTORY_NAME + " directory");
+            return null;
         }
 
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss",
@@ -102,7 +102,6 @@ public class GetImageActivity extends AppCompatActivity implements SingleUploadB
 
         //getting the actual path of the image
         String path = fileUri.getPath();
-        Log.i(TAG, path);
 
         //Uploading code
         try {
@@ -148,18 +147,19 @@ public class GetImageActivity extends AppCompatActivity implements SingleUploadB
         }
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     public String getPath(Uri uri) {
 
         Cursor cursor = getContentResolver().query(uri, null, null, null, null);
-        cursor.moveToFirst();
-        String document_id = cursor.getString(0);
-        document_id = document_id.substring(document_id.lastIndexOf(":") + 1);
+        Objects.requireNonNull(cursor).moveToFirst();
+        String documentId = cursor.getString(0);
+        documentId = documentId.substring(documentId.lastIndexOf(':') + 1);
         cursor.close();
 
         cursor = getContentResolver().query(
                 android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
-                null, MediaStore.Images.Media._ID + " = ? ", new String[]{document_id}, null);
-        cursor.moveToFirst();
+                null, MediaStore.Images.Media._ID + " = ? ", new String[]{documentId}, null);
+        Objects.requireNonNull(cursor).moveToFirst();
         String path = cursor.getString(cursor.getColumnIndex(MediaStore.Images.Media.DATA));
         cursor.close();
 //        System.out.println(path);
@@ -204,7 +204,7 @@ public class GetImageActivity extends AppCompatActivity implements SingleUploadB
                         }
                     }
                 } catch (Exception e) {
-                    e.printStackTrace();
+                    Log.d("onProgress", e.toString());
                 }
                 progressDialog.dismiss();
             }
@@ -213,7 +213,7 @@ public class GetImageActivity extends AppCompatActivity implements SingleUploadB
 
     @Override
     public void onProgress(long uploadedBytes, long totalBytes) {
-
+        // do nothing
     }
 
     @Override
@@ -248,18 +248,7 @@ public class GetImageActivity extends AppCompatActivity implements SingleUploadB
             Intent intent = new Intent(getApplicationContext(), FruitInfoActivity.class);
 
             String foodName = response.getString("name");
-            String calories = response.getJSONObject("nutritions").getString("calories");
-            String protein = response.getJSONObject("nutritions").getString("protein");
-            String cacbohydrat = response.getJSONObject("nutritions").getString("cacbohydrat");
-            String fat = response.getJSONObject("nutritions").getString("fat");
-            FoodItem foodItem = new FoodItem(foodName, calories, protein, cacbohydrat, fat, "img", false, null);
-            foodItem.setMyFood(false);
-            foodItem.setRecipe("");
-            String path = fileUri.getPath();
-            foodItem.setImage(path);
-            Bundle bundle = new Bundle();
-            bundle.putSerializable("foodObj", foodItem);
-            intent.putExtras(bundle);
+            intent.putExtra("foodCamera", foodName);
             startActivity(intent);
         } catch (JSONException e) {
             e.printStackTrace();
@@ -268,6 +257,6 @@ public class GetImageActivity extends AppCompatActivity implements SingleUploadB
 
     @Override
     public void onCancelled() {
-
+        // do nothing
     }
 }

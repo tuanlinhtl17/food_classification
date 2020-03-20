@@ -1,7 +1,6 @@
 package com.example.foodclassificationapp.activity.main;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
@@ -30,8 +29,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
 
 import java.util.Objects;
 
@@ -49,7 +46,6 @@ public class UserFragment extends Fragment implements View.OnClickListener {
     private Button switchUser;
 
     private FirebaseAuth fiAuth;
-    private FirebaseDatabase firebaseDb;
     private FirebaseAuth.AuthStateListener fiAuthStateListener;
 //    private StorageReference storageRef;
     private DatabaseReference dbRef;
@@ -82,7 +78,6 @@ public class UserFragment extends Fragment implements View.OnClickListener {
         switchUser = userView.findViewById(R.id.switchUser);
 
         fiAuth = FirebaseAuth.getInstance();
-        firebaseDb = FirebaseDatabase.getInstance();
     }
 
     private void setEvent() {
