@@ -5,18 +5,22 @@ import java.io.Serializable;
 public class FoodItem implements Serializable {
     private String name;
     private String image;
-    private double calories;
-    private double cacbohydrat;
-    private double fat;
-    private double protein;
+    private String calories;
+    private String cacbohydrat;
+    private String fat;
+    private String protein;
+    private boolean isMyFood;
+    private String recipe;
 
-    public FoodItem(String name, double calories, double carbs, double fats, double proteins, String image) {
+    public FoodItem(String name, String calories, String cacbohydrat, String fat, String protein, String image, boolean isMyFood, String recipe) {
         this.name = name;
         this.calories = calories;
-        this.cacbohydrat = carbs;
-        this.fat = fats;
-        this.protein = proteins;
+        this.cacbohydrat = cacbohydrat;
+        this.fat = fat;
+        this.protein = protein;
         this.image = image;
+        this.isMyFood = isMyFood;
+        this.recipe = recipe;
     }
 
     public String getName() {
@@ -35,35 +39,51 @@ public class FoodItem implements Serializable {
         this.image = image;
     }
 
-    public double getCalories() {
+    public String getCalories() {
         return calories;
     }
 
-    public void setCalories(double calories) {
+    public void setCalories(String calories) {
         this.calories = calories;
     }
 
-    public double getCarbs() {
+    public String getCacbohydrat() {
         return cacbohydrat;
     }
 
-    public void setCarbs(double carbs) {
-        this.cacbohydrat = carbs;
+    public void setCacbohydrat(String cacbohydrat) {
+        this.cacbohydrat = cacbohydrat;
     }
 
-    public double getFats() {
+    public String getFat() {
         return fat;
     }
 
-    public void setFats(double fats) {
-        this.fat = fats;
+    public void setFat(String fat) {
+        this.fat = fat;
     }
 
-    public double getProteins() {
+    public String getProtein() {
         return protein;
     }
 
-    public void setProteins(double proteins) {
-        this.protein = proteins;
+    public void setProtein(String protein) {
+        this.protein = protein;
+    }
+
+    public boolean isMyFood() {
+        return isMyFood;
+    }
+
+    public void setMyFood(boolean myFood) {
+        isMyFood = myFood;
+    }
+
+    public String getRecipe() {
+        return recipe;
+    }
+
+    public void setRecipe(String recipe) {
+        this.recipe = recipe;
     }
 }

@@ -1,13 +1,6 @@
 
-I
-java:S1068"-Remove this unused "isNewFood" private field.(Ü­ïo8ë”˜¾.
->
-java:S1148^"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ
-V
-java:S1144N"9Remove this unused private "previewCapturedImage" method.(êŒ–8Âª‚À.
-]
-java:S1192j"GDefine a constant instead of duplicating this literal "%s gms" 3 times.(¯’Ãù
-A
-java:S1172b"+Remove this unused method parameter "view".(ü‚à„
-t
-java:S1450"XRemove the "isNewFood" field and declare it as a local variable in the relevant methods.(Ü­ïo8ôÈ«¾.
+T
+java:S1128"7Remove this unused import 'android.app.ProgressDialog'.(¶ÍÔÓ8·¨ˆ˜.
+v	java:S116+"URename this field "FOOD_IMAGE" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(í¹öÄşÿÿÿÿ8à´¦™.
+~
+java:S1128"\Remove this unused import 'com.example.foodclassificationapp.activity.login.SignUpActivity'.(ãå‹îøÿÿÿÿ8ô‰ğ—.

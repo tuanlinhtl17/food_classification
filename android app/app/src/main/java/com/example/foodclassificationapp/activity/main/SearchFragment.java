@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -72,45 +73,28 @@ public class SearchFragment extends Fragment implements View.OnClickListener {
         });
     }
 
-//    @Override
-//    public void onStart() {
-//        super.onStart();
-//        if (databaseReference != null) {
-//            databaseReference.addValueEventListener(new ValueEventListener() {
-//                @Override
-//                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-//                    if (dataSnapshot.exists()) {
-//                        foodList = new ArrayList<>();
-//                        for (DataSnapshot item : dataSnapshot.getChildren()) {
-//                            foodList.add(item.getValue(FoodItem.class));
-//                        }
-//                        FoodListAdapter foodListAdapter = new FoodListAdapter(foodList, getContext());
-//                        recyclerView.setAdapter(foodListAdapter);
-//
-//                    }
-//                }
-//
-//                @Override
-//                public void onCancelled(@NonNull DatabaseError databaseError) {
-//                    /* do nothing */
-//                }
-//            });
-//        }
-//    }
-
     private void getAllFood() {
         DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference().child("food");
         dbRef.addValueEventListener(new ValueEventListener() {
+            @RequiresApi(api = Build.VERSION_CODES.KITKAT)
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot item : dataSnapshot.getChildren()) {
+                    StringBuilder recipe = new StringBuilder();
+                    for (DataSnapshot repItem : item.child("recipe").getChildren()) {
+                        String key = repItem.getKey();
+                        recipe.append("- ").append(repItem.getValue()).append(" ").append(key).append("\n");
+                    }
+
                     FoodItem foodItem = new FoodItem(
                             String.valueOf(item.child("name").getValue()),
-                            Double.parseDouble(String.valueOf(item.child("calories").getValue())),
-                            Double.parseDouble(String.valueOf(item.child("cacbohydrat").getValue())),
-                            Double.parseDouble(String.valueOf(item.child("fat").getValue())),
-                            Double.parseDouble(String.valueOf(item.child("protein").getValue())),
-                            String.valueOf(item.child("image").getValue())
+                            (String.valueOf(item.child("calories").getValue())),
+                            (String.valueOf(item.child("cacbohydrat").getValue())),
+                            (String.valueOf(item.child("fat").getValue())),
+                            (String.valueOf(item.child("protein").getValue())),
+                            String.valueOf(item.child("image").getValue()),
+                            false,
+                            recipe.toString()
                     );
                     foodList.add(foodItem);
                 }
@@ -123,7 +107,6 @@ public class SearchFragment extends Fragment implements View.OnClickListener {
                 // do nothing
             }
         });
-        Toast.makeText(getContext(), String.valueOf(foodList.size()), Toast.LENGTH_SHORT).show();
     }
 
     private void searchFood(String input) {
@@ -135,7 +118,6 @@ public class SearchFragment extends Fragment implements View.OnClickListener {
         }
         foodListAdapter = new FoodListAdapter(foodSearchList, getContext());
         recyclerView.setAdapter(foodListAdapter);
-        Toast.makeText(getContext(), "search " + foodSearchList.size(), Toast.LENGTH_SHORT).show();
     }
 
     @Override

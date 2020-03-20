@@ -35,14 +35,8 @@ H
 Kapp/src/main/java/com/example/foodclassificationapp/entity/UserProfile.java,9/e/9e6e5ba4d30d3c81f99db53ed3a615e83601eded
 Y
 )app/src/main/res/drawable/header_main.xml,5/5/55f6f2f14f385aa27018aad54e1102810a651c94
-Z
-*app/src/main/res/layout/activity_login.xml,1/f/1f7e901185d74bf05f9fcb38f9ed35ea78cd4c6e
-[
-+app/src/main/res/menu/bottom_navigation.xml,3/6/363f4aaa59b36cd3ab03be8fdbea6ad0ae6319d0
 R
 "app/src/main/res/values/colors.xml,9/6/969faa2a5d9f5e8390e958d2c07f2cfd54676e6b
-S
-#app/src/main/res/values/strings.xml,d/2/d2281fbb3027de2722081a53408dd77628bf080e
 R
 "app/src/main/res/values/styles.xml,f/7/f79cc2688e29fcbc286fda14ae07b27c9e83690f
 †

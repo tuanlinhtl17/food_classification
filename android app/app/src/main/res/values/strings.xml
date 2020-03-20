@@ -41,4 +41,7 @@
     <string name="male">Male</string>
     <string name="mail_admin">admin@gmail.com</string>
     <string name="switch_user">Switch User</string>
+    <string name="add_food_day">Add to my day</string>
+    <string name="food_image">Food Image</string>
+    <string name="recipe">Recipe</string>
 </resources>

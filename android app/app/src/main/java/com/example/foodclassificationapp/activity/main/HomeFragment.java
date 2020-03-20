@@ -110,20 +110,20 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
 
     @SuppressLint("SetTextI18n")
     private void setValue(List<FoodItem> foodList) {
-        double totalCalories = 0.0;
-        double totalCarb = 0.0;
-        double totalFats = 0.0;
-        double totalProtein = 0.0;
+        float totalCalories = 0;
+        float totalCarb = 0;
+        float totalFats = 0;
+        float totalProtein = 0;
         for (FoodItem foodItem : foodList) {
-            totalCalories += foodItem.getCalories();
-            totalCarb += foodItem.getCarbs();
-            totalFats += foodItem.getFats();
-            totalProtein += foodItem.getProteins();
+            totalCalories += Float.parseFloat(foodItem.getCalories());
+            totalCarb += Float.parseFloat(foodItem.getCacbohydrat());
+            totalFats += Float.parseFloat(foodItem.getFat());
+            totalProtein += Float.parseFloat(foodItem.getProtein());
         }
-        totalCalo.setText(Double.toString(totalCalories));
-        totalFat.setText(Double.toString(totalFats));
-        totalCacbo.setText(Double.toString(totalCarb));
-        totalPro.setText(Double.toString(totalProtein));
+        totalCalo.setText(Float.toString((float) (Math.round(totalCalories * 100.0) / 100.0)));
+        totalFat.setText(Float.toString((float) (Math.round(totalFats * 100.0) / 100.0)));
+        totalCacbo.setText(Float.toString((float) (Math.round(totalCarb * 100.0) / 100.0)));
+        totalPro.setText(Float.toString((float) (Math.round(totalProtein * 100.0) / 100.0)));
     }
 
     @SuppressLint("SetTextI18n")
@@ -203,12 +203,14 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                 foodList.clear();
                 for (DataSnapshot item : dataSnapshot.getChildren()) {
                     FoodItem foodItem = new FoodItem(
-                            String.valueOf(item.child("name").getValue()),
-                            Double.parseDouble(String.valueOf(item.child("calories").getValue())),
-                            Double.parseDouble(String.valueOf(item.child("cacbohydrat").getValue())),
-                            Double.parseDouble(String.valueOf(item.child("fat").getValue())),
-                            Double.parseDouble(String.valueOf(item.child("protein").getValue())),
-                            String.valueOf(item.child("image").getValue())
+                            String.valueOf(item.child(Constant.NAME).getValue()),
+                            String.valueOf(item.child(Constant.CALORIES).getValue()),
+                            String.valueOf(item.child(Constant.CACBOHYDRAT).getValue()),
+                            String.valueOf(item.child(Constant.FAT).getValue()),
+                            String.valueOf(item.child(Constant.PROTEIN).getValue()),
+                            String.valueOf(item.child(Constant.IMAGE).getValue()),
+                            true,
+                            null
                     );
                     foodList.add(foodItem);
                 }

@@ -248,11 +248,13 @@ public class GetImageActivity extends AppCompatActivity implements SingleUploadB
             Intent intent = new Intent(getApplicationContext(), FruitInfoActivity.class);
 
             String foodName = response.getString("name");
-            double calories = response.getJSONObject("nutritions").getDouble("calories");
-            double protein = response.getJSONObject("nutritions").getDouble("protein");
-            double cacbohydrat = response.getJSONObject("nutritions").getDouble("cacbohydrat");
-            double fat = response.getJSONObject("nutritions").getDouble("fat");
-            FoodItem foodItem = new FoodItem(foodName, calories, protein, cacbohydrat, fat, "img");
+            String calories = response.getJSONObject("nutritions").getString("calories");
+            String protein = response.getJSONObject("nutritions").getString("protein");
+            String cacbohydrat = response.getJSONObject("nutritions").getString("cacbohydrat");
+            String fat = response.getJSONObject("nutritions").getString("fat");
+            FoodItem foodItem = new FoodItem(foodName, calories, protein, cacbohydrat, fat, "img", false, null);
+            foodItem.setMyFood(false);
+            foodItem.setRecipe("");
             String path = fileUri.getPath();
             foodItem.setImage(path);
             Bundle bundle = new Bundle();

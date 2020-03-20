@@ -2,14 +2,12 @@ package com.example.foodclassificationapp.control;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -41,19 +39,29 @@ public class FoodListAdapter extends RecyclerView.Adapter<FoodListAdapter.ListFo
     public void onBindViewHolder(@NonNull ListFoodViewHolder holder, final int position) {
         holder.itemName.setText(foodList.get(position).getName());
         holder.itemCal.setText(String.valueOf(foodList.get(position).getCalories()));
-        holder.itemCarb.setText(String.valueOf(foodList.get(position).getCarbs()));
-        holder.itemFat.setText(String.valueOf(foodList.get(position).getFats()));
-        holder.itemProtein.setText((String.valueOf(foodList.get(position).getProteins())));
+        holder.itemCarb.setText(String.valueOf(foodList.get(position).getCacbohydrat()));
+        holder.itemFat.setText(String.valueOf(foodList.get(position).getFat()));
+        holder.itemProtein.setText((String.valueOf(foodList.get(position).getProtein())));
 
         Glide.with(context).load(foodList.get(position).getImage()).into(holder.imageFood);
+//        holder.parentLayout.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+////                Toast.makeText(context, String.valueOf(foodList.get(position).getName()), Toast.LENGTH_SHORT).show();
+//                Intent intent = new Intent(context, FruitInfoActivity.class);
+//                Bundle bundle = new Bundle();
+//                bundle.putSerializable("foodItem", foodList.get(position));
+//                intent.putExtras(bundle);
+//                context.startActivity(intent);
+//            }
+//        });
+
         holder.parentLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                Toast.makeText(context, String.valueOf(foodList.get(position).getName()), Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(context, FruitInfoActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putSerializable("foodItem", foodList.get(position));
-                intent.putExtras(bundle);
+                intent.putExtra("foodName", foodList.get(position).getName());
+                intent.putExtra("isMyFood", foodList.get(position).isMyFood());
                 context.startActivity(intent);
             }
         });
@@ -64,7 +72,7 @@ public class FoodListAdapter extends RecyclerView.Adapter<FoodListAdapter.ListFo
         return foodList.size();
     }
 
-    class ListFoodViewHolder extends RecyclerView.ViewHolder {
+    static class ListFoodViewHolder extends RecyclerView.ViewHolder {
         private ImageView imageFood;
         private TextView itemCal;
         private TextView itemCarb;

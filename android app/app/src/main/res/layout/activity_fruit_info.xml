@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout android:layout_width="match_parent"
+<LinearLayout xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
@@ -14,12 +15,13 @@
         android:layout_height="54dp">
         <ImageView
             android:layout_centerVertical="true"
-            android:layout_marginLeft="10dp"
-            android:background="@drawable/ic_left"
-            android:id="@+id/imgClose"
+            android:layout_marginLeft="15dp"
+            android:background="@drawable/back"
+            android:id="@+id/back"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:onClick="backPressed"/>
+            android:layout_marginStart="15dp"
+            android:contentDescription="@string/back" />
 
         <TextView
             android:layout_centerVertical="true"
@@ -29,91 +31,109 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:gravity="center"
-            android:text="Name"
             android:id="@+id/foodName"
-            android:textColor="@color/main_activity_text_header" >
+            android:textColor="@color/main_activity_text_header" />
 
-        </TextView>
+        <ImageView
+            android:id="@+id/addToMyDay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/add_food"
+            android:layout_alignEnd="@+id/foodName"
+            android:layout_alignRight="@+id/foodName"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="15dp"
+            android:layout_marginEnd="15dp"
+            android:contentDescription="@string/add_food_day" />
 
     </RelativeLayout>
 
     <LinearLayout
-        android:layout_weight="50"
+        android:layout_weight="65"
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="0dp">
+        android:layout_height="0dp"
+        android:background="#B1D4FB"
+        >
 
         <ImageView
-            android:layout_weight="1"
+            android:layout_weight="40"
             android:id="@+id/imgPreview"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:scaleType="centerCrop"
-            app:srcCompat="@drawable/apple" />
+            app:srcCompat="@drawable/apple"
+            android:contentDescription="@string/food_image"
+            tools:ignore="NestedWeights" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/recipe"
+            android:layout_gravity="center_horizontal"
+            android:textSize="22sp"
+            android:layout_marginTop="5dp"/>
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="25"
+            android:layout_marginTop="5dp"
+            >
+            <TextView
+                android:id="@+id/recipe"
+                android:paddingTop="10dp"
+                android:paddingLeft="15dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="15sp"
+                android:paddingStart="15dp"
+                tools:ignore="RtlSymmetry" />
+        </ScrollView>
 
     </LinearLayout>
 
-<!--    <ListView-->
-<!--        android:visibility="visible"-->
-<!--        android:layout_marginTop="20dp"-->
-<!--        android:layout_marginLeft="10dp"-->
-<!--        android:orientation="horizontal"-->
-<!--        android:layout_below="@+id/imgPreview"-->
-<!--        android:id="@+id/recyclerview1"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="60dp"-->
-<!--        android:layout_alignParentTop="true"-->
-<!--        android:scrollbars="horizontal"-->
-<!--        >-->
-
-<!--    </ListView>-->
-    <TextView
+    <View
+        android:background="@color/blue"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Nutritions per 100g"
-        android:textSize="22sp"
-        android:gravity="center"
-        android:paddingTop="10dp"
-        android:paddingBottom="10dp"
-        />
+        android:layout_height="1dp"/>
 
     <LinearLayout
-        android:layout_weight="50"
-        android:background="@color/main_activity_text_header"
+        android:layout_weight="35"
+        android:background="#B1D4FB"
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="0dp">
+        android:layout_height="0dp"
+        >
 
         <LinearLayout
             android:gravity="center"
             android:layout_weight="1"
             android:layout_margin="10dp"
-            android:background="@color/main_activity_text_header"
+            android:background="#B1D4FB"
             android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="0dp">
+            android:layout_height="0dp"
+            tools:ignore="NestedWeights"
+            >
 
             <TextView
                 android:textSize="16sp"
                 android:layout_weight="1"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="@string/calories"
-                android:textColor="@color/gray" >
-
-            </TextView>
+                tools:ignore="NestedWeights" />
 
             <TextView
-                android:textSize="18sp"
+                android:textSize="16sp"
                 android:textStyle="bold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:text="0"
                 android:textColor="@color/black"
-                android:id="@+id/itemCal">
+                android:id="@+id/itemCal"
+                tools:ignore="HardcodedText" />
 
-            </TextView>
         </LinearLayout>
 
         <View
@@ -121,13 +141,13 @@
             android:layout_marginLeft="20dp"
             android:background="@color/blue"
             android:layout_width="match_parent"
-            android:layout_height="0.5dip"/>
+            android:layout_height="1dp"/>
 
         <LinearLayout
             android:gravity="center"
             android:layout_weight="1"
             android:layout_margin="10dp"
-            android:background="@color/main_activity_text_header"
+            android:background="#B1D4FB"
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="0dp">
@@ -135,22 +155,23 @@
             <TextView
                 android:textSize="16sp"
                 android:layout_weight="1"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="@string/carb"
-                android:textColor="@color/gray" >
+                 >
 
             </TextView>
 
             <TextView
-                android:textSize="18sp"
+                android:textSize="16sp"
                 android:textStyle="bold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:text="0"
                 android:textColor="@color/black"
-                android:id="@+id/itemCarbs">
+                android:id="@+id/itemCarbs"
+                tools:ignore="HardcodedText">
 
             </TextView>
         </LinearLayout>
@@ -160,13 +181,13 @@
             android:layout_marginLeft="20dp"
             android:background="@color/blue"
             android:layout_width="match_parent"
-            android:layout_height="0.5dip"/>
+            android:layout_height="1dp"/>
 
         <LinearLayout
             android:gravity="center"
             android:layout_weight="1"
             android:layout_margin="10dp"
-            android:background="@color/main_activity_text_header"
+            android:background="#B1D4FB"
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="0dp">
@@ -174,20 +195,21 @@
             <TextView
                 android:textSize="16sp"
                 android:layout_weight="1"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="@string/fats"
-                android:textColor="@color/gray" />
+                />
 
             <TextView
-                android:textSize="18sp"
+                android:textSize="16sp"
                 android:textStyle="bold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:text="0"
                 android:textColor="@color/black"
-                android:id="@+id/itemFats">
+                android:id="@+id/itemFats"
+                tools:ignore="HardcodedText">
 
             </TextView>
         </LinearLayout>
@@ -197,13 +219,13 @@
             android:layout_marginLeft="20dp"
             android:background="@color/blue"
             android:layout_width="match_parent"
-            android:layout_height="0.5dip"/>
+            android:layout_height="1dp"/>
 
         <LinearLayout
             android:gravity="center"
             android:layout_weight="1"
             android:layout_margin="10dp"
-            android:background="@color/main_activity_text_header"
+            android:background="#B1D4FB"
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="0dp">
@@ -211,28 +233,28 @@
             <TextView
                 android:textSize="16sp"
                 android:layout_weight="1"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="@string/proteins"
-                android:textColor="@color/gray" >
+                >
 
             </TextView>
 
             <TextView
-                android:textSize="18sp"
+                android:textSize="16sp"
                 android:textStyle="bold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:text="0"
                 android:textColor="@color/black"
-                android:id="@+id/itemProts">
+                android:id="@+id/itemProts"
+                tools:ignore="HardcodedText">
 
             </TextView>
 
         </LinearLayout>
 
     </LinearLayout>
-
 
 </LinearLayout>
