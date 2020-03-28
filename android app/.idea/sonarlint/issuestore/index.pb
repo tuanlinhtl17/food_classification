@@ -41,3 +41,15 @@ R
 "app/src/main/res/values/styles.xml,f/7/f79cc2688e29fcbc286fda14ae07b27c9e83690f
 Ü
 Vapp/src/main/java/com/example/foodclassificationapp/activity/login/SignUpActivity.java,a/7/a77e05bdb70793accd8e72fdd37ac8a5b81fc2bb
+ç
+]app/src/main/java/com/example/foodclassificationapp/common/SingleUploadBroadcastReceiver.java,e/8/e84048d0174d54a77d6ede57f9ba6d64ce51fc09
+Z
+*app/src/main/res/layout/activity_login.xml,1/f/1f7e901185d74bf05f9fcb38f9ed35ea78cd4c6e
+U
+%app/src/main/res/layout/food_item.xml,e/e/eec55e9003d5e14310f0856a1f0a1dd154578ab7
+Y
+)app/src/main/res/layout/home_fragment.xml,a/3/a3d709a1ed34f88664e0166c392f7e9b6f3238d3
+S
+#app/src/main/res/values/strings.xml,d/2/d2281fbb3027de2722081a53408dd77628bf080e
+Ü
+Vapp/src/main/java/com/example/foodclassificationapp/activity/main/FitnessFragment.java,0/5/05f8005a362e4f7559606e9e3a1b1914e8124f80

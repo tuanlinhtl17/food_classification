@@ -47,4 +47,14 @@
     <string name="male">Male</string>
     <string name="cm">cm</string>
     <string name="kg">kg</string>
+    <string name="goal">Goal</string>
+    <string name="fitness">Fitness</string>
+    <string name="fitness_level">Choose your fitness level</string>
+    <string name="explain_choose_level">Choose workout plan that suits you best</string>
+    <string name="beginner">BEGINNER</string>
+    <string name="def_beginner">Just start exercising</string>
+    <string name="intermediate">INTERMEDIATE</string>
+    <string name="def_intermediate">1-2 workouts/week</string>
+    <string name="advanced">ADVANCED</string>
+    <string name="def_advanced">3-4 workouts/week</string>
 </resources>

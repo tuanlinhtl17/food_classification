@@ -11,8 +11,13 @@
         android:title="@string/food"
         />
     <item
-        android:id="@+id/profile"
+        android:id="@+id/fitness"
         android:icon="@drawable/star"
+        android:title="@string/fitness"
+        />
+    <item
+        android:id="@+id/user"
+        android:icon="@drawable/user_nav"
         android:title="@string/profile"
         />
 </menu>

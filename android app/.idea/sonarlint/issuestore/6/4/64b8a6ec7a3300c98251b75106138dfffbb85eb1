@@ -1,5 +1,0 @@
-
-P
-java:S10684".Remove this unused "firebaseDb" private field.(·»ìøÿÿÿÿ8…üÿó.
-{
-java:S14504"YRemove the "firebaseDb" field and declare it as a local variable in the relevant methods.(·»ìøÿÿÿÿ8…üÿó.

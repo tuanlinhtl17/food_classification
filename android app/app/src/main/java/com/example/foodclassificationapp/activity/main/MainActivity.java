@@ -42,8 +42,11 @@ public class MainActivity extends AppCompatActivity {
                         case R.id.search_food:
                             openFragment(new SearchFragment());
                             return true;
-                        case R.id.profile:
+                        case R.id.user:
                             openFragment(new UserFragment());
+                            return true;
+                        case R.id.fitness:
+                            openFragment(new FitnessFragment());
                             return true;
                         default:
                             return false;
