@@ -15,5 +15,11 @@ public class Constant {
     public static final String FAT = "fat";
     public static final String IMAGE = "image";
     public static final String PROTEIN = "protein";
-
+    public static final String TIME = "time";
+    public static final String METS = "mets";
+    public static final String TYPE = "type";
+    public static final String FITNESS = "fitness";
+    public static final String VIDEO = "video";
+    public static final String DESCRIPTION = "description";
+    public static final String CALORIE_BURN = "caloBurn";
 }

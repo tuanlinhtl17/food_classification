@@ -49,12 +49,14 @@
     <string name="kg">kg</string>
     <string name="goal">Goal</string>
     <string name="fitness">Fitness</string>
-    <string name="fitness_level">Choose your fitness level</string>
-    <string name="explain_choose_level">Choose workout plan that suits you best</string>
-    <string name="beginner">BEGINNER</string>
-    <string name="def_beginner">Just start exercising</string>
-    <string name="intermediate">INTERMEDIATE</string>
-    <string name="def_intermediate">1-2 workouts/week</string>
-    <string name="advanced">ADVANCED</string>
-    <string name="def_advanced">3-4 workouts/week</string>
+    <string name="fitness_level">Choose your activity</string>
+    <string name="explain_choose_level">Choose activity to calculate the Calories you burn.</string>
+    <string name="beginner">EXERCISE</string>
+    <string name="def_beginner">Fitness exercise</string>
+    <string name="intermediate">OUTDOOR</string>
+    <string name="def_intermediate">Outdoor activities</string>
+    <string name="advanced">SPORT</string>
+    <string name="def_advanced">Sports activities</string>
+    <string name="recommended_rate">Recommended Rate:</string>
+    <string name="min">min</string>
 </resources>

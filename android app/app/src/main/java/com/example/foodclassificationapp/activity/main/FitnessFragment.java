@@ -1,5 +1,6 @@
 package com.example.foodclassificationapp.activity.main;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,12 +10,11 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import com.example.foodclassificationapp.R;
+import com.example.foodclassificationapp.activity.FitnessActivity;
+import com.example.foodclassificationapp.constant.Constant;
 
 public class FitnessFragment extends Fragment implements View.OnClickListener {
     private View fitnessView;
-    private androidx.cardview.widget.CardView beginner;
-    private androidx.cardview.widget.CardView intermediate;
-    private androidx.cardview.widget.CardView advanced;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -24,23 +24,30 @@ public class FitnessFragment extends Fragment implements View.OnClickListener {
     }
 
     private void init() {
-        beginner = fitnessView.findViewById(R.id.beginner);
-        intermediate = fitnessView.findViewById(R.id.intermediate);
-        advanced = fitnessView.findViewById(R.id.advanced);
+        androidx.cardview.widget.CardView exercise = fitnessView.findViewById(R.id.exercise);
+        androidx.cardview.widget.CardView outdoor = fitnessView.findViewById(R.id.outdoor);
+        androidx.cardview.widget.CardView sports = fitnessView.findViewById(R.id.sports);
 
-        beginner.setOnClickListener(this);
-        intermediate.setOnClickListener(this);
-        advanced.setOnClickListener(this);
+        exercise.setOnClickListener(this);
+        outdoor.setOnClickListener(this);
+        sports.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
+        Intent intent = new Intent(getContext(), FitnessActivity.class);
         switch (v.getId()) {
-            case R.id.beginner:
+            case R.id.exercise:
+                intent.putExtra(Constant.TYPE, "EXERCISE");
+                startActivity(intent);
                 break;
-            case R.id.intermediate:
+            case R.id.outdoor:
+                intent.putExtra(Constant.TYPE, "OUTDOOR ACTIVITIES");
+                startActivity(intent);
                 break;
-            case R.id.advanced:
+            case R.id.sports:
+                intent.putExtra(Constant.TYPE, "SPORTS");
+                startActivity(intent);
                 break;
             default:
                 break;

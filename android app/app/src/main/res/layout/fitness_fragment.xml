@@ -43,7 +43,7 @@
             android:layout_width="match_parent"
             app:cardCornerRadius="15dp"
             app:cardBackgroundColor="#4698F3"
-            android:id="@+id/beginner"
+            android:id="@+id/exercise"
             >
             <LinearLayout
                 android:layout_width="match_parent"
@@ -76,7 +76,7 @@
             app:cardBackgroundColor="#4698F3"
             android:layout_marginTop="15dp"
             app:cardCornerRadius="15dp"
-            android:id="@+id/intermediate"
+            android:id="@+id/outdoor"
             >
             <LinearLayout
                 android:layout_width="match_parent"
@@ -109,7 +109,7 @@
             app:cardBackgroundColor="#4698F3"
             android:layout_marginTop="15dp"
             app:cardCornerRadius="15dp"
-            android:id="@+id/advanced"
+            android:id="@+id/sports"
             >
             <LinearLayout
                 android:layout_width="match_parent"

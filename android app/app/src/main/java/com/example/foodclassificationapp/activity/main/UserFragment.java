@@ -93,7 +93,7 @@ public class UserFragment extends Fragment implements View.OnClickListener {
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 if (fiAuth.getCurrentUser() != null) {
 //                    storageRef = FirebaseStorage.getInstance().getReference();
-                    dbRef = FirebaseDatabase.getInstance().getReference().child("user");
+                    dbRef = FirebaseDatabase.getInstance().getReference().child(Constant.USER_DB);
                     dbRef.child(fiAuth.getCurrentUser().getUid()).addValueEventListener(new ValueEventListener() {
                         @RequiresApi(api = Build.VERSION_CODES.KITKAT)
                         @Override

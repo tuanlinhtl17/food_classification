@@ -8,18 +8,55 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:683942438297:android:6e88527b2c156313d7df08",
+        "mobilesdk_app_id": "1:683942438297:android:ab7747ad203c16e5d7df08",
         "android_client_info": {
           "package_name": "com.example.foodclassificationapp"
         }
       },
       "oauth_client": [
         {
-          "client_id": "683942438297-dmlhkfmo8qcuitkumq52vfhc1a37snc3.apps.googleusercontent.com",
+          "client_id": "683942438297-ug56nei583vtn3oon8iera80upha5eef.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.example.foodclassificationapp",
-            "certificate_hash": "e4a3adc4959d5c2b745d8757142750a744d00062"
+            "certificate_hash": "73af3a8d50cfc95e9bdae2c165ecfb1d7b04d0dc"
+          }
+        },
+        {
+          "client_id": "683942438297-9ns0u3g8u5778vg87q7sh1uclei8q0md.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB8gjTORI7w9_l-WRbW23D2SblvH9YyJ6o"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "683942438297-9ns0u3g8u5778vg87q7sh1uclei8q0md.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:683942438297:android:fe173aa22ced5716d7df08",
+        "android_client_info": {
+          "package_name": "com.example.myapplication"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "683942438297-gmd06evc6u2t5nrfp2qsnliruiqostab.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.myapplication",
+            "certificate_hash": "73af3a8d50cfc95e9bdae2c165ecfb1d7b04d0dc"
           }
         },
         {

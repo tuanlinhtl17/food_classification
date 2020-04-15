@@ -38,8 +38,8 @@
                 android:textStyle="bold"
                 />
         </LinearLayout>
-
         <androidx.cardview.widget.CardView
+
             android:layout_width="match_parent"
             android:layout_height="140dp"
             android:layout_centerHorizontal="true"

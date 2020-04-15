@@ -3,7 +3,9 @@ package com.example.foodclassificationapp.activity.main;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -52,9 +54,17 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     private TextView totalCacbo;
     private TextView totalFat;
     private TextView totalPro;
+    private TextView recommendCal;
+    private TextView recommendCarb;
+    private TextView recommendFat;
+    private TextView recommendPro;
+
     private static final String[] PERMISSIONS = {
             Manifest.permission.CAMERA,
-            Manifest.permission.WRITE_EXTERNAL_STORAGE
+            Manifest.permission.WRITE_EXTERNAL_STORAGE,
+            Manifest.permission.INTERNET,
+            Manifest.permission.ACCESS_NETWORK_STATE,
+            Manifest.permission.ACCESS_WIFI_STATE
     };
     private static final int MULTIPLE_PERMISSION = 1;
 
@@ -62,9 +72,9 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     private ArrayList<FoodItem> foodList = new ArrayList<>();
     private FoodListAdapter foodListAdapter;
     private String dateKey;
+    private SharedPreferences sharedPreferences;
 
     private FirebaseAuth fiAuth;
-//    private FirebaseAuth.AuthStateListener fiAuthStateListener;
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Nullable
@@ -72,7 +82,9 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         homeView = inflater.inflate(R.layout.home_fragment, container, false);
         initialize();
+        requestPermissions();
         setEvents();
+        calRecommendRate();
         getFoodList();
         return homeView;
     }
@@ -89,6 +101,10 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         totalCacbo = homeView.findViewById(R.id.totalCarbs);
         totalFat = homeView.findViewById(R.id.totalFats);
         totalPro = homeView.findViewById(R.id.totalProts);
+        recommendCal = homeView.findViewById(R.id.calRecommend);
+        recommendCarb = homeView.findViewById(R.id.carbsRecommend);
+        recommendFat = homeView.findViewById(R.id.fatsRecommend);
+        recommendPro = homeView.findViewById(R.id.protsRecommend);
 
         recyclerView = homeView.findViewById(R.id.foodList);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -106,12 +122,13 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         preDay.setOnClickListener(this);
     }
 
-    @SuppressLint("SetTextI18n")
+    @SuppressLint({"SetTextI18n"})
     private void setValue(List<FoodItem> foodList) {
         float totalCalories = 0;
         float totalCarb = 0;
         float totalFats = 0;
         float totalProtein = 0;
+
         for (FoodItem foodItem : foodList) {
             totalCalories += Float.parseFloat(foodItem.getCalories());
             totalCarb += Float.parseFloat(foodItem.getCacbohydrat());
@@ -122,6 +139,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         totalFat.setText(Float.toString((float) (Math.round(totalFats * 100.0) / 100.0)));
         totalCacbo.setText(Float.toString((float) (Math.round(totalCarb * 100.0) / 100.0)));
         totalPro.setText(Float.toString((float) (Math.round(totalProtein * 100.0) / 100.0)));
+
     }
 
     @SuppressLint("SetTextI18n")
@@ -137,12 +155,9 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.addFood:
-//              if (!checkPermissions()) {
-                    requestPermissions();
-    //                } else {
-                    Intent intent = new Intent(getContext(), GetImageActivity.class);
-                    startActivity(intent);
-//                }
+                requestPermissions();
+                Intent intent = new Intent(getContext(), GetImageActivity.class);
+                startActivity(intent);
                 break;
             case R.id.datePicker:
                 if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
@@ -152,7 +167,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                             currentDate = LocalDate.of(year, month+1, dayOfMonth);
                             setDate(currentDate);
                             getFoodList();
-
                         }
                     }, currentDate.getYear(), currentDate.getMonthValue()-1, currentDate.getDayOfMonth());
                     datePickerDialog.show();
@@ -176,16 +190,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                 break;
         }
     }
-
-//    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
-//    private boolean checkPermissions() {
-//        for (String permission : PERMISSIONS) {
-//            if(ContextCompat.checkSelfPermission(Objects.requireNonNull(getActivity()), permission) != PackageManager.PERMISSION_GRANTED) {
-//                return false;
-//            }
-//        }
-//        return true;
-//    }
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     private void requestPermissions() {
@@ -223,4 +227,44 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
             }
         });
     }
+
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+    private void calRecommendRate () {
+        DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference().child(Constant.USER_DB);
+        dbRef.child(Objects.requireNonNull(fiAuth.getCurrentUser()).getUid()).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                String gender = String.valueOf(dataSnapshot.child("gender").getValue());
+                float height = Float.parseFloat(String.valueOf(dataSnapshot.child("height").getValue()));
+                float weight = Float.parseFloat(String.valueOf(dataSnapshot.child("weight").getValue()));
+                int age = Integer.parseInt(String.valueOf(dataSnapshot.child("age").getValue()));
+
+                sharedPreferences = Objects.requireNonNull(getContext()).getSharedPreferences("weight", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putFloat("weight", weight);
+                editor.apply();
+
+                double bmr;
+                if ("Female".equals(gender)) {
+                    bmr = (10*weight) + (6.25*height) - (5*age) - 161;
+                } else {
+                    bmr = (10*weight) + (6.25*height) - (5*age) + 5;
+                }
+                setRecommendRate(bmr * 1.375);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                // do nothing
+            }
+        });
+    }
+
+    private void setRecommendRate(double bmr) {
+        recommendCal.setText(String.valueOf((int) bmr));
+        recommendCarb.setText(String.valueOf((int) (bmr*0.45*0.25)));
+        recommendPro.setText(String.valueOf((int) (bmr*0.3*0.25)));
+        recommendFat.setText(String.valueOf((int) ((bmr*0.25)/9)));
+    }
+
 }
