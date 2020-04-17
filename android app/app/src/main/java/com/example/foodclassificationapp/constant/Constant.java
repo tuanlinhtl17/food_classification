@@ -22,4 +22,8 @@ public class Constant {
     public static final String VIDEO = "video";
     public static final String DESCRIPTION = "description";
     public static final String CALORIE_BURN = "caloBurn";
+    public static final String WEIGHT = "weight";
+    public static final String HEIGHT = "height";
+    public static final String AGE = "age";
+    public static final String VALUE = "value";
 }

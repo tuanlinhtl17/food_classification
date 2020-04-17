@@ -36,10 +36,11 @@ dependencies {
     implementation 'com.google.firebase:firebase-auth:19.3.0'
     implementation 'com.google.firebase:firebase-database:19.2.1'
     implementation 'com.google.firebase:firebase-storage:19.1.1'
-    implementation 'com.google.firebase:firebase-core:17.2.3'
+    implementation 'com.google.firebase:firebase-core:17.3.0'
     implementation "androidx.cardview:cardview:1.0.0"
 
     implementation 'net.gotev:uploadservice:2.1'
     implementation 'com.pierfrancescosoffritti.androidyoutubeplayer:core:10.0.5'
+    implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
 
 }

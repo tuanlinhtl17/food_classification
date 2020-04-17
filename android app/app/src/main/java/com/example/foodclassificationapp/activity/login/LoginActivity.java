@@ -34,11 +34,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-//        fragmentManager = getSupportFragmentManager();
-//        if (savedInstanceState == null) {
-//            openFragment(new LoginFragment());
-//        }
-
         initialize();
         setEvents();
 
@@ -102,7 +97,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             progressDialog.dismiss();
                             if (task.isSuccessful()) {
-//                                Toast.makeText(LoginActivity.this, "Login successful", Toast.LENGTH_SHORT).show();
                                 startActivity(new Intent(LoginActivity.this, MainActivity.class));
                             } else {
                                 Toast.makeText(LoginActivity.this, "Email or password incorrect", Toast.LENGTH_SHORT).show();
@@ -113,27 +107,4 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             Toast.makeText(LoginActivity.this, "Please fill email and password", Toast.LENGTH_SHORT).show();
         }
     }
-
-//    public void startLoginFragment() {
-//        fragmentManager.beginTransaction()
-//                .replace(R.id.loginContainer, new LoginFragment(), Constant.LOGIN_FRAGMENT).commit();
-//    }
-//
-//    public void openFragment(Fragment fragment) {
-//        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-//        transaction.replace(R.id.loginContainer, fragment);
-//        transaction.addToBackStack(null);
-//        transaction.commit();
-//    }
-//
-//    @Override
-//    public void onBackPressed() {
-//        Fragment signupFragment = fragmentManager.findFragmentByTag(Constant.SIGNUP_FRAGMENT);
-//        if (signupFragment != null)
-////            startLoginFragment();
-//            openFragment(new LoginFragment());
-//        else
-//            super.onBackPressed();
-//    }
-
 }

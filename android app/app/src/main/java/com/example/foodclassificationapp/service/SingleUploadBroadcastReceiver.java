@@ -1,4 +1,4 @@
-package com.example.foodclassificationapp.common;
+package com.example.foodclassificationapp.service;
 
 import net.gotev.uploadservice.UploadServiceBroadcastReceiver;
 

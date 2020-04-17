@@ -21,7 +21,7 @@ import android.provider.MediaStore;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.example.foodclassificationapp.common.SingleUploadBroadcastReceiver;
+import com.example.foodclassificationapp.service.SingleUploadBroadcastReceiver;
 import com.example.foodclassificationapp.constant.Constant;
 import com.example.foodclassificationapp.R;
 

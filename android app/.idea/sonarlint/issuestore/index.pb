@@ -2,7 +2,7 @@
 z
 Japp/src/main/java/com/example/foodclassificationapp/constant/Constant.java,9\8\98089f26d79e4e47acd446b9eec2308f77c17702
 Ö
-Uapp/src/main/java/com/example/foodclassificationapp/activity/login/LoginActivity.java,9/f/9fb6be67d87ebdb5fe10c3877441d9c34652fb0f
+Uapp/src/main/java/com/example/foodclassificationapp/activity/login/LoginActivity.java,9\f\9fb6be67d87ebdb5fe10c3877441d9c34652fb0f
 É
 Sapp/src/main/java/com/example/foodclassificationapp/activity/FruitInfoActivity.java,a\5\a57bf8fb821acf112979c58142e84c67858801ae
 x
@@ -30,7 +30,7 @@ Papp/src/main/java/com/example/foodclassificationapp/control/FoodListAdapter.jav
 [
 +app/src/main/res/drawable/search_layout.xml,3/0/302f430373f28bb2cd34cac8e82ad0a079aa9052
 H
-app/google-services.json,f/d/fd8d34b142d02ec743a8efefefd2c097961666e9
+app/google-services.json,f\d\fd8d34b142d02ec743a8efefefd2c097961666e9
 {
 Kapp/src/main/java/com/example/foodclassificationapp/entity/UserProfile.java,9/e/9e6e5ba4d30d3c81f99db53ed3a615e83601eded
 Y
@@ -38,11 +38,7 @@ Y
 R
 "app/src/main/res/values/styles.xml,f/7/f79cc2688e29fcbc286fda14ae07b27c9e83690f
 Ü
-Vapp/src/main/java/com/example/foodclassificationapp/activity/login/SignUpActivity.java,a/7/a77e05bdb70793accd8e72fdd37ac8a5b81fc2bb
-ç
-]app/src/main/java/com/example/foodclassificationapp/common/SingleUploadBroadcastReceiver.java,e/8/e84048d0174d54a77d6ede57f9ba6d64ce51fc09
-Z
-*app/src/main/res/layout/activity_login.xml,1/f/1f7e901185d74bf05f9fcb38f9ed35ea78cd4c6e
+Vapp/src/main/java/com/example/foodclassificationapp/activity/login/SignUpActivity.java,a\7\a77e05bdb70793accd8e72fdd37ac8a5b81fc2bb
 Ü
 Vapp/src/main/java/com/example/foodclassificationapp/activity/main/FitnessFragment.java,0\5\05f8005a362e4f7559606e9e3a1b1914e8124f80
 
@@ -53,3 +49,9 @@ Qapp/src/main/java/com/example/foodclassificationapp/activity/FitnessActivity.ja
 Tapp/src/main/java/com/example/foodclassificationapp/control/ExerciseListAdapter.java,3\4\346437be3e95bf2f329d8979e1b87434cbd35efb
 ç
 ]app/src/main/java/com/example/foodclassificationapp/activity/ExerciseDescriptionActivity.java,f\a\fa88f9a0aabc182478b7bc1c66fd982995422d55
+R
+"app/src/main/res/values/colors.xml,9\6\969faa2a5d9f5e8390e958d2c07f2cfd54676e6b
+S
+#app/src/main/res/values/strings.xml,d\2\d2281fbb3027de2722081a53408dd77628bf080e
+é
+^app/src/main/java/com/example/foodclassificationapp/service/SingleUploadBroadcastReceiver.java,4\f\4f6a849f20cd1aaead99eb1c4fcfd61fbdecc735

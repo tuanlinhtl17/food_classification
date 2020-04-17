@@ -39,9 +39,7 @@
             android:textSize="16sp"
             android:drawablePadding="10dp"
             android:drawableEnd="@drawable/microphone_white_20"
-            android:drawableRight="@drawable/microphone_white_20"
             android:drawableStart="@drawable/search_white"
-            android:drawableLeft="@drawable/search_white"
             android:autofillHints="@string/search_here" />
 
     </LinearLayout>

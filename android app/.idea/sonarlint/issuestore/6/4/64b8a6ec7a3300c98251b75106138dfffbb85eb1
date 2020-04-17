@@ -1,7 +1,21 @@
 
-]	java:S1255"<This block of commented-out lines of code should be removed.(©¨Ã§ûÿÿÿÿ8ŸÌß˜—.
-]	java:S1252"<This block of commented-out lines of code should be removed.(êáôþüÿÿÿÿ8ŸÌß˜—.
-]	java:S125e"<This block of commented-out lines of code should be removed.(­ãÛúúÿÿÿÿ8ŸÌß˜—.
-]	java:S125_"<This block of commented-out lines of code should be removed.(‚Ä€¾øÿÿÿÿ8ŸÌß˜—.
-^	java:S125„"<This block of commented-out lines of code should be removed.(¨ÙÝ¹þÿÿÿÿ8ŸÌß˜—.
-]	java:S125m"<This block of commented-out lines of code should be removed.(Ï‰ªûÿÿÿÿ8ŸÌß˜—.
+p
+java:S1128&"SRemove this unused import 'com.github.mikephil.charting.formatter.IValueFormatter'.(“ÒôÝ8¢ÍÀ¼˜.
+o
+java:S1128"MRemove this unused import 'com.github.mikephil.charting.components.AxisBase'.(ìÿªãúÿÿÿÿ8“¾½¼˜.
+
+java:S1128)"_Remove this unused import 'com.github.mikephil.charting.listener.OnChartValueSelectedListener'.(’¸Öîúÿÿÿÿ8ÓÆ±¼˜.
+y
+java:S1128%"WRemove this unused import 'com.github.mikephil.charting.formatter.IAxisValueFormatter'.(‡¸ß¼ýÿÿÿÿ8“¾½¼˜.
+X	java:S125y"<This block of commented-out lines of code should be removed.(ý¢·8ÓÆ±¼˜.
+s
+java:S1128"QRemove this unused import 'com.example.foodclassificationapp.entity.UserProfile'.(ùÏý®ÿÿÿÿÿ8ÃÔ¹˜.
+T
+java:S1128"2Remove this unused import 'android.widget.Button'.(²òžýÿÿÿÿ8¾¸Á¸˜.
+v
+java:S2293u"YReplace the type specification in this constructor call with the diamond operator ("<>").(œ ãŠ8ÓÆ±¼˜.
+q
+java:S1128*"ORemove this unused import 'com.github.mikephil.charting.utils.ViewPortHandler'.(š´¬³þÿÿÿÿ8¢ÍÀ¼˜.
+q
+java:S1450D"TRemove the "chart" field and declare it as a local variable in the relevant methods.( Úæª8‚„»¼˜.
+X	java:S125t"<This block of commented-out lines of code should be removed.(¿öµ£8ÓÆ±¼˜.

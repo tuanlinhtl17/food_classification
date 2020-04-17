@@ -74,8 +74,8 @@ public class FitnessActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 exerciseList.clear();
-                SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("weight", MODE_PRIVATE);
-                float weight = sharedPreferences.getFloat("weight", 0);
+                SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences(Constant.WEIGHT, MODE_PRIVATE);
+                float weight = sharedPreferences.getFloat(Constant.WEIGHT, 0);
                 for (DataSnapshot item : dataSnapshot.getChildren()) {
                     float time = Float.parseFloat(String.valueOf(item.child(Constant.TIME).getValue()));
                     float mets = Float.parseFloat(String.valueOf(item.child(Constant.METS).getValue()));

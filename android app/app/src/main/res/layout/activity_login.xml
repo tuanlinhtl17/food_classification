@@ -43,7 +43,6 @@
             android:textSize="16sp"
             android:fontFamily="sans-serif-light"
             android:drawableStart="@drawable/email"
-            android:drawableLeft="@drawable/email"
             android:importantForAutofill="no" />
 
         <View
@@ -66,7 +65,6 @@
             android:textColorHint="@color/white"
             android:textSize="16sp"
             android:fontFamily="sans-serif-light"
-            android:drawableLeft="@drawable/password"
             android:drawableStart="@drawable/password"
             android:importantForAutofill="no" />
 

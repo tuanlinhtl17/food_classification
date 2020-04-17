@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.foodclassificationapp.R;
 import com.example.foodclassificationapp.activity.main.MainActivity;
 import com.example.foodclassificationapp.constant.Constant;
+import com.example.foodclassificationapp.entity.MyWeight;
 import com.example.foodclassificationapp.entity.UserProfile;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -28,6 +29,7 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.time.LocalDate;
 import java.util.Objects;
 
 public class SignUpActivity extends AppCompatActivity implements View.OnClickListener {
@@ -54,9 +56,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         fiAuthStateListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-//                if (firebaseAuth.getCurrentUser() != null) {
-//                    startActivity(new Intent(SignUpActivity.this, LoginActivity.class));
-//                }
+                // nothing
             }
         };
     }
@@ -129,18 +129,22 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                                 firebaseAuth.signInWithEmailAndPassword(email, password);
 
                                 DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference().child(Constant.USER_DB);
-                                DatabaseReference registerUserDB = dbRef.child(Objects.requireNonNull(firebaseAuth.getCurrentUser()).getUid());
-//                                registerUserDB.child("name").setValue(fullName);
-//                                registerUserDB.child("age").setValue(Integer.parseInt(age));
-//                                registerUserDB.child("image").setValue("img");
-//                                registerUserDB.child("height").setValue(Float.parseFloat(height));
-//                                registerUserDB.child("weight").setValue(Float.parseFloat(weight));
-//                                registerUserDB.child("gender").setValue(gender);
-//                                registerUserDB.child("email").setValue(email);
+                                DatabaseReference registerRef = dbRef.child(Objects.requireNonNull(firebaseAuth.getCurrentUser()).getUid());
 
-                                UserProfile userProfile = new UserProfile("", fullName, email, Integer.parseInt(age),
-                                        Float.parseFloat(height), Float.parseFloat(weight), gender);
-                                registerUserDB.setValue(userProfile);
+                                registerRef.child(Constant.NAME).setValue(fullName);
+                                registerRef.child("email").setValue(email);
+                                registerRef.child(Constant.AGE).setValue(Integer.parseInt(age));
+                                registerRef.child(Constant.HEIGHT).setValue(height);
+                                registerRef.child("gender").setValue(gender);
+                                LocalDate localDate;
+                                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+                                    localDate = LocalDate.now();
+                                    String time = localDate.getDayOfMonth() + "/" + localDate.getMonthValue();
+                                    MyWeight myWeight = new MyWeight(time, weight);
+
+                                    registerRef.child(Constant.WEIGHT).push().setValue(myWeight);
+                                }
+
                                 startActivity(new Intent(SignUpActivity.this, MainActivity.class));
                             }
                             else {

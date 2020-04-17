@@ -72,7 +72,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     private ArrayList<FoodItem> foodList = new ArrayList<>();
     private FoodListAdapter foodListAdapter;
     private String dateKey;
-    private SharedPreferences sharedPreferences;
 
     private FirebaseAuth fiAuth;
 
@@ -235,13 +234,16 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 String gender = String.valueOf(dataSnapshot.child("gender").getValue());
-                float height = Float.parseFloat(String.valueOf(dataSnapshot.child("height").getValue()));
-                float weight = Float.parseFloat(String.valueOf(dataSnapshot.child("weight").getValue()));
-                int age = Integer.parseInt(String.valueOf(dataSnapshot.child("age").getValue()));
+                float height = Float.parseFloat(String.valueOf(dataSnapshot.child(Constant.HEIGHT).getValue()));
+                float weight = 0;
+                for (DataSnapshot weightData : dataSnapshot.child(Constant.WEIGHT).getChildren()) {
+                    weight = Float.parseFloat(String.valueOf(weightData.child("value").getValue()));
+                }
+                int age = Integer.parseInt(String.valueOf(dataSnapshot.child(Constant.AGE).getValue()));
 
-                sharedPreferences = Objects.requireNonNull(getContext()).getSharedPreferences("weight", Context.MODE_PRIVATE);
+                SharedPreferences sharedPreferences = Objects.requireNonNull(getContext()).getSharedPreferences(Constant.WEIGHT, Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedPreferences.edit();
-                editor.putFloat("weight", weight);
+                editor.putFloat(Constant.WEIGHT, weight);
                 editor.apply();
 
                 double bmr;
@@ -268,3 +270,4 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     }
 
 }
+

@@ -11,7 +11,6 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
-import android.webkit.WebView;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -161,6 +160,8 @@ public class ExerciseDescriptionActivity extends AppCompatActivity implements Vi
         exeTime.setText(String.valueOf(time));
     }
     private void calculateCaloriesBurn() {
+        float min = Float.parseFloat(exeTime.getText().toString());
+        time = min;
         exeCalBurn.setText(String.format("%s kcal", String.valueOf((Math.round(caloBurn * time * 10.0)) / 10.0)));
     }
 
