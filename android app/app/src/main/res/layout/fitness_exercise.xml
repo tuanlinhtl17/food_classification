@@ -20,7 +20,6 @@
             android:id="@+id/imgExe"
             android:layout_width="70dp"
             android:layout_height="70dp"
-            android:src="@drawable/apple"
             android:scaleType="centerCrop"
             tools:ignore="ContentDescription" />
 

@@ -39,7 +39,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:hint="@string/height"
-            android:inputType="number"
+            android:inputType="numberDecimal|numberSigned"
             android:layout_weight="7"/>
     </LinearLayout>
 
@@ -59,7 +59,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:hint="@string/weight"
-            android:inputType="number"
+            android:inputType="numberDecimal|numberSigned"
             android:layout_weight="7"/>
     </LinearLayout>
 

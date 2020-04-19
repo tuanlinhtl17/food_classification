@@ -55,3 +55,15 @@ S
 #app/src/main/res/values/strings.xml,d\2\d2281fbb3027de2722081a53408dd77628bf080e
 Ž
 ^app/src/main/java/com/example/foodclassificationapp/service/SingleUploadBroadcastReceiver.java,4\f\4f6a849f20cd1aaead99eb1c4fcfd61fbdecc735
+x
+Happ/src/main/java/com/example/foodclassificationapp/entity/MyWeight.java,1\e\1e7bd250cdb4174460ae55b0edff176353873df4
+\
+,app/src/main/res/layout/activity_fitness.xml,f\9\f94443fc75e05dada0a8c8f4868fdd996b2a4426
+_
+/app/src/main/res/layout/activity_fruit_info.xml,8\1\814377333f75ddd26df36e75472b67bd45ab7f6d
+Z
+*app/src/main/res/layout/activity_login.xml,1\f\1f7e901185d74bf05f9fcb38f9ed35ea78cd4c6e
+Y
+)app/src/main/res/layout/home_fragment.xml,a\3\a3d709a1ed34f88664e0166c392f7e9b6f3238d3
+[
++app/src/main/res/layout/search_fragment.xml,3\2\32ce3d669e73016928348d3ad351ea50cdb54c70

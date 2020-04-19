@@ -2,11 +2,15 @@ package com.example.foodclassificationapp.activity.main;
 
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -45,11 +49,14 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
-
+import java.util.concurrent.TimeUnit;
 
 public class UserFragment extends Fragment implements View.OnClickListener {
 
@@ -65,6 +72,7 @@ public class UserFragment extends Fragment implements View.OnClickListener {
     private FirebaseAuth fiAuth;
     private FirebaseAuth.AuthStateListener fiAuthStateListener;
     private DatabaseReference dbRef;
+    private float diffDays = 0;
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Nullable
@@ -74,6 +82,7 @@ public class UserFragment extends Fragment implements View.OnClickListener {
         init();
         setEvent();
         getUserInfo();
+        reqUpdateWeight();
         return userView;
     }
 
@@ -99,7 +108,6 @@ public class UserFragment extends Fragment implements View.OnClickListener {
         imgProfile.setOnClickListener(this);
         switchUser.setOnClickListener(this);
         cardView.setOnClickListener(this);
-
     }
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
@@ -116,7 +124,7 @@ public class UserFragment extends Fragment implements View.OnClickListener {
                             nameProfile.setText(String.valueOf(dataSnapshot.child(Constant.NAME).getValue()));
                             ageProfile.setText(String.valueOf(dataSnapshot.child(Constant.AGE).getValue()));
                             heightProfile.setText(String.valueOf(dataSnapshot.child(Constant.HEIGHT).getValue()));
-                            String gender = String.valueOf(dataSnapshot.child("gender").getValue());
+                            String gender = String.valueOf(dataSnapshot.child(Constant.GENDER).getValue());
                             if ("Female".equals(gender))
                                 imgProfile.setImageResource(R.drawable.female);
                             else imgProfile.setImageResource(R.drawable.male_user);
@@ -124,14 +132,27 @@ public class UserFragment extends Fragment implements View.OnClickListener {
                             ArrayList<Entry> entries = new ArrayList<>();
                             int index = 0;
                             String weight = "";
+                            String key = "";
+                            String dateValue = "";
                             for (DataSnapshot weightData : dataSnapshot.child(Constant.WEIGHT).getChildren()) {
-                                date.add(String.valueOf(weightData.child("time").getValue()));
+                                date.add(String.valueOf(weightData.child(Constant.TIME).getValue()));
                                 weight = String.valueOf(weightData.child(Constant.VALUE).getValue());
                                 entries.add(new Entry(index, Float.parseFloat(weight)));
                                 index += 1;
+
+                                key = weightData.getKey();
+                                dateValue = String.valueOf(weightData.child("date").getValue());
                             }
                             weightProfile.setText(weight);
                             initChart(date, entries);
+
+                            SharedPreferences sharedPreferences = Objects.requireNonNull(getContext()).getSharedPreferences(Constant.LAST_DATE, Context.MODE_PRIVATE);
+                            SharedPreferences.Editor editor = sharedPreferences.edit();
+                            editor.putString(Constant.LAST_DATE, date.get(date.size()-1));
+                            editor.putString("key", key);
+                            editor.putString("dateValue", dateValue);
+                            editor.putString("lastWeight", weight);
+                            editor.apply();
                         }
 
                         @Override
@@ -144,6 +165,36 @@ public class UserFragment extends Fragment implements View.OnClickListener {
                 }
             }
         };
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+    private void reqUpdateWeight() {
+        if (!checkUpdateStatus()) {
+            AlertDialog.Builder mBuilder = new AlertDialog.Builder(getContext())
+                    .setTitle("Update your weight")
+                    .setMessage("Do you update your weight?")
+                    .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            //do nothing
+                        }
+                    })
+                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            showDialog();
+                        }
+                    });
+            AlertDialog dialog = mBuilder.create();
+            dialog.show();
+        }
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+    private boolean checkUpdateStatus() {
+        SharedPreferences sharedPreferences = Objects.requireNonNull(getContext()).getSharedPreferences(Constant.LAST_DATE, Context.MODE_PRIVATE);
+        String lastDate = sharedPreferences.getString("dateValue", "");
+        return (calculateNumberDay(lastDate) < 7);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
@@ -239,7 +290,7 @@ public class UserFragment extends Fragment implements View.OnClickListener {
                     }
                 })
                 .setPositiveButton("Update", new DialogInterface.OnClickListener() {
-                    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+                    @RequiresApi(api = Build.VERSION_CODES.O)
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         String age = mAge.getText().toString();
@@ -257,38 +308,26 @@ public class UserFragment extends Fragment implements View.OnClickListener {
         dialog.show();
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
-    private void updateInfo(String age, String height, final String weight) {
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    private void updateInfo(String age, String height, String weight) {
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child(Constant.USER_DB);
         final DatabaseReference ref = databaseReference.child(Objects.requireNonNull(fiAuth.getCurrentUser()).getUid());
         ref.child(Constant.AGE).setValue(age);
         ref.child(Constant.HEIGHT).setValue(height);
 
-        ref.addValueEventListener(new ValueEventListener() {
-            @RequiresApi(api = Build.VERSION_CODES.O)
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                LocalDate localDate = LocalDate.now();
-                String time = localDate.getDayOfMonth() + "/" + localDate.getMonthValue();
-                MyWeight myWeight = new MyWeight(time, weight);
-                boolean flag = false;
-                for (DataSnapshot weightData : dataSnapshot.child(Constant.WEIGHT).getChildren()) {
-                    if (time.equals(String.valueOf(weightData.child("time").getValue()))) {
-                        ref.child(Constant.WEIGHT).child(Objects.requireNonNull(weightData.getKey())).child("value").setValue(weight)
-                                .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                    @Override
-                                    public void onComplete(@NonNull Task<Void> task) {
-                                        if (task.isSuccessful()) {
-                                            Toast.makeText(getContext(), "Update Successful", Toast.LENGTH_SHORT).show();
-                                        }
-                                    }
-                                });
-                        flag = true;
-                        break;
-                    }
-                }
-                if (!flag) {
-                    ref.child(Constant.WEIGHT).push().setValue(myWeight).addOnCompleteListener(new OnCompleteListener<Void>() {
+        LocalDate localDate = LocalDate.now();
+        String time = localDate.getDayOfMonth() + "/" + localDate.getMonthValue();
+        String date = time + "/" + localDate.getYear();
+        MyWeight myWeight = new MyWeight(time, weight, date);
+
+        SharedPreferences sharedPreferences = Objects.requireNonNull(getContext()).getSharedPreferences(Constant.LAST_DATE, Context.MODE_PRIVATE);
+        String lastDate = sharedPreferences.getString(Constant.LAST_DATE, "");
+        String key = sharedPreferences.getString("key", "");
+        String lastWeight = sharedPreferences.getString("lastWeight", "");
+
+        if (time.equals(lastDate)) {
+            ref.child(Constant.WEIGHT).child(Objects.requireNonNull(key)).child(Constant.VALUE).setValue(weight)
+                    .addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
                             if (task.isSuccessful()) {
@@ -296,13 +335,69 @@ public class UserFragment extends Fragment implements View.OnClickListener {
                             }
                         }
                     });
+        } else {
+            ref.child(Constant.WEIGHT).push().setValue(myWeight).addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+                    if (task.isSuccessful()) {
+                        Toast.makeText(getContext(), "Update Successful", Toast.LENGTH_SHORT).show();
+                    }
                 }
-            }
+            });
+        }
+        if (!lastWeight.isEmpty()) {
+            reviewWeight(lastWeight, weight);
+        }
+    }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-                // do nothing
+    private void reviewWeight(String preWeight, String afterWeight) {
+        float pWeight = Float.parseFloat(preWeight);
+        float aWeight = Float.parseFloat(afterWeight);
+        float diffWeight = pWeight - aWeight;
+        if (diffDays < 7 && diffDays > 0) {
+            if (diffWeight < 0) // tang can
+                showDialogReviewWeight("tang can1");
+            else showDialogReviewWeight("You are losing weight very well. Please continue to promote!");
+        } else if (diffDays >= 7){
+            if (diffWeight < 0)
+                showDialogReviewWeight("tang can");
+            else if (diffWeight < 1)
+                showDialogReviewWeight("You are not losing weight well. Please eat according to the recommended proportions and do more exercise");
+            else if (diffWeight > 1) {
+                int rate = (int)diffDays / 7;
+                if (diffWeight < rate)
+                    showDialogReviewWeight("You are not losing weight well. Please eat according to the recommended proportions and do more exercise");
+                else showDialogReviewWeight("You are losing weight very well. Please continue to promote!");
             }
-        });
+        }
+    }
+
+    private void showDialogReviewWeight(String message) {
+        AlertDialog.Builder mBuilder = new AlertDialog.Builder(getContext());
+        mBuilder.setTitle("Review")
+                .setMessage(message)
+                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        // do nothing
+                    }
+                });
+        Dialog dialog = mBuilder.create();
+        dialog.show();
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+    private float calculateNumberDay(String strLastDate) {
+        Date now = new Date();
+        float days = -1;
+        try {
+            @SuppressLint("SimpleDateFormat") Date lastDate = new SimpleDateFormat("dd/MM/yyyy").parse(strLastDate);
+            long diff = now.getTime() - Objects.requireNonNull(lastDate).getTime();
+            days = TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS);
+        } catch (ParseException e) {
+            Log.d("calculateNumberDay", Objects.requireNonNull(e.getMessage()));
+        }
+        diffDays = days;
+        return days;
     }
 }

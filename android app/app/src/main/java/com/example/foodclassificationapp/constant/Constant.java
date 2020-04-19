@@ -26,4 +26,6 @@ public class Constant {
     public static final String HEIGHT = "height";
     public static final String AGE = "age";
     public static final String VALUE = "value";
+    public static final String LAST_DATE = "lastDate";
+    public static final String GENDER = "gender";
 }

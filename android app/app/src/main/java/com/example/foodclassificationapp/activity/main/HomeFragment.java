@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -229,37 +230,41 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     private void calRecommendRate () {
-        DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference().child(Constant.USER_DB);
-        dbRef.child(Objects.requireNonNull(fiAuth.getCurrentUser()).getUid()).addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                String gender = String.valueOf(dataSnapshot.child("gender").getValue());
-                float height = Float.parseFloat(String.valueOf(dataSnapshot.child(Constant.HEIGHT).getValue()));
-                float weight = 0;
-                for (DataSnapshot weightData : dataSnapshot.child(Constant.WEIGHT).getChildren()) {
-                    weight = Float.parseFloat(String.valueOf(weightData.child("value").getValue()));
+        try {
+            DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference().child(Constant.USER_DB);
+            dbRef.child(Objects.requireNonNull(fiAuth.getCurrentUser()).getUid()).addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    String gender = String.valueOf(dataSnapshot.child(Constant.GENDER).getValue());
+                    float height = Float.parseFloat(String.valueOf(dataSnapshot.child(Constant.HEIGHT).getValue()));
+                    float weight = 0;
+                    for (DataSnapshot weightData : dataSnapshot.child(Constant.WEIGHT).getChildren()) {
+                        weight = Float.parseFloat(String.valueOf(weightData.child(Constant.VALUE).getValue()));
+                    }
+                    int age = Integer.parseInt(String.valueOf(dataSnapshot.child(Constant.AGE).getValue()));
+
+                    SharedPreferences sharedPreferences = Objects.requireNonNull(getContext()).getSharedPreferences(Constant.WEIGHT, Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    editor.putFloat(Constant.WEIGHT, weight);
+                    editor.apply();
+
+                    double bmr;
+                    if ("Female".equals(gender)) {
+                        bmr = (10*weight) + (6.25*height) - (5*age) - 161;
+                    } else {
+                        bmr = (10*weight) + (6.25*height) - (5*age) + 5;
+                    }
+                    setRecommendRate(bmr * 1.375);
                 }
-                int age = Integer.parseInt(String.valueOf(dataSnapshot.child(Constant.AGE).getValue()));
 
-                SharedPreferences sharedPreferences = Objects.requireNonNull(getContext()).getSharedPreferences(Constant.WEIGHT, Context.MODE_PRIVATE);
-                SharedPreferences.Editor editor = sharedPreferences.edit();
-                editor.putFloat(Constant.WEIGHT, weight);
-                editor.apply();
-
-                double bmr;
-                if ("Female".equals(gender)) {
-                    bmr = (10*weight) + (6.25*height) - (5*age) - 161;
-                } else {
-                    bmr = (10*weight) + (6.25*height) - (5*age) + 5;
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+                    // do nothing
                 }
-                setRecommendRate(bmr * 1.375);
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-                // do nothing
-            }
-        });
+            });
+        } catch (NullPointerException ex) {
+            Log.i("calRecommendRate", Objects.requireNonNull(ex.getMessage()));
+        }
     }
 
     private void setRecommendRate(double bmr) {

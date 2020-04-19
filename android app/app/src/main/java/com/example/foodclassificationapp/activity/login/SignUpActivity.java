@@ -140,7 +140,8 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                                 if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
                                     localDate = LocalDate.now();
                                     String time = localDate.getDayOfMonth() + "/" + localDate.getMonthValue();
-                                    MyWeight myWeight = new MyWeight(time, weight);
+                                    String date = time + "/" + localDate.getYear();
+                                    MyWeight myWeight = new MyWeight(time, weight, date);
 
                                     registerRef.child(Constant.WEIGHT).push().setValue(myWeight);
                                 }

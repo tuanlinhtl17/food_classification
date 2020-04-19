@@ -41,7 +41,6 @@
             android:id="@+id/backgroundImg"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:src="@drawable/apple"
             android:scaleType="centerCrop"
             tools:ignore="ContentDescription" />
         <com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
