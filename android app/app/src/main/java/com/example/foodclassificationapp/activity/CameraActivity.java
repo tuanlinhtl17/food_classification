@@ -21,8 +21,8 @@ import android.provider.MediaStore;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.example.foodclassificationapp.service.SingleUploadBroadcastReceiver;
-import com.example.foodclassificationapp.constant.Constant;
+import com.example.foodclassificationapp.util.SingleUploadBroadcastReceiver;
+import com.example.foodclassificationapp.util.Constant;
 import com.example.foodclassificationapp.R;
 
 import net.gotev.uploadservice.MultipartUploadRequest;
@@ -39,7 +39,7 @@ import java.util.Objects;
 import java.util.UUID;
 
 
-public class GetImageActivity extends AppCompatActivity implements SingleUploadBroadcastReceiver.Delegate {
+public class CameraActivity extends AppCompatActivity implements SingleUploadBroadcastReceiver.Delegate {
 
     private static final String TAG = "AndroidUploadService";
     private static final String IMAGE_DIRECTORY_NAME = "FoodImages";

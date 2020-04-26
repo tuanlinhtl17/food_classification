@@ -28,7 +28,7 @@ import androidx.fragment.app.Fragment;
 
 import com.example.foodclassificationapp.R;
 import com.example.foodclassificationapp.activity.login.LoginActivity;
-import com.example.foodclassificationapp.constant.Constant;
+import com.example.foodclassificationapp.util.Constant;
 import com.example.foodclassificationapp.entity.MyWeight;
 import com.github.mikephil.charting.charts.CombinedChart;
 import com.github.mikephil.charting.components.XAxis;
@@ -53,6 +53,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
@@ -215,6 +216,29 @@ public class UserFragment extends Fragment implements View.OnClickListener {
     }
 
     private void initChart (final List<String> date, ArrayList<Entry> entries) {
+        Collections.reverse(entries);
+        Collections.reverse(date);
+        ArrayList<Entry> subEntry = new ArrayList<>();
+        final ArrayList<String> subDate = new ArrayList<>();
+        int count = 0;
+        int maxEntry = 7;
+        int indexEntry = entries.size() - 1;
+        for (Entry entry : entries) {
+            if (count < maxEntry) {
+                subEntry.add(new Entry(indexEntry, entry.getY()));
+                indexEntry --;
+                count ++;
+            } else break;
+        }
+        count = 0;
+        for (String day : date) {
+            if (count < maxEntry) {
+                subDate.add(day);
+                count ++;
+            } else break;
+        }
+        Collections.reverse(subEntry);
+        Collections.reverse(subDate);
         CombinedChart chart = userView.findViewById(R.id.lineChart);
         chart.getDescription().setEnabled(false);
         chart.setBackgroundColor(Color.WHITE);
@@ -237,15 +261,15 @@ public class UserFragment extends Fragment implements View.OnClickListener {
         xAxis.setValueFormatter(new ValueFormatter() {
             @Override
             public String getFormattedValue(float value) {
-                return date.get((int) value % date.size());
+                return subDate.get((int) value % subDate.size());
             }
         });
 
         CombinedData data = new CombinedData();
-        LineData lineDatas = new LineData();
-        lineDatas.addDataSet((ILineDataSet) dataChart(entries));
+        LineData lineData = new LineData();
+        lineData.addDataSet((ILineDataSet) dataChart(subEntry));
 
-        data.setData(lineDatas);
+        data.setData(lineData);
 
         xAxis.setAxisMaximum(data.getXMax() + 0.25f);
 
@@ -254,21 +278,21 @@ public class UserFragment extends Fragment implements View.OnClickListener {
     }
 
     private static DataSet dataChart(ArrayList<Entry> entries) {
-        LineData d = new LineData();
-        LineDataSet set = new LineDataSet(entries, "Your weight");
-        set.setColor(Color.RED);
-        set.setLineWidth(2.5f);
-        set.setCircleColor(Color.RED);
-        set.setCircleRadius(5f);
-        set.setFillColor(Color.RED);
-        set.setMode(LineDataSet.Mode.CUBIC_BEZIER);
-        set.setDrawValues(true);
-        set.setValueTextSize(10f);
-        set.setValueTextColor(Color.RED);
+        LineData lineData = new LineData();
+        LineDataSet lineDataSet = new LineDataSet(entries, "Your weight");
+        lineDataSet.setColor(Color.RED);
+        lineDataSet.setLineWidth(2.5f);
+        lineDataSet.setCircleColor(Color.RED);
+        lineDataSet.setCircleRadius(5f);
+        lineDataSet.setFillColor(Color.RED);
+        lineDataSet.setMode(LineDataSet.Mode.CUBIC_BEZIER);
+        lineDataSet.setDrawValues(true);
+        lineDataSet.setValueTextSize(10f);
+        lineDataSet.setValueTextColor(Color.RED);
 
-        set.setAxisDependency(YAxis.AxisDependency.LEFT);
-        d.addDataSet(set);
-        return set;
+        lineDataSet.setAxisDependency(YAxis.AxisDependency.LEFT);
+        lineData.addDataSet(lineDataSet);
+        return lineDataSet;
     }
 
     private void showDialog() {
@@ -356,11 +380,11 @@ public class UserFragment extends Fragment implements View.OnClickListener {
         float diffWeight = pWeight - aWeight;
         if (diffDays < 7 && diffDays > 0) {
             if (diffWeight < 0) // tang can
-                showDialogReviewWeight("tang can1");
+                showDialogReviewWeight("Oh no! Please eat according to the recommended proportions and do more exercise");
             else showDialogReviewWeight("You are losing weight very well. Please continue to promote!");
         } else if (diffDays >= 7){
             if (diffWeight < 0)
-                showDialogReviewWeight("tang can");
+                showDialogReviewWeight("Oh no! Please eat according to the recommended proportions and do more exercise");
             else if (diffWeight < 1)
                 showDialogReviewWeight("You are not losing weight well. Please eat according to the recommended proportions and do more exercise");
             else if (diffWeight > 1) {

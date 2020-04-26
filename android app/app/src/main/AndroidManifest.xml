@@ -14,20 +14,20 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.ExerciseDescriptionActivity"
+        <activity android:name=".activity.fitness.ExerciseDescriptionActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
-            android:name=".activity.FitnessActivity"
+            android:name=".activity.fitness.FitnessActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
-            android:name=".activity.login.SignUpActivity"
+            android:name=".activity.signup.SignUpActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".activity.main.MainActivity"
-            android:label="@string/main_activity_title"
+            android:label="@string/my_food"
             android:windowSoftInputMode="adjustPan"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
-        <activity android:name=".activity.GetImageActivity" />
+        <activity android:name=".activity.CameraActivity" />
         <activity
             android:name=".activity.FruitInfoActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />

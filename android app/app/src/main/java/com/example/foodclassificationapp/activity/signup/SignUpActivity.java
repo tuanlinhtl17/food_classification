@@ -1,26 +1,16 @@
-package com.example.foodclassificationapp.activity.login;
+package com.example.foodclassificationapp.activity.signup;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.foodclassificationapp.R;
+import com.example.foodclassificationapp.activity.login.LoginActivity;
 import com.example.foodclassificationapp.activity.main.MainActivity;
-import com.example.foodclassificationapp.constant.Constant;
-import com.example.foodclassificationapp.entity.MyWeight;
-import com.example.foodclassificationapp.entity.UserProfile;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -29,10 +19,7 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.time.LocalDate;
-import java.util.Objects;
-
-public class SignUpActivity extends AppCompatActivity implements View.OnClickListener {
+public class SignUpActivity extends AppCompatActivity implements SignUpContract.View, View.OnClickListener {
 
     private EditText fullNameET;
     private EditText emailET;
@@ -46,13 +33,17 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
     private FirebaseAuth firebaseAuth;
     private FirebaseAuth.AuthStateListener fiAuthStateListener;
 
+    private SignUpPresenter signUpPresenter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
 
-        initialize();
+        initView();
         setEvents();
+        initPresenter();
+
         fiAuthStateListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
@@ -67,8 +58,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         firebaseAuth.addAuthStateListener(fiAuthStateListener);
     }
 
-    private void initialize() {
-        firebaseAuth = FirebaseAuth.getInstance();
+    private void initView() {
         fullNameET = findViewById(R.id.fullName);
         emailET = findViewById(R.id.userEmail);
         ageET = findViewById(R.id.age);
@@ -78,6 +68,12 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         passwordET = findViewById(R.id.password);
         alreadyUser = findViewById(R.id.alreadyUser);
         signUp = findViewById(R.id.signUpBtn);
+        firebaseAuth = FirebaseAuth.getInstance();
+    }
+
+    private void initPresenter() {
+        signUpPresenter = new SignUpPresenter();
+        signUpPresenter.attachView(this);
     }
 
     private void setEvents() {
@@ -95,12 +91,11 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                 register();
                 break;
             default:
-                // do nothing
+                break;
         }
     }
 
     private void register() {
-        Log.i("Sign up", fullNameET.getText().toString());
         final String fullName = fullNameET.getText().toString().trim();
         final String email = emailET.getText().toString().trim();
         final String age = ageET.getText().toString().trim();
@@ -114,47 +109,30 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
 
         if (!TextUtils.isEmpty(fullName) && !TextUtils.isEmpty(email) && !TextUtils.isEmpty(age)
                 && !TextUtils.isEmpty(height) && !TextUtils.isEmpty(weight) && !TextUtils.isEmpty(password)) {
-            final ProgressDialog progressDialog = new ProgressDialog(SignUpActivity.this, R.style.AppTheme_Dialog);
+            ProgressDialog progressDialog = new ProgressDialog(SignUpActivity.this, R.style.AppTheme_Dialog);
             progressDialog.setIndeterminate(true);
             progressDialog.setMessage("Resgistering...");
             progressDialog.show();
 
-            firebaseAuth.createUserWithEmailAndPassword(email, password)
-                    .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                        @RequiresApi(api = Build.VERSION_CODES.KITKAT)
-                        @Override
-                        public void onComplete(@NonNull Task<AuthResult> task) {
-                            progressDialog.dismiss();
-                            if(task.isSuccessful()) {
-                                firebaseAuth.signInWithEmailAndPassword(email, password);
-
-                                DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference().child(Constant.USER_DB);
-                                DatabaseReference registerRef = dbRef.child(Objects.requireNonNull(firebaseAuth.getCurrentUser()).getUid());
-
-                                registerRef.child(Constant.NAME).setValue(fullName);
-                                registerRef.child("email").setValue(email);
-                                registerRef.child(Constant.AGE).setValue(Integer.parseInt(age));
-                                registerRef.child(Constant.HEIGHT).setValue(height);
-                                registerRef.child("gender").setValue(gender);
-                                LocalDate localDate;
-                                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-                                    localDate = LocalDate.now();
-                                    String time = localDate.getDayOfMonth() + "/" + localDate.getMonthValue();
-                                    String date = time + "/" + localDate.getYear();
-                                    MyWeight myWeight = new MyWeight(time, weight, date);
-
-                                    registerRef.child(Constant.WEIGHT).push().setValue(myWeight);
-                                }
-
-                                startActivity(new Intent(SignUpActivity.this, MainActivity.class));
-                            }
-                            else {
-                                Toast.makeText(SignUpActivity.this, "Register Error!", Toast.LENGTH_SHORT).show();
-                            }
-                        }
-                    });
+            signUpPresenter.handleSignUp(fullName, email, age, height, weight, password, gender);
         } else {
-            Toast.makeText(SignUpActivity.this, "Please fill all input!", Toast.LENGTH_SHORT).show();
+            signUpFail("Please fill all input!");
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        signUpPresenter.detachView();
+    }
+
+    @Override
+    public void signUpSuccess() {
+        startActivity(new Intent(SignUpActivity.this, MainActivity.class));
+    }
+
+    @Override
+    public void signUpFail(String error) {
+        Toast.makeText(SignUpActivity.this, error, Toast.LENGTH_SHORT).show();
     }
 }

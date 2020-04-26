@@ -14,8 +14,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.foodclassificationapp.R;
-import com.example.foodclassificationapp.activity.ExerciseDescriptionActivity;
-import com.example.foodclassificationapp.constant.Constant;
+import com.example.foodclassificationapp.activity.fitness.ExerciseDescriptionActivity;
+import com.example.foodclassificationapp.util.Constant;
 import com.example.foodclassificationapp.entity.FitnessExercise;
 
 import java.util.List;
@@ -44,12 +44,12 @@ public class ExerciseListAdapter extends RecyclerView.Adapter<ExerciseListAdapte
         holder.parentLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                float time = Float.parseFloat(exerciseList.get(position).getTime());
-                float caloBurned = Float.parseFloat(exerciseList.get(position).getCaloriesBurned());
+                int time = Integer.parseInt(exerciseList.get(position).getTime());
+                float calorieBurned = Float.parseFloat(exerciseList.get(position).getCaloriesBurned());
                 Intent intent = new Intent(context, ExerciseDescriptionActivity.class);
                 intent.putExtra(Constant.TYPE, exerciseList.get(position).getType());
                 intent.putExtra(Constant.NAME, exerciseList.get(position).getName());
-                intent.putExtra(Constant.CALORIE_BURN, caloBurned/time);
+                intent.putExtra(Constant.CALORIE_BURN, calorieBurned/time);
                 intent.putExtra(Constant.TIME, time);
                 context.startActivity(intent);
             }

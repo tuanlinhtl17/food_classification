@@ -11,31 +11,43 @@
         android:id="@+id/header"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:weightSum="10"
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp">
         <ImageView
             android:layout_gravity="center"
             android:background="@drawable/back"
             android:id="@+id/back"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="5dp"
-            android:contentDescription="@string/back" />
+            android:contentDescription="@string/back"
+            android:layout_weight="0.9"/>
 
         <TextView
             android:layout_gravity="center"
             android:textSize="20sp"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:gravity="center"
             android:id="@+id/exeTitle"
-            android:textColor="@color/main_activity_text_header" />
+            android:textColor="@color/main_activity_text_header"
+            android:layout_weight="8"/>
+        <ImageView
+            android:id="@+id/addExe"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:src="@drawable/add_food"
+            android:layout_weight="1"
+            android:layout_gravity="center"
+            android:contentDescription="@string/add_exercise" />
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="37"
+        android:layout_weight="35"
         android:orientation="vertical">
         <ImageView
             android:id="@+id/backgroundImg"
@@ -94,12 +106,21 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@drawable/reduce"
-                    tools:ignore="ContentDescription" />
+                    tools:ignore="ContentDescription"
+                    />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/timer"
+                    android:visibility="gone"
+                    android:text="@string/my_food"
+                    android:textSize="20sp"
+                    />
                 <EditText
                     android:id="@+id/exeDesTime"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:inputType="number"
+                    android:inputType="numberDecimal"
                     android:layout_marginStart="10dp"
                     android:textSize="20sp"
                     android:gravity="center"
@@ -137,7 +158,7 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="43">
+        android:layout_weight="37">
         <TextView
             android:id="@+id/exeDes"
             android:layout_width="match_parent"
@@ -146,5 +167,38 @@
             android:textSize="20sp"
             />
     </ScrollView>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:orientation="horizontal"
+        android:layout_weight="8"
+        android:weightSum="2"
+        >
+        <Button
+            android:id="@+id/addCalendar"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:text="@string/add_to_calendar"
+            android:textColor="@color/white"
+            android:paddingStart="30dp"
+            android:paddingEnd="30dp"
+            android:background="#F44336"
+            android:drawableStart="@drawable/calendar_ios"
+            tools:ignore="ButtonStyle,NestedWeights" />
+        <Button
+            android:id="@+id/startExe"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:text="@string/start"
+            android:textColor="@color/white"
+            android:background="#3F51B5"
+            android:paddingStart="50dp"
+            android:paddingEnd="50dp"
+            android:layout_weight="1"
+            android:drawableStart="@drawable/timer"
+            tools:ignore="ButtonStyle"
+            />
+    </LinearLayout>
 
 </LinearLayout>

@@ -17,7 +17,7 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.foodclassificationapp.activity.main.MainActivity;
-import com.example.foodclassificationapp.constant.Constant;
+import com.example.foodclassificationapp.util.Constant;
 import com.example.foodclassificationapp.entity.FoodItem;
 import com.example.foodclassificationapp.R;
 import com.google.android.gms.tasks.OnCompleteListener;

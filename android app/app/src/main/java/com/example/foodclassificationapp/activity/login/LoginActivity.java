@@ -15,12 +15,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.foodclassificationapp.R;
 import com.example.foodclassificationapp.activity.main.MainActivity;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
+import com.example.foodclassificationapp.activity.signup.SignUpActivity;
 import com.google.firebase.auth.FirebaseAuth;
 
-public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
+public class LoginActivity extends AppCompatActivity implements LoginContract.View, View.OnClickListener {
 
     private EditText emailET;
     private EditText passwordET;
@@ -29,31 +27,37 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private FirebaseAuth fiAuth;
     private FirebaseAuth.AuthStateListener fiAuthStateListener;
 
+    private LoginPresenter loginPresenter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
-        initialize();
+        initView();
         setEvents();
+        initPresenter();
 
         fiAuthStateListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 if (firebaseAuth.getCurrentUser() != null) {
-                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                    startActivity(intent);
+                    navigateHome();
                 }
             }
         };
     }
 
-    private void initialize() {
+    private void initView() {
         emailET = findViewById(R.id.login_email);
         passwordET = findViewById(R.id.login_password);
         signUp = findViewById(R.id.signUp);
         loginBtn = findViewById(R.id.loginBtn);
         fiAuth = FirebaseAuth.getInstance();
+    }
+
+    private void initPresenter() {
+        loginPresenter = new LoginPresenter();
+        loginPresenter.attachView(this);
     }
 
     @Override
@@ -81,30 +85,39 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         }
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        loginPresenter.detachView();
+    }
+
     private void login() {
         String email = emailET.getText().toString().trim();
         String password = passwordET.getText().toString();
 
         if (!TextUtils.isEmpty(email) && !TextUtils.isEmpty(password)) {
-            final ProgressDialog progressDialog = new ProgressDialog(LoginActivity.this, R.style.AppTheme_Dialog);
+            ProgressDialog progressDialog = new ProgressDialog(LoginActivity.this, R.style.AppTheme_Dialog);
             progressDialog.setIndeterminate(true);
             progressDialog.setMessage("Authenticating...");
             progressDialog.show();
-
-            fiAuth.signInWithEmailAndPassword(email, password)
-                    .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                        @Override
-                        public void onComplete(@NonNull Task<AuthResult> task) {
-                            progressDialog.dismiss();
-                            if (task.isSuccessful()) {
-                                startActivity(new Intent(LoginActivity.this, MainActivity.class));
-                            } else {
-                                Toast.makeText(LoginActivity.this, "Email or password incorrect", Toast.LENGTH_SHORT).show();
-                            }
-                        }
-                    });
+            loginPresenter.handleLogin(email, password);
         } else {
-            Toast.makeText(LoginActivity.this, "Please fill email and password", Toast.LENGTH_SHORT).show();
+            loginFail("Please fill email and password");
         }
+    }
+
+    @Override
+    public void loginSuccessful() {
+        Toast.makeText(this, "Login successful", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void loginFail(String error) {
+        Toast.makeText(this, error, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void navigateHome() {
+        startActivity(new Intent(LoginActivity.this, MainActivity.class));
     }
 }

@@ -10,8 +10,8 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import com.example.foodclassificationapp.R;
-import com.example.foodclassificationapp.activity.FitnessActivity;
-import com.example.foodclassificationapp.constant.Constant;
+import com.example.foodclassificationapp.activity.fitness.FitnessActivity;
+import com.example.foodclassificationapp.util.Constant;
 
 public class FitnessFragment extends Fragment implements View.OnClickListener {
     private View fitnessView;

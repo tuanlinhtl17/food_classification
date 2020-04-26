@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">Hasagi It!</string>
-    <string name="main_activity_title">Daily Statistics</string>
+    <string name="my_food">My Food</string>
     <string name="calories">Calories</string>
     <string name="carb">Carb</string>
     <string name="fats">Fats</string>
@@ -59,4 +59,10 @@
     <string name="def_advanced">Sports activities</string>
     <string name="recommended_rate">Recommended Rate:</string>
     <string name="min">min</string>
+    <string name="my_activities">My Activities</string>
+    <string name="total_calories_burned">Total calories burned:</string>
+    <string name="total_calorie_burned">Total calorie burned:</string>
+    <string name="add_to_calendar">Remind later</string>
+    <string name="start">Start</string>
+    <string name="add_exercise">Add Exercise</string>
 </resources>

@@ -16,14 +16,14 @@
         >
 
         <ImageView
-            android:id="@+id/empty"
+            android:id="@+id/changeTab"
             android:layout_gravity="center_vertical|center_horizontal"
             android:layout_weight="1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/add_ios"
+            android:src="@drawable/change_tab"
             android:contentDescription="@string/add_food"
-            android:visibility="invisible"/>
+            />
 
         <TextView
             android:id="@+id/title"
@@ -31,10 +31,10 @@
             android:layout_height="@dimen/layout_header"
             android:layout_weight="8"
             android:gravity="center_vertical|center_horizontal"
-            android:text="@string/main_activity_title"
-            android:textAllCaps="false"
+            android:text="@string/my_food"
             android:textColor="@color/main_activity_text_header"
-            android:textSize="@dimen/textSize_header" />
+            android:textSize="@dimen/textSize_header"
+            />
 
         <ImageView
             android:id="@+id/addFood"
@@ -42,7 +42,7 @@
             android:layout_weight="1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/add_ios"
+            android:src="@drawable/camera"
             android:contentDescription="@string/add_food" />
 
     </LinearLayout>
@@ -119,17 +119,6 @@
 
         </LinearLayout>
 
-        <TextView
-            android:id="@+id/activity_main_text_day_of_week"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/activity_main_view_separator"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="@dimen/padding_top_bot_calendar"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:textColor="@color/main_activity_text_header"
-            android:textSize="18sp" />
-
     </RelativeLayout>
 
     <LinearLayout
@@ -138,7 +127,7 @@
         android:layout_height="wrap_content"
         android:background="@color/main_activity_background_header"
         android:orientation="vertical"
-       >
+        >
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -170,7 +159,7 @@
                         android:paddingBottom="5dp"
                         android:text="@string/calories"
                         android:textColor="@color/main_activity_text_header"
-                        android:textSize="16sp" >
+                        android:textSize="15sp" >
                     </TextView>
 
                     <TextView
@@ -208,7 +197,7 @@
                     android:paddingBottom="5dp"
                     android:text="@string/carb"
                     android:textColor="@color/main_activity_text_header"
-                    android:textSize="16sp" >
+                    android:textSize="15sp" >
 
                 </TextView>
 
@@ -243,7 +232,7 @@
                     android:paddingBottom="5dp"
                     android:text="@string/fats"
                     android:textColor="@color/main_activity_text_header"
-                    android:textSize="16sp" >
+                    android:textSize="15sp" >
                 </TextView>
 
                 <TextView
@@ -278,7 +267,7 @@
                     android:paddingBottom="5dp"
                     android:text="@string/proteins"
                     android:textColor="@color/main_activity_text_header"
-                    android:textSize="16sp" >
+                    android:textSize="15sp" >
                 </TextView>
 
                 <TextView
@@ -297,7 +286,7 @@
             android:layout_height="wrap_content"
             android:text="@string/recommended_rate"
             android:layout_marginTop="5dp"
-            android:textSize="16sp"
+            android:textSize="15sp"
             android:textColor="@color/main_activity_text_header"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"/>
@@ -411,6 +400,27 @@
 
             </LinearLayout>
 
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginStart="10dp"
+            android:layout_marginBottom="5dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/total_calorie_burned"
+                android:textColor="@color/white"
+                android:textSize="15sp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="15sp"
+                android:textColor="@color/white"
+                android:layout_marginStart="10dp"
+                />
         </LinearLayout>
 
     </LinearLayout>
