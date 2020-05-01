@@ -13,6 +13,8 @@ public interface HomeContract {
 
         void showDailyNutrition(DailyNutrition dailyNutrition);
 
+        void showTotalCalorieBurn(float total);
+
         void setDate(LocalDate localDate);
 
         void setRecommendRate(double brm);
@@ -36,5 +38,11 @@ public interface HomeContract {
         void calculateRecommendRate();
 
         double calculateBrm(float height, float weight, String gender, int age);
+
+        void setMode();
+
+        boolean getMode();
+
+        float calculateCalorieBurnDaily();
     }
 }

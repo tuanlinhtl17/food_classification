@@ -54,6 +54,8 @@ public class HomeFragment extends Fragment implements HomeContract.View, View.On
     private TextView recommendCarbohydrate;
     private TextView recommendFat;
     private TextView recommendPro;
+    private TextView totalCalorieBurn;
+    private TextView title;
 
     private static final String[] PERMISSIONS = {
             Manifest.permission.CAMERA,
@@ -66,7 +68,6 @@ public class HomeFragment extends Fragment implements HomeContract.View, View.On
 
     private LocalDate currentDate;
     private String dateKey;
-    private boolean isFood = true;
 
     private HomePresenter homePresenter;
 
@@ -79,7 +80,7 @@ public class HomeFragment extends Fragment implements HomeContract.View, View.On
         requestPermissions();
         setEvents();
         initPresenter();
-        homePresenter.getFoodList(dateKey);
+        getDataList();
         homePresenter.calculateRecommendRate();
         return homeView;
     }
@@ -100,6 +101,8 @@ public class HomeFragment extends Fragment implements HomeContract.View, View.On
         recommendCarbohydrate = homeView.findViewById(R.id.carbsRecommend);
         recommendFat = homeView.findViewById(R.id.fatsRecommend);
         recommendPro = homeView.findViewById(R.id.protsRecommend);
+        totalCalorieBurn = homeView.findViewById(R.id.totalCalorieBurn);
+        title = homeView.findViewById(R.id.title);
 
         recyclerView = homeView.findViewById(R.id.foodList);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -128,7 +131,7 @@ public class HomeFragment extends Fragment implements HomeContract.View, View.On
         date.setText(dateKey);
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -143,7 +146,8 @@ public class HomeFragment extends Fragment implements HomeContract.View, View.On
                         public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                             currentDate = LocalDate.of(year, month+1, dayOfMonth);
                             setDate(currentDate);
-                            homePresenter.getFoodList(dateKey);
+//                            homePresenter.getFoodList(dateKey);
+                            getDataList();
                         }
                     }, currentDate.getYear(), currentDate.getMonthValue()-1, currentDate.getDayOfMonth());
                     datePickerDialog.show();
@@ -153,18 +157,22 @@ public class HomeFragment extends Fragment implements HomeContract.View, View.On
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                     currentDate = currentDate.plusDays(1);
                     setDate(currentDate);
-                    homePresenter.getFoodList(dateKey);
+//                    homePresenter.getFoodList(dateKey);
+                    getDataList();
                 }
                 break;
             case R.id.preDay:
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                     currentDate = currentDate.minusDays(1);
                     setDate(currentDate);
-                    homePresenter.getFoodList(dateKey);
+//                    homePresenter.getFoodList(dateKey);
+                    getDataList();
                 }
                 break;
             case R.id.changeTab:
-                isFood = !isFood;
+                homePresenter.setMode();
+                setTitle();
+                showList();
                 break;
             default:
                 break;
@@ -199,6 +207,13 @@ public class HomeFragment extends Fragment implements HomeContract.View, View.On
         recyclerView.setAdapter(exerciseListAdapter);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    private void showList() {
+        if (homePresenter.getMode()) {
+            homePresenter.getFoodList(dateKey);
+        } else homePresenter.getActivityList(dateKey);
+    }
+
     @Override
     public void onDestroy() {
         super.onDestroy();
@@ -218,6 +233,25 @@ public class HomeFragment extends Fragment implements HomeContract.View, View.On
         totalFat.setText(Float.toString((float) (Math.round(dailyNutrition.getTotalFat() * 100.0) / 100.0)));
         totalCarbohydrate.setText(Float.toString((float) (Math.round(dailyNutrition.getTotalCarbohydrate() * 100.0) / 100.0)));
         totalPro.setText(Float.toString((float) (Math.round(dailyNutrition.getTotalProtein() * 100.0) / 100.0)));
+    }
+
+    @SuppressLint("SetTextI18n")
+    @Override
+    public void showTotalCalorieBurn(float total) {
+        totalCalorieBurn.setText((total) + " kCal");
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    private void getDataList() {
+        homePresenter.getActivityList(dateKey);
+        homePresenter.getFoodList(dateKey);
+    }
+
+    @SuppressLint("SetTextI18n")
+    private void setTitle() {
+        if (homePresenter.getMode()) {
+            title.setText("My Food");
+        } else title.setText("My Activities");
     }
 }
 

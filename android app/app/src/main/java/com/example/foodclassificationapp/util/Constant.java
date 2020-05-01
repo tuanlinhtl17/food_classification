@@ -29,5 +29,5 @@ public class Constant {
     public static final String LAST_DATE = "lastDate";
     public static final String GENDER = "gender";
     public static final String EMAIL = "email";
-    public static final String DAILY_ACTIVITIES = "daily_activites";
+    public static final String DAILY_ACTIVITIES = "daily_activities";
 }

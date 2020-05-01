@@ -49,11 +49,12 @@ public class ExerciseListAdapter extends RecyclerView.Adapter<ExerciseListAdapte
                 Intent intent = new Intent(context, ExerciseDescriptionActivity.class);
                 intent.putExtra(Constant.TYPE, exerciseList.get(position).getType());
                 intent.putExtra(Constant.NAME, exerciseList.get(position).getName());
-                intent.putExtra(Constant.CALORIE_BURN, calorieBurned/time);
+                intent.putExtra(Constant.CALORIE_BURN, calorieBurned / time);
                 intent.putExtra(Constant.TIME, time);
                 context.startActivity(intent);
             }
         });
+
         if ("EXERCISE".equals(exerciseList.get(position).getType())) {
             Glide.with(context).asGif().load(exerciseList.get(position).getImage()).into(holder.exerciseImage);
         } else {

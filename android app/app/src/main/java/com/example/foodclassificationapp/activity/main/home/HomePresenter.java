@@ -1,6 +1,7 @@
 package com.example.foodclassificationapp.activity.main.home;
 
 import android.os.Build;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
@@ -24,6 +25,7 @@ public class HomePresenter implements HomeContract.Presenter {
     private ArrayList<FoodItem> foodList = new ArrayList<>();
     private ArrayList<FitnessExercise> fitnessList = new ArrayList<>();
     private FirebaseAuth fiAuth;
+    private boolean foodMode = true;
 
     HomePresenter() {
         fiAuth = FirebaseAuth.getInstance();
@@ -60,7 +62,9 @@ public class HomePresenter implements HomeContract.Presenter {
                     );
                     foodList.add(foodItem);
                 }
-                homeView.showFoodList(foodList);
+                if (foodMode) {
+                    homeView.showFoodList(foodList);
+                }
                 homeView.showDailyNutrition(calculateDailyNutrition());
             }
 
@@ -83,16 +87,18 @@ public class HomePresenter implements HomeContract.Presenter {
                     FitnessExercise fitnessExercise = new FitnessExercise(
                         String.valueOf(item.child(Constant.NAME).getValue()),
                         String.valueOf(item.child(Constant.TIME).getValue()),
+                        String.valueOf(item.child(Constant.TYPE).getValue()),
                         String.valueOf(item.child(Constant.IMAGE).getValue()),
                         null,
-                        String.valueOf(item.child(Constant.TYPE).getValue()),
                         null,
                         String.valueOf(item.child(Constant.CALORIES).getValue())
                     );
                     fitnessList.add(fitnessExercise);
                 }
-                homeView.showActivityList(fitnessList);
-                homeView.showDailyNutrition(calculateDailyNutrition());
+                if (!foodMode) {
+                    homeView.showActivityList(fitnessList);
+                }
+                homeView.showTotalCalorieBurn(calculateCalorieBurnDaily());
             }
 
             @Override
@@ -155,4 +161,22 @@ public class HomePresenter implements HomeContract.Presenter {
         return bmr;
     }
 
+    @Override
+    public void setMode() {
+        foodMode = !foodMode;
+    }
+
+    @Override
+    public boolean getMode() {
+        return foodMode;
+    }
+
+    @Override
+    public float calculateCalorieBurnDaily() {
+        float totalCalorieBurn = 0;
+        for (FitnessExercise exercise : fitnessList) {
+            totalCalorieBurn += Float.parseFloat(exercise.getCaloriesBurned());
+        }
+        return totalCalorieBurn;
+    }
 }
