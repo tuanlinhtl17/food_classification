@@ -1,4 +1,4 @@
-package com.example.foodclassificationapp.activity.login;
+package com.example.foodclassificationapp.contract;
 
 public interface LoginContract {
     interface View {

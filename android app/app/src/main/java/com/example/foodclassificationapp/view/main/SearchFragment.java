@@ -1,4 +1,4 @@
-package com.example.foodclassificationapp.activity.main.search;
+package com.example.foodclassificationapp.view.main;
 
 import android.os.Bundle;
 import android.text.Editable;
@@ -15,6 +15,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.foodclassificationapp.R;
+import com.example.foodclassificationapp.contract.SearchContract;
+import com.example.foodclassificationapp.contract.presenter.SearchPresenter;
 import com.example.foodclassificationapp.control.FoodListAdapter;
 import com.example.foodclassificationapp.entity.FoodItem;
 

@@ -1,10 +1,11 @@
-package com.example.foodclassificationapp.activity.signup;
+package com.example.foodclassificationapp.view.authentication;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.foodclassificationapp.R;
-import com.example.foodclassificationapp.activity.login.LoginActivity;
-import com.example.foodclassificationapp.activity.main.MainActivity;
+import com.example.foodclassificationapp.contract.SignUpContract;
+import com.example.foodclassificationapp.contract.presenter.SignUpPresenter;
+import com.example.foodclassificationapp.view.main.MainActivity;
 import com.google.firebase.auth.FirebaseAuth;
 
 import android.app.ProgressDialog;

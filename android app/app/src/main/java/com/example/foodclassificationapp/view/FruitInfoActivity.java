@@ -1,4 +1,4 @@
-package com.example.foodclassificationapp.activity;
+package com.example.foodclassificationapp.view;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
@@ -16,10 +16,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.example.foodclassificationapp.activity.main.MainActivity;
 import com.example.foodclassificationapp.util.Constant;
 import com.example.foodclassificationapp.entity.FoodItem;
 import com.example.foodclassificationapp.R;
+import com.example.foodclassificationapp.view.main.MainActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -29,7 +29,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.time.LocalDate;
+import java.util.Calendar;
 import java.util.Objects;
 
 
@@ -73,24 +73,6 @@ public class FruitInfoActivity extends AppCompatActivity implements View.OnClick
         addFood = findViewById(R.id.addToMyDay);
 
         fiAuth = FirebaseAuth.getInstance();
-
-        // code
-//        Intent intent = getIntent();
-//        Bundle bundle = intent.getExtras();
-//        FoodItem foodItem = (FoodItem) bundle.getSerializable("foodObj");
-
-        // review
-//        BitmapFactory.Options options = new BitmapFactory.Options();
-//
-//        options.inSampleSize = 8;
-//        Bitmap bitmap;
-//
-//        bitmap = BitmapFactory.decodeFile(foodItem.getImage(), options);
-//        imgPreview.setImageBitmap(bitmap);
-
-        // code
-//        previewCapturedImage(foodItem.getImage());
-//        setupItemValues(foodItem);
     }
 
     private void setEvents() {
@@ -98,16 +80,20 @@ public class FruitInfoActivity extends AppCompatActivity implements View.OnClick
         addFood.setOnClickListener(this);
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        startActivity(new Intent(this, MainActivity.class));
+    }
+
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     private void getFoodIntent() {
         Intent intent = getIntent();
         if (getIntent().hasExtra("foodName")) {
-//            Bundle bundle = intent.getExtras();
-//            FoodItem foodItem = (FoodItem) Objects.requireNonNull(bundle).getSerializable("foodItem");
             foodNameRe = intent.getStringExtra("foodName");
             isMyFood = intent.getBooleanExtra("isMyFood", false);
-        } else if (getIntent().hasExtra("foodCamera")) {
-            foodNameRe = intent.getStringExtra("foodCamera");
+        } else if (getIntent().hasExtra(Constant.FOOD_CAMERA)) {
+            foodNameRe = intent.getStringExtra(Constant.FOOD_CAMERA);
             isMyFood = false;
         }
         getFoodInfo(foodNameRe, isMyFood, new Callback() {
@@ -152,27 +138,6 @@ public class FruitInfoActivity extends AppCompatActivity implements View.OnClick
         });
     }
 
-//    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
-//    private void previewCapturedImage(String filepath) {
-//        Log.i("file path: ", filepath);
-//        try {
-//            File imgFile = new  File(filepath);
-//
-//            if(imgFile.exists()){
-//                BitmapFactory.Options options = new BitmapFactory.Options();
-//                options.inSampleSize = 8;
-//                Bitmap myBitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath(), options);
-//                imgPreview.setImageBitmap(myBitmap);
-//            }
-//            BitmapFactory.Options options = new BitmapFactory.Options();
-//            options.inSampleSize = 8;
-//            bitmap = BitmapFactory.decodeFile(filepath, options);
-//            imgPreview.setImageBitmap(bitmap);
-//        } catch (NullPointerException e) {
-//            Log.d("previewCapturedImage", Objects.requireNonNull(e.getMessage()));
-//        }
-//    }
-
     public void setupItemValues(FoodItem foodItem) {
         foodName.setText(foodItem.getName());
         itemCalos.setText(String.valueOf(foodItem.getCalories()));
@@ -190,13 +155,13 @@ public class FruitInfoActivity extends AppCompatActivity implements View.OnClick
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     private void addFoodMyDay() {
-        LocalDate localDate = LocalDate.now();
+        Calendar calendar = Calendar.getInstance();
         sharedPreferences = getApplicationContext().getSharedPreferences(FOOD_IMAGE, MODE_PRIVATE);
-        String dateKey = String.valueOf(localDate.getDayOfMonth()) + localDate.getMonth();
+        String dateKey = calendar.get(Calendar.DAY_OF_MONTH) + Constant.MONTH.get(calendar.get(Calendar.MONTH));
         String carbohydrate = (itemCarbs.getText().toString());
         String calories = (itemCalos.getText().toString());
         String fat = (itemFats.getText().toString());
-        String img = sharedPreferences.getString(FOOD_IMAGE, "image");
+        String img = sharedPreferences.getString(FOOD_IMAGE, Constant.IMAGE);
         String protein = (itemProts.getText().toString());
 
         DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference().child(Constant.HASAGI_DB)
@@ -219,7 +184,7 @@ public class FruitInfoActivity extends AppCompatActivity implements View.OnClick
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.back:
-                finish();
+                onBackPressed();
                 break;
             case R.id.addToMyDay:
                 addFoodMyDay();

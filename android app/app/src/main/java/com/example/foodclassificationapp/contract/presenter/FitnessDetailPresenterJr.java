@@ -1,17 +1,32 @@
-package com.example.foodclassificationapp.activity.fitness;
+package com.example.foodclassificationapp.contract.presenter;
+
+import android.os.Build;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 
+import com.example.foodclassificationapp.contract.FitnessContract;
 import com.example.foodclassificationapp.entity.FitnessExercise;
 import com.example.foodclassificationapp.util.Constant;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.Calendar;
+import java.util.Objects;
+
 public class FitnessDetailPresenterJr implements FitnessContract.FitnessDetailPresenter {
     private FitnessContract.FitnessDetailView mView;
+    private FirebaseAuth fiAuth;
+
+    public FitnessDetailPresenterJr() {
+        fiAuth = FirebaseAuth.getInstance();
+    }
 
     @Override
     public void attachView(FitnessContract.FitnessDetailView view) {
@@ -42,12 +57,31 @@ public class FitnessDetailPresenterJr implements FitnessContract.FitnessDetailPr
                         exeDes.toString(),
                         String.valueOf((Math.round(calorieBurn * time * 10.0)) / 10.0)
                 );
+                mView.shareImage(String.valueOf(dataSnapshot.child(Constant.IMAGE).getValue()));
+                mView.shareType(type);
                 mView.showFitnessExerciseDetail(fitnessExercise);
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
                 // do nothing
+            }
+        });
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    @Override
+    public void addDailyActivity(FitnessExercise exercise) {
+        Calendar calendar = Calendar.getInstance();
+        String dateKey = calendar.get(Calendar.DAY_OF_MONTH) + Constant.MONTH.get(calendar.get(Calendar.MONTH));
+        DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference().child(Constant.DAILY_ACTIVITIES)
+                .child(Objects.requireNonNull(fiAuth.getCurrentUser()).getUid()).child(dateKey);
+        dbRef.push().setValue(exercise).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if (task.isSuccessful()) {
+                    mView.showToastAddSuccess();
+                }
             }
         });
     }

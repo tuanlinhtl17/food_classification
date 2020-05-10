@@ -1,7 +1,8 @@
-package com.example.foodclassificationapp.activity.fitness;
+package com.example.foodclassificationapp.contract.presenter;
 
 import androidx.annotation.NonNull;
 
+import com.example.foodclassificationapp.contract.FitnessContract;
 import com.example.foodclassificationapp.entity.FitnessExercise;
 import com.example.foodclassificationapp.util.Constant;
 import com.google.firebase.database.DataSnapshot;

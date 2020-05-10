@@ -1,11 +1,11 @@
-package com.example.foodclassificationapp.activity.signup;
+package com.example.foodclassificationapp.contract.presenter;
 
 import android.os.Build;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 
-import com.example.foodclassificationapp.activity.login.LoginContract;
+import com.example.foodclassificationapp.contract.SignUpContract;
 import com.example.foodclassificationapp.util.Constant;
 import com.example.foodclassificationapp.entity.MyWeight;
 import com.google.android.gms.tasks.OnCompleteListener;

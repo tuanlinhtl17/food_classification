@@ -1,6 +1,4 @@
-package com.example.foodclassificationapp.activity.signup;
-
-import com.example.foodclassificationapp.activity.login.LoginContract;
+package com.example.foodclassificationapp.contract;
 
 public interface SignUpContract {
     interface View {

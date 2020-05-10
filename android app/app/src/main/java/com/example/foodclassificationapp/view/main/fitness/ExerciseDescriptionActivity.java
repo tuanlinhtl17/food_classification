@@ -1,4 +1,4 @@
-package com.example.foodclassificationapp.activity.fitness;
+package com.example.foodclassificationapp.view.main.fitness;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
@@ -7,8 +7,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -20,15 +22,18 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.foodclassificationapp.R;
+import com.example.foodclassificationapp.contract.FitnessContract;
+import com.example.foodclassificationapp.contract.presenter.FitnessDetailPresenterJr;
 import com.example.foodclassificationapp.util.Constant;
 import com.example.foodclassificationapp.entity.FitnessExercise;
 
+import com.example.foodclassificationapp.view.main.MainActivity;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView;
@@ -155,6 +160,7 @@ public class ExerciseDescriptionActivity extends AppCompatActivity implements Fi
         startActivity(intent);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -175,6 +181,9 @@ public class ExerciseDescriptionActivity extends AppCompatActivity implements Fi
             case R.id.startExe:
                 showConfirmDialog();
                 break;
+            case R.id.addExe:
+                addExercise();
+                break;
             default:
                 break;
         }
@@ -194,6 +203,19 @@ public class ExerciseDescriptionActivity extends AppCompatActivity implements Fi
         exeTime.setVisibility(View.VISIBLE);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    private void addExercise() {
+        SharedPreferences sharedPreferencesImg = getApplicationContext().getSharedPreferences(Constant.ACTIVITY_IMG, MODE_PRIVATE);
+        String img = sharedPreferencesImg.getString(Constant.ACTIVITY_IMG, Constant.IMAGE);
+        SharedPreferences sharedPreferencesType = getApplicationContext().getSharedPreferences(Constant.ACTIVITY_TYPE, MODE_PRIVATE);
+        String type = sharedPreferencesType.getString(Constant.ACTIVITY_TYPE, Constant.TYPE);
+        String strCalorieBurn = exeCalBurn.getText().toString().split(" ")[0];
+        FitnessExercise exercise = new FitnessExercise(exeName.getText().toString(),
+                exeTime.getText().toString(), type,
+                img, null, null, strCalorieBurn);
+        presenter.addDailyActivity(exercise);
+    }
+
     @Override
     public void showFitnessExerciseDetail(final FitnessExercise exercise) {
         exeTitle.setText(exercise.getName());
@@ -209,7 +231,6 @@ public class ExerciseDescriptionActivity extends AppCompatActivity implements Fi
                     youTubePlayer.loadVideo(exercise.getVideo(), 0f);
                 }
             });
-            addExercise.setVisibility(View.GONE);
         } else {
             Glide.with(ExerciseDescriptionActivity.this).load(exercise.getVideo()).into(backgroundImg);
             start.setVisibility(View.GONE);
@@ -255,6 +276,28 @@ public class ExerciseDescriptionActivity extends AppCompatActivity implements Fi
 
         Dialog dialog = mBuilder.create();
         dialog.show();
+    }
+
+    @Override
+    public void shareImage(String image) {
+        SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("ACTIVITY_IMG", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("ACTIVITY_IMG", image);
+        editor.apply();
+    }
+
+    @Override
+    public void shareType(String type) {
+        SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("ACTIVITY_TYPE", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("ACTIVITY_TYPE", type);
+        editor.apply();
+    }
+
+    @Override
+    public void showToastAddSuccess() {
+        Toast.makeText(ExerciseDescriptionActivity.this, "Add Successful", Toast.LENGTH_SHORT).show();
+        startActivity(new Intent(ExerciseDescriptionActivity.this, MainActivity.class));
     }
 
     public class CountDown extends CountDownTimer {

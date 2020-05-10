@@ -1,4 +1,4 @@
-package com.example.foodclassificationapp.activity.main.search;
+package com.example.foodclassificationapp.contract;
 
 import com.example.foodclassificationapp.entity.FoodItem;
 

@@ -1,5 +1,8 @@
 package com.example.foodclassificationapp.util;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class Constant {
     private Constant() {
         throw  new IllegalStateException("Utility class");
@@ -30,4 +33,15 @@ public class Constant {
     public static final String GENDER = "gender";
     public static final String EMAIL = "email";
     public static final String DAILY_ACTIVITIES = "daily_activities";
+    public static final String ACTIVITY_IMG = "ACTIVITY_IMG";
+    public static final String ACTIVITY_TYPE = "ACTIVITY_TYPE";
+    public static final String CALORIE_BURNED = "caloriesBurned";
+    public static final String FOOD_CAMERA = "foodCamera";
+
+    public static final Map<Integer, String> MONTH = new HashMap<>();
+    static {
+        MONTH.put(0, "January"); MONTH.put(1, "February"); MONTH.put(2, "March"); MONTH.put(3, "April");
+        MONTH.put(4, "May"); MONTH.put(5, "June"); MONTH.put(6, "July"); MONTH.put(7, "August");
+        MONTH.put(8, "September"); MONTH.put(9, "October"); MONTH.put(10, "November"); MONTH.put(11, "December");
+    }
 }

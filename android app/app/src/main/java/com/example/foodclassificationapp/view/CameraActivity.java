@@ -1,18 +1,15 @@
-package com.example.foodclassificationapp.activity;
+package com.example.foodclassificationapp.view;
 
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 
-import android.database.Cursor;
-
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
@@ -24,6 +21,7 @@ import android.widget.Toast;
 import com.example.foodclassificationapp.util.SingleUploadBroadcastReceiver;
 import com.example.foodclassificationapp.util.Constant;
 import com.example.foodclassificationapp.R;
+import com.example.foodclassificationapp.view.main.MainActivity;
 
 import net.gotev.uploadservice.MultipartUploadRequest;
 import net.gotev.uploadservice.UploadNotificationConfig;
@@ -34,8 +32,9 @@ import org.json.JSONObject;
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Locale;
-import java.util.Objects;
+import java.util.Map;
 import java.util.UUID;
 
 
@@ -46,6 +45,26 @@ public class CameraActivity extends AppCompatActivity implements SingleUploadBro
     private SingleUploadBroadcastReceiver uploadReceiver = new SingleUploadBroadcastReceiver();
 
     private Uri fileUri;
+
+    private static final Map<String, String> keyFood = new HashMap<>();
+
+    static {
+        keyFood.put("apple_pie", "Apple Pie");
+        keyFood.put("beef_carpaccio", "Beef Carpaccio");
+        keyFood.put("carrot_cake", "Carrot Cake");
+        keyFood.put("donuts", "Donuts");
+        keyFood.put("hot_dog", "Hot Dog");
+        keyFood.put("samosa", "Samosas");
+        keyFood.put("pho", "Pho");
+        keyFood.put("pizza", "Pizza");
+        keyFood.put("omelette", "Omelet");
+        keyFood.put("sushi", "Sushi");
+        keyFood.put("baklava", "Baklava");
+        keyFood.put("beet_salad", "Beet Salad");
+        keyFood.put("cup_cakes", "Cup Cakes");
+        keyFood.put("bibimbap", "Bibimbap");
+        keyFood.put("pad_thai", "Pad Thai");
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -122,21 +141,24 @@ public class CameraActivity extends AppCompatActivity implements SingleUploadBro
     }
 
     @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        startActivity(new Intent(this, MainActivity.class));
+    }
+
+    @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        // if the result is capturing Image
-//        Log.i(TAG, "onActivityResult()");
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == Constant.CAMERA_IMAGE_REQUEST_CODE) {
             if (resultCode == RESULT_OK) {
-                // successfully captured the image
                 // classify image
                 uploadMultipart(getApplicationContext());
             } else if (resultCode == RESULT_CANCELED) {
-                // user cancelled Image capture
+                // cancel
                 Toast.makeText(getApplicationContext(),
                         "User cancelled image capture", Toast.LENGTH_SHORT)
                         .show();
-                captureImage();
+                onBackPressed();
             } else {
                 // failed to capture image
                 Toast.makeText(getApplicationContext(),
@@ -145,25 +167,6 @@ public class CameraActivity extends AppCompatActivity implements SingleUploadBro
                 finish();
             }
         }
-    }
-
-    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
-    public String getPath(Uri uri) {
-
-        Cursor cursor = getContentResolver().query(uri, null, null, null, null);
-        Objects.requireNonNull(cursor).moveToFirst();
-        String documentId = cursor.getString(0);
-        documentId = documentId.substring(documentId.lastIndexOf(':') + 1);
-        cursor.close();
-
-        cursor = getContentResolver().query(
-                android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
-                null, MediaStore.Images.Media._ID + " = ? ", new String[]{documentId}, null);
-        Objects.requireNonNull(cursor).moveToFirst();
-        String path = cursor.getString(cursor.getColumnIndex(MediaStore.Images.Media.DATA));
-        cursor.close();
-//        System.out.println(path);
-        return path;
     }
 
     @Override
@@ -180,29 +183,28 @@ public class CameraActivity extends AppCompatActivity implements SingleUploadBro
 
     @Override
     public void onProgress(final int progress) {
-        final ProgressDialog progressDialog = new ProgressDialog(this);
-        progressDialog.setTitle("Classifying Food");
-        progressDialog.setMessage("Please wait...");
+        final ProgressDialog progressDialog = new ProgressDialog(this, R.style.AppTheme_Dialog);
+        progressDialog.setIndeterminate(true);
+        progressDialog.setMessage("Classifying...");
         progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-        progressDialog.setMax(100);
-        progressDialog.show();
+        progressDialog.setMax(16);
         progressDialog.setCancelable(false);
-        final Handler handle = new Handler() {
+        progressDialog.setCanceledOnTouchOutside(false);
+        progressDialog.show();
+        @SuppressLint("HandlerLeak") final Handler handle = new Handler() {
             public void handleMessage(Message msg) {
                 super.handleMessage(msg);
-                progressDialog.incrementProgressBy(2); // Incremented By Value 2
+                progressDialog.incrementProgressBy(1); // Incremented By Value 1
             }
         };
         new Thread(new Runnable() {
             public void run() {
                 try {
                     while (progress < progressDialog.getMax()) {
-                        Thread.sleep(200);
+                        Thread.sleep(150);
                         handle.sendMessage(handle.obtainMessage());
-                        if (progress == progressDialog.getMax()) {
-                            progressDialog.dismiss();
-                        }
                     }
+                    progressDialog.dismiss();
                 } catch (Exception e) {
                     Log.d("onProgress", e.toString());
                 }
@@ -242,16 +244,13 @@ public class CameraActivity extends AppCompatActivity implements SingleUploadBro
     public void onCompleted(int serverResponseCode, byte[] serverResponseBody) {
         try {
             JSONObject response = new JSONObject(new String(serverResponseBody));
+            Intent intent = new Intent(this, FruitInfoActivity.class);
 
-            Toast.makeText(getApplicationContext(), "Classify Successfully",
-                    Toast.LENGTH_SHORT).show();
-            Intent intent = new Intent(getApplicationContext(), FruitInfoActivity.class);
-
-            String foodName = response.getString("name");
-            intent.putExtra("foodCamera", foodName);
+            String foodName = keyFood.get(response.getString(Constant.NAME));
+            intent.putExtra(Constant.FOOD_CAMERA, foodName);
             startActivity(intent);
         } catch (JSONException e) {
-            e.printStackTrace();
+            Log.d("CameraActivity", e.toString());
         }
     }
 

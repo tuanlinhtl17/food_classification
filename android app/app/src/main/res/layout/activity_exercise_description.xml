@@ -99,6 +99,8 @@
                 android:layout_height="match_parent"
                 android:orientation="horizontal"
                 android:gravity="end"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
                 >
 
                 <ImageButton
@@ -126,7 +128,9 @@
                     android:gravity="center"
                     android:background="@null"
                     android:importantForAutofill="no"
-                    tools:ignore="LabelFor" />
+                    tools:ignore="LabelFor"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"/>
                 <ImageButton
                     android:id="@+id/plusTime"
                     android:layout_width="wrap_content"
@@ -200,5 +204,4 @@
             tools:ignore="ButtonStyle"
             />
     </LinearLayout>
-
 </LinearLayout>
