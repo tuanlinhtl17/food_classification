@@ -1,4 +1,4 @@
-package com.example.foodclassificationapp.activity.login;
+package com.example.foodclassificationapp.view.authentication;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -14,8 +14,9 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.foodclassificationapp.R;
-import com.example.foodclassificationapp.activity.main.MainActivity;
-import com.example.foodclassificationapp.activity.signup.SignUpActivity;
+import com.example.foodclassificationapp.contract.LoginContract;
+import com.example.foodclassificationapp.contract.presenter.LoginPresenter;
+import com.example.foodclassificationapp.view.main.MainActivity;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class LoginActivity extends AppCompatActivity implements LoginContract.View, View.OnClickListener {

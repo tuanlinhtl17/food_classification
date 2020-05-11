@@ -27,8 +27,6 @@ H
 Kapp/src/main/java/com/example/foodclassificationapp/entity/UserProfile.java,9/e/9e6e5ba4d30d3c81f99db53ed3a615e83601eded
 Y
 )app/src/main/res/drawable/header_main.xml,5/5/55f6f2f14f385aa27018aad54e1102810a651c94
-R
-"app/src/main/res/values/styles.xml,f/7/f79cc2688e29fcbc286fda14ae07b27c9e83690f
 †
 Vapp/src/main/java/com/example/foodclassificationapp/activity/main/FitnessFragment.java,0\5\05f8005a362e4f7559606e9e3a1b1914e8124f80
 
@@ -39,8 +37,6 @@ R
 "app/src/main/res/values/colors.xml,9\6\969faa2a5d9f5e8390e958d2c07f2cfd54676e6b
 x
 Happ/src/main/java/com/example/foodclassificationapp/entity/MyWeight.java,1\e\1e7bd250cdb4174460ae55b0edff176353873df4
-_
-/app/src/main/res/layout/activity_fruit_info.xml,8\1\814377333f75ddd26df36e75472b67bd45ab7f6d
 Z
 *app/src/main/res/layout/activity_login.xml,1\f\1f7e901185d74bf05f9fcb38f9ed35ea78cd4c6e
 [

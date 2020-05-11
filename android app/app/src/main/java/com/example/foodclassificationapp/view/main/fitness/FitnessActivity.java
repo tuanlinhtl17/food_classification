@@ -1,4 +1,4 @@
-package com.example.foodclassificationapp.activity.fitness;
+package com.example.foodclassificationapp.view.main.fitness;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -12,6 +12,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.foodclassificationapp.R;
+import com.example.foodclassificationapp.contract.FitnessContract;
+import com.example.foodclassificationapp.contract.presenter.FitnessListPresenterJr;
 import com.example.foodclassificationapp.util.Constant;
 import com.example.foodclassificationapp.control.ExerciseListAdapter;
 import com.example.foodclassificationapp.entity.FitnessExercise;

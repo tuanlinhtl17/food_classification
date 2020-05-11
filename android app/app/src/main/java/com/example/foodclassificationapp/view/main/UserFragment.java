@@ -1,4 +1,4 @@
-package com.example.foodclassificationapp.activity.main;
+package com.example.foodclassificationapp.view.main;
 
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
@@ -27,9 +27,9 @@ import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 
 import com.example.foodclassificationapp.R;
-import com.example.foodclassificationapp.activity.login.LoginActivity;
 import com.example.foodclassificationapp.util.Constant;
 import com.example.foodclassificationapp.entity.MyWeight;
+import com.example.foodclassificationapp.view.authentication.LoginActivity;
 import com.github.mikephil.charting.charts.CombinedChart;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
@@ -51,8 +51,8 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
@@ -149,7 +149,7 @@ public class UserFragment extends Fragment implements View.OnClickListener {
 
                             SharedPreferences sharedPreferences = Objects.requireNonNull(getContext()).getSharedPreferences(Constant.LAST_DATE, Context.MODE_PRIVATE);
                             SharedPreferences.Editor editor = sharedPreferences.edit();
-                            editor.putString(Constant.LAST_DATE, date.get(date.size()-1));
+                            editor.putString(Constant.LAST_DATE, date.get(0));
                             editor.putString("key", key);
                             editor.putString("dateValue", dateValue);
                             editor.putString("lastWeight", weight);
@@ -239,6 +239,11 @@ public class UserFragment extends Fragment implements View.OnClickListener {
         }
         Collections.reverse(subEntry);
         Collections.reverse(subDate);
+        int tempX = 0;
+        for (Entry en : subEntry) {
+            en.setX(tempX);
+            tempX++;
+        }
         CombinedChart chart = userView.findViewById(R.id.lineChart);
         chart.getDescription().setEnabled(false);
         chart.setBackgroundColor(Color.WHITE);
@@ -339,9 +344,9 @@ public class UserFragment extends Fragment implements View.OnClickListener {
         ref.child(Constant.AGE).setValue(age);
         ref.child(Constant.HEIGHT).setValue(height);
 
-        LocalDate localDate = LocalDate.now();
-        String time = localDate.getDayOfMonth() + "/" + localDate.getMonthValue();
-        String date = time + "/" + localDate.getYear();
+        Calendar calendar = Calendar.getInstance();
+        String time = calendar.get(Calendar.DAY_OF_MONTH) + "/" + (calendar.get(Calendar.MONTH) + 1);
+        String date = time + "/" + calendar.get(Calendar.YEAR);
         MyWeight myWeight = new MyWeight(time, weight, date);
 
         SharedPreferences sharedPreferences = Objects.requireNonNull(getContext()).getSharedPreferences(Constant.LAST_DATE, Context.MODE_PRIVATE);

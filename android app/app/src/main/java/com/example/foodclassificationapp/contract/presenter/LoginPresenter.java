@@ -1,7 +1,8 @@
-package com.example.foodclassificationapp.activity.login;
+package com.example.foodclassificationapp.contract.presenter;
 
 import androidx.annotation.NonNull;
 
+import com.example.foodclassificationapp.contract.LoginContract;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;

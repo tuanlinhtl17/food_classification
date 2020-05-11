@@ -1,11 +1,11 @@
-package com.example.foodclassificationapp.activity.main.home;
+package com.example.foodclassificationapp.contract;
 
 import com.example.foodclassificationapp.entity.DailyNutrition;
 import com.example.foodclassificationapp.entity.FitnessExercise;
 import com.example.foodclassificationapp.entity.FoodItem;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 public interface HomeContract {
     interface View {
@@ -13,9 +13,9 @@ public interface HomeContract {
 
         void showDailyNutrition(DailyNutrition dailyNutrition);
 
-        void showTotalCalorieBurn(float total);
+        void showTotalCalorieBurn(double total);
 
-        void setDate(LocalDate localDate);
+        void setDate(Calendar calendar);
 
         void setRecommendRate(double brm);
 
@@ -43,6 +43,6 @@ public interface HomeContract {
 
         boolean getMode();
 
-        float calculateCalorieBurnDaily();
+        double calculateCalorieBurnDaily();
     }
 }

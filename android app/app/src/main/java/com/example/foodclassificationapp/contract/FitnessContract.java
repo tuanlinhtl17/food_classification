@@ -1,4 +1,4 @@
-package com.example.foodclassificationapp.activity.fitness;
+package com.example.foodclassificationapp.contract;
 
 import com.example.foodclassificationapp.entity.FitnessExercise;
 
@@ -15,6 +15,12 @@ public interface FitnessContract {
         void showMessageDialog();
 
         void showConfirmDialog();
+
+        void shareImage(String image);
+
+        void shareType(String type);
+
+        void showToastAddSuccess();
     }
 
     interface FitnessListPresenter {
@@ -31,5 +37,7 @@ public interface FitnessContract {
         void detachView();
 
         void getFitnessExercise(String name, String type, float calorieBurn, float time);
+
+        void addDailyActivity(FitnessExercise exercise);
     }
 }

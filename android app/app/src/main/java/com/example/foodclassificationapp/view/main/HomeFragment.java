@@ -1,4 +1,4 @@
-package com.example.foodclassificationapp.activity.main.home;
+package com.example.foodclassificationapp.view.main;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
@@ -24,16 +24,18 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.foodclassificationapp.R;
-import com.example.foodclassificationapp.activity.CameraActivity;
+import com.example.foodclassificationapp.contract.HomeContract;
+import com.example.foodclassificationapp.contract.presenter.HomePresenter;
 import com.example.foodclassificationapp.control.ExerciseListAdapter;
 import com.example.foodclassificationapp.entity.DailyNutrition;
 import com.example.foodclassificationapp.entity.FitnessExercise;
 import com.example.foodclassificationapp.util.Constant;
 import com.example.foodclassificationapp.control.FoodListAdapter;
 import com.example.foodclassificationapp.entity.FoodItem;
+import com.example.foodclassificationapp.view.CameraActivity;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Objects;
 
 public class HomeFragment extends Fragment implements HomeContract.View, View.OnClickListener {
@@ -64,10 +66,11 @@ public class HomeFragment extends Fragment implements HomeContract.View, View.On
             Manifest.permission.ACCESS_NETWORK_STATE,
             Manifest.permission.ACCESS_WIFI_STATE
     };
+
     private static final int MULTIPLE_PERMISSION = 1;
 
-    private LocalDate currentDate;
     private String dateKey;
+    private Calendar calendar;
 
     private HomePresenter homePresenter;
 
@@ -107,8 +110,8 @@ public class HomeFragment extends Fragment implements HomeContract.View, View.On
         recyclerView = homeView.findViewById(R.id.foodList);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        currentDate = LocalDate.now();
-        setDate(currentDate);
+        calendar = Calendar.getInstance();
+        setDate(calendar);
     }
 
     private void initPresenter(){
@@ -126,8 +129,8 @@ public class HomeFragment extends Fragment implements HomeContract.View, View.On
 
     @SuppressLint("SetTextI18n")
     @RequiresApi(api = Build.VERSION_CODES.O)
-    public void setDate(LocalDate localDate) {
-        dateKey = String.valueOf(localDate.getDayOfMonth()) + localDate.getMonth();
+    public void setDate(Calendar calendar) {
+        dateKey = calendar.get(Calendar.DAY_OF_MONTH) + Constant.MONTH.get(calendar.get(Calendar.MONTH));
         date.setText(dateKey);
     }
 
@@ -144,28 +147,25 @@ public class HomeFragment extends Fragment implements HomeContract.View, View.On
                     DatePickerDialog datePickerDialog = new DatePickerDialog(Objects.requireNonNull(getContext()), new DatePickerDialog.OnDateSetListener() {
                         @Override
                         public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                            currentDate = LocalDate.of(year, month+1, dayOfMonth);
-                            setDate(currentDate);
-//                            homePresenter.getFoodList(dateKey);
+                            calendar.set(year, month, dayOfMonth);
+                            setDate(calendar);
                             getDataList();
                         }
-                    }, currentDate.getYear(), currentDate.getMonthValue()-1, currentDate.getDayOfMonth());
+                    }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
                     datePickerDialog.show();
                 }
                 break;
             case R.id.nextDay:
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                    currentDate = currentDate.plusDays(1);
-                    setDate(currentDate);
-//                    homePresenter.getFoodList(dateKey);
+                    calendar.add(Calendar.DAY_OF_MONTH, 1);
+                    setDate(calendar);
                     getDataList();
                 }
                 break;
             case R.id.preDay:
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                    currentDate = currentDate.minusDays(1);
-                    setDate(currentDate);
-//                    homePresenter.getFoodList(dateKey);
+                    calendar.add(Calendar.DAY_OF_MONTH, -1);
+                    setDate(calendar);
                     getDataList();
                 }
                 break;
@@ -237,7 +237,7 @@ public class HomeFragment extends Fragment implements HomeContract.View, View.On
 
     @SuppressLint("SetTextI18n")
     @Override
-    public void showTotalCalorieBurn(float total) {
+    public void showTotalCalorieBurn(double total) {
         totalCalorieBurn.setText((total) + " kCal");
     }
 

@@ -1,11 +1,13 @@
-package com.example.foodclassificationapp.activity.main.search;
+package com.example.foodclassificationapp.contract.presenter;
 
 import android.os.Build;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 
+import com.example.foodclassificationapp.contract.SearchContract;
 import com.example.foodclassificationapp.entity.FoodItem;
+import com.example.foodclassificationapp.util.Constant;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -44,12 +46,12 @@ public class SearchPresenter implements SearchContract.Presenter {
                     }
 
                     FoodItem foodItem = new FoodItem(
-                            String.valueOf(item.child("name").getValue()),
-                            (String.valueOf(item.child("calories").getValue())),
-                            (String.valueOf(item.child("cacbohydrat").getValue())),
-                            (String.valueOf(item.child("fat").getValue())),
-                            (String.valueOf(item.child("protein").getValue())),
-                            String.valueOf(item.child("image").getValue()),
+                            String.valueOf(item.child(Constant.NAME).getValue()),
+                            (String.valueOf(item.child(Constant.CALORIES).getValue())),
+                            (String.valueOf(item.child(Constant.CACBOHYDRAT).getValue())),
+                            (String.valueOf(item.child(Constant.FAT).getValue())),
+                            (String.valueOf(item.child(Constant.PROTEIN).getValue())),
+                            String.valueOf(item.child(Constant.IMAGE).getValue()),
                             false,
                             recipe.toString()
                     );

@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.foodclassificationapp.R;
-import com.example.foodclassificationapp.activity.FruitInfoActivity;
+import com.example.foodclassificationapp.view.FruitInfoActivity;
 import com.example.foodclassificationapp.entity.FoodItem;
 
 import java.util.List;
@@ -44,17 +44,6 @@ public class FoodListAdapter extends RecyclerView.Adapter<FoodListAdapter.ListFo
         holder.itemProtein.setText((String.valueOf(foodList.get(position).getProtein())));
 
         Glide.with(context).load(foodList.get(position).getImage()).into(holder.imageFood);
-//        holder.parentLayout.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-////                Toast.makeText(context, String.valueOf(foodList.get(position).getName()), Toast.LENGTH_SHORT).show();
-//                Intent intent = new Intent(context, FruitInfoActivity.class);
-//                Bundle bundle = new Bundle();
-//                bundle.putSerializable("foodItem", foodList.get(position));
-//                intent.putExtras(bundle);
-//                context.startActivity(intent);
-//            }
-//        });
 
         holder.parentLayout.setOnClickListener(new View.OnClickListener() {
             @Override

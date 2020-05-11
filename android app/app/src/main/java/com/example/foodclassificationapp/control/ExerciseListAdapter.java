@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.foodclassificationapp.R;
-import com.example.foodclassificationapp.activity.fitness.ExerciseDescriptionActivity;
+import com.example.foodclassificationapp.view.main.fitness.ExerciseDescriptionActivity;
 import com.example.foodclassificationapp.util.Constant;
 import com.example.foodclassificationapp.entity.FitnessExercise;
 

@@ -1,11 +1,11 @@
-package com.example.foodclassificationapp.activity.main.home;
+package com.example.foodclassificationapp.contract.presenter;
 
 import android.os.Build;
-import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 
+import com.example.foodclassificationapp.contract.HomeContract;
 import com.example.foodclassificationapp.entity.DailyNutrition;
 import com.example.foodclassificationapp.entity.FitnessExercise;
 import com.example.foodclassificationapp.entity.FoodItem;
@@ -27,7 +27,7 @@ public class HomePresenter implements HomeContract.Presenter {
     private FirebaseAuth fiAuth;
     private boolean foodMode = true;
 
-    HomePresenter() {
+    public HomePresenter() {
         fiAuth = FirebaseAuth.getInstance();
     }
 
@@ -91,7 +91,7 @@ public class HomePresenter implements HomeContract.Presenter {
                         String.valueOf(item.child(Constant.IMAGE).getValue()),
                         null,
                         null,
-                        String.valueOf(item.child(Constant.CALORIES).getValue())
+                        String.valueOf(item.child(Constant.CALORIE_BURNED).getValue())
                     );
                     fitnessList.add(fitnessExercise);
                 }
@@ -172,11 +172,11 @@ public class HomePresenter implements HomeContract.Presenter {
     }
 
     @Override
-    public float calculateCalorieBurnDaily() {
+    public double calculateCalorieBurnDaily() {
         float totalCalorieBurn = 0;
         for (FitnessExercise exercise : fitnessList) {
             totalCalorieBurn += Float.parseFloat(exercise.getCaloriesBurned());
         }
-        return totalCalorieBurn;
+        return (Math.round(totalCalorieBurn * 10.0) / 10.0);
     }
 }
