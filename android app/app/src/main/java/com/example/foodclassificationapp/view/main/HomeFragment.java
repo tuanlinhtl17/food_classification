@@ -143,31 +143,25 @@ public class HomeFragment extends Fragment implements HomeContract.View, View.On
                 startActivity(intent);
                 break;
             case R.id.datePicker:
-                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-                    DatePickerDialog datePickerDialog = new DatePickerDialog(Objects.requireNonNull(getContext()), new DatePickerDialog.OnDateSetListener() {
-                        @Override
-                        public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                            calendar.set(year, month, dayOfMonth);
-                            setDate(calendar);
-                            getDataList();
-                        }
-                    }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
-                    datePickerDialog.show();
-                }
+                DatePickerDialog datePickerDialog = new DatePickerDialog(Objects.requireNonNull(getContext()), new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                        calendar.set(year, month, dayOfMonth);
+                        setDate(calendar);
+                        getDataList();
+                    }
+                }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
+                datePickerDialog.show();
                 break;
             case R.id.nextDay:
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                    calendar.add(Calendar.DAY_OF_MONTH, 1);
-                    setDate(calendar);
-                    getDataList();
-                }
+                calendar.add(Calendar.DAY_OF_MONTH, 1);
+                setDate(calendar);
+                getDataList();
                 break;
             case R.id.preDay:
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                    calendar.add(Calendar.DAY_OF_MONTH, -1);
-                    setDate(calendar);
-                    getDataList();
-                }
+                calendar.add(Calendar.DAY_OF_MONTH, -1);
+                setDate(calendar);
+                getDataList();
                 break;
             case R.id.changeTab:
                 homePresenter.setMode();

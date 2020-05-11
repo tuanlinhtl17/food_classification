@@ -15,7 +15,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-import java.time.LocalDate;
+import java.util.Calendar;
 import java.util.Objects;
 
 public class SignUpPresenter implements SignUpContract.SignUnPresenter {
@@ -51,11 +51,11 @@ public class SignUpPresenter implements SignUpContract.SignUnPresenter {
                             registerRef.child(Constant.AGE).setValue(Integer.parseInt(age));
                             registerRef.child(Constant.HEIGHT).setValue(height);
                             registerRef.child(Constant.GENDER).setValue(gender);
-                            LocalDate localDate;
+
+                            Calendar calendar = Calendar.getInstance();
                             if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-                                localDate = LocalDate.now();
-                                String time = localDate.getDayOfMonth() + "/" + localDate.getMonthValue();
-                                String date = time + "/" + localDate.getYear();
+                                String time = calendar.get(Calendar.DAY_OF_MONTH) + "/" + (calendar.get(Calendar.MONTH) + 1);
+                                String date = time + "/" + calendar.get(Calendar.YEAR);
                                 MyWeight myWeight = new MyWeight(time, weight, date);
 
                                 registerRef.child(Constant.WEIGHT).push().setValue(myWeight);
