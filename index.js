@@ -1,8 +1,8 @@
 var express = require('express'); 
 var app = express(); 
 
-app.listen(3000, function() { 
-	console.log('server running on port 3000'); 
+app.listen(80, function() { 
+	console.log('server running on port 80'); 
 } ) 
 
 // Predict image
@@ -22,9 +22,14 @@ function predictImage(req, res) {
 	var spawn = require("child_process").spawn; 
 	var process = spawn('python3', ["./predict.py", imagepath]); 
  
-	process.stdout.on('data', function(data) { 
-		res.send(data.toString()); 
+	process.stdout.on('data', function(data) {
+		var final_data = data.toString().replace(/\n/g, "");
+		var result = { name: final_data }; 
+		res.send(result); 
 	}) 
 } 
 
 app.post('/predict', upload.single('upload'), predictImage); 
+app.get('/', function(req, res){
+	res.send('Hello');
+})
