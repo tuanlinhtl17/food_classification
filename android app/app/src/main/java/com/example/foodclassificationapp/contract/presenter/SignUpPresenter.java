@@ -53,13 +53,10 @@ public class SignUpPresenter implements SignUpContract.SignUnPresenter {
                             registerRef.child(Constant.GENDER).setValue(gender);
 
                             Calendar calendar = Calendar.getInstance();
-                            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-                                String time = calendar.get(Calendar.DAY_OF_MONTH) + "/" + (calendar.get(Calendar.MONTH) + 1);
-                                String date = time + "/" + calendar.get(Calendar.YEAR);
-                                MyWeight myWeight = new MyWeight(time, weight, date);
-
-                                registerRef.child(Constant.WEIGHT).push().setValue(myWeight);
-                            }
+                            String time = calendar.get(Calendar.DAY_OF_MONTH) + "/" + (calendar.get(Calendar.MONTH) + 1);
+                            String date = time + "/" + calendar.get(Calendar.YEAR);
+                            MyWeight myWeight = new MyWeight(time, weight, date);
+                            registerRef.child(Constant.WEIGHT).push().setValue(myWeight);
 
                             signUpView.signUpSuccess();
                         }

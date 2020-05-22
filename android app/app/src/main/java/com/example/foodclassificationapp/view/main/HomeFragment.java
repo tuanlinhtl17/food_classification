@@ -11,9 +11,12 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.DatePicker;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -33,6 +36,7 @@ import com.example.foodclassificationapp.util.Constant;
 import com.example.foodclassificationapp.control.FoodListAdapter;
 import com.example.foodclassificationapp.entity.FoodItem;
 import com.example.foodclassificationapp.view.CameraActivity;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -58,6 +62,15 @@ public class HomeFragment extends Fragment implements HomeContract.View, View.On
     private TextView recommendPro;
     private TextView totalCalorieBurn;
     private TextView title;
+    private FloatingActionButton fabMain;
+    private FloatingActionButton fabCamera;
+    private FloatingActionButton fabNewFood;
+    private Animation fabOpen;
+    private Animation fabClose;
+    private Animation fabClock;
+    private Animation fabAntiClock;
+    private TextView tvNewFood;
+    private TextView tvCamera;
 
     private static final String[] PERMISSIONS = {
             Manifest.permission.CAMERA,
@@ -71,6 +84,7 @@ public class HomeFragment extends Fragment implements HomeContract.View, View.On
 
     private String dateKey;
     private Calendar calendar;
+    private boolean isOpen = false;
 
     private HomePresenter homePresenter;
 
@@ -106,6 +120,15 @@ public class HomeFragment extends Fragment implements HomeContract.View, View.On
         recommendPro = homeView.findViewById(R.id.protsRecommend);
         totalCalorieBurn = homeView.findViewById(R.id.totalCalorieBurn);
         title = homeView.findViewById(R.id.title);
+        fabMain = homeView.findViewById(R.id.fab);
+        fabCamera = homeView.findViewById(R.id.fabCamera);
+        fabNewFood = homeView.findViewById(R.id.fabNewFood);
+        fabOpen = AnimationUtils.loadAnimation(getContext(), R.anim.fab_open);
+        fabClose = AnimationUtils.loadAnimation(getContext(), R.anim.fab_close);
+        fabClock = AnimationUtils.loadAnimation(getContext(), R.anim.fab_rotate_clock);
+        fabAntiClock = AnimationUtils.loadAnimation(getContext(), R.anim.fab_rotate_anticlock);
+        tvNewFood = homeView.findViewById(R.id.tv_new_food);
+        tvCamera = homeView.findViewById(R.id.tv_camera);
 
         recyclerView = homeView.findViewById(R.id.foodList);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -125,6 +148,9 @@ public class HomeFragment extends Fragment implements HomeContract.View, View.On
         nextDay.setOnClickListener(this);
         preDay.setOnClickListener(this);
         changeTab.setOnClickListener(this);
+        fabMain.setOnClickListener(this);
+        fabCamera.setOnClickListener(this);
+        fabNewFood.setOnClickListener(this);
     }
 
     @SuppressLint("SetTextI18n")
@@ -168,11 +194,47 @@ public class HomeFragment extends Fragment implements HomeContract.View, View.On
                 setTitle();
                 showList();
                 break;
+            case R.id.fab:
+                if (isOpen)
+                    openExpandFab();
+                else closeExpandFab();
+                break;
+            case R.id.fabCamera:
+                Toast.makeText(getContext(), "Camera", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.fabNewFood:
+                Toast.makeText(getContext(), "New Food", Toast.LENGTH_SHORT).show();
+                break;
             default:
                 break;
         }
     }
 
+    private void openExpandFab() {
+        tvNewFood.setVisibility(View.INVISIBLE);
+        tvCamera.setVisibility(View.INVISIBLE);
+        fabNewFood.startAnimation(fabClose);
+        fabCamera.startAnimation(fabClose);
+        fabMain.startAnimation(fabAntiClock);
+        fabNewFood.setClickable(false);
+        fabCamera.setClickable(false);
+        isOpen = false;
+    }
+
+    private void closeExpandFab() {
+        tvNewFood.setVisibility(View.VISIBLE);
+        tvCamera.setVisibility(View.VISIBLE);
+        fabNewFood.startAnimation(fabOpen);
+        fabCamera.startAnimation(fabOpen);
+        fabMain.startAnimation(fabClock);
+        fabNewFood.setClickable(true);
+        fabCamera.setClickable(true);
+        isOpen = true;
+    }
+
+    /**
+     * Request permissions
+     */
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     private void requestPermissions() {
         ActivityCompat.requestPermissions(Objects.requireNonNull(getActivity()), PERMISSIONS, MULTIPLE_PERMISSION);

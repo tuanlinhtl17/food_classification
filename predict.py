@@ -3,6 +3,7 @@ from tensorflow.keras.preprocessing import image
 from tensorflow.keras.models import load_model
 import tensorflow as tf
 from keras import backend as K
+from keras.models import model_from_json
 
 K.clear_session()
 
@@ -14,7 +15,11 @@ image_path = sys.argv[1]
 
 # predict image
 
-model = load_model('best_model.hdf5')
+# model = load_model('best_model.hdf5')
+with open('best_model.json', 'r') as json_file:
+	loaded_json = json_file.read()
+model = model_from_json(loaded_json)
+model.load_weights('best_model_weight.h5')
 
 food_list = [
   'apple_pie',

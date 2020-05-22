@@ -48,6 +48,8 @@ public class FruitInfoActivity extends AppCompatActivity implements View.OnClick
 
     private FirebaseAuth fiAuth;
     String foodNameRe;
+    private String imageFood;
+    private boolean isUserFood = false;
     boolean isMyFood;
     SharedPreferences sharedPreferences;
 
@@ -94,6 +96,8 @@ public class FruitInfoActivity extends AppCompatActivity implements View.OnClick
             isMyFood = intent.getBooleanExtra("isMyFood", false);
         } else if (getIntent().hasExtra(Constant.FOOD_CAMERA)) {
             foodNameRe = intent.getStringExtra(Constant.FOOD_CAMERA);
+            imageFood = intent.getStringExtra("imgPath");
+            isUserFood = true;
             isMyFood = false;
         }
         getFoodInfo(foodNameRe, isMyFood, new Callback() {
@@ -149,7 +153,9 @@ public class FruitInfoActivity extends AppCompatActivity implements View.OnClick
         if (foodItem.isMyFood()) {
             addFood.setVisibility(View.GONE);
         }
-
+        if (isUserFood) {
+            foodItem.setImage(imageFood);
+        }
         Glide.with(FruitInfoActivity.this).load(foodItem.getImage()).into(imgPreview);
     }
 
@@ -184,7 +190,9 @@ public class FruitInfoActivity extends AppCompatActivity implements View.OnClick
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.back:
-                onBackPressed();
+                if (isUserFood)
+                    onBackPressed();
+                else finish();
                 break;
             case R.id.addToMyDay:
                 addFoodMyDay();

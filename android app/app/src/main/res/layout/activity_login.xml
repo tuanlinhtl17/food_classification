@@ -86,6 +86,7 @@
                 android:textColor="@color/white"
                 android:textSize="15sp"
                 android:fontFamily="sans-serif-light"
+                android:visibility="gone"
                 />
         </LinearLayout>
 

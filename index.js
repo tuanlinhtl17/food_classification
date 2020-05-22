@@ -20,7 +20,7 @@ function predictImage(req, res) {
 	// console.log(req.file)
 	imagepath = 'images/' + req.file.filename
 	var spawn = require("child_process").spawn; 
-	var process = spawn('python3', ["./predict.py", imagepath]); 
+	var process = spawn('python3', ["./predict.py", imagepath], { detached: true }); 
  
 	process.stdout.on('data', function(data) {
 		var final_data = data.toString().replace(/\n/g, "");

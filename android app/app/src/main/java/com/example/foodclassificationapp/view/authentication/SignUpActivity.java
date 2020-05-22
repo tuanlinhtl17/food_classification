@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.foodclassificationapp.R;
 import com.example.foodclassificationapp.contract.SignUpContract;
 import com.example.foodclassificationapp.contract.presenter.SignUpPresenter;
-import com.example.foodclassificationapp.view.main.MainActivity;
 import com.google.firebase.auth.FirebaseAuth;
 
 import android.app.ProgressDialog;
@@ -33,6 +32,7 @@ public class SignUpActivity extends AppCompatActivity implements SignUpContract.
     private Button signUp;
     private FirebaseAuth firebaseAuth;
     private FirebaseAuth.AuthStateListener fiAuthStateListener;
+    private ProgressDialog progressDialog;
 
     private SignUpPresenter signUpPresenter;
 
@@ -70,6 +70,8 @@ public class SignUpActivity extends AppCompatActivity implements SignUpContract.
         alreadyUser = findViewById(R.id.alreadyUser);
         signUp = findViewById(R.id.signUpBtn);
         firebaseAuth = FirebaseAuth.getInstance();
+
+        progressDialog = new ProgressDialog(SignUpActivity.this, R.style.AppTheme_Dialog);
     }
 
     private void initPresenter() {
@@ -110,11 +112,10 @@ public class SignUpActivity extends AppCompatActivity implements SignUpContract.
 
         if (!TextUtils.isEmpty(fullName) && !TextUtils.isEmpty(email) && !TextUtils.isEmpty(age)
                 && !TextUtils.isEmpty(height) && !TextUtils.isEmpty(weight) && !TextUtils.isEmpty(password)) {
-            ProgressDialog progressDialog = new ProgressDialog(SignUpActivity.this, R.style.AppTheme_Dialog);
-            progressDialog.setIndeterminate(true);
-            progressDialog.setMessage("Resgistering...");
-            progressDialog.show();
 
+            progressDialog.setIndeterminate(true);
+            progressDialog.setMessage("Registering...");
+            progressDialog.show();
             signUpPresenter.handleSignUp(fullName, email, age, height, weight, password, gender);
         } else {
             signUpFail("Please fill all input!");
@@ -129,11 +130,12 @@ public class SignUpActivity extends AppCompatActivity implements SignUpContract.
 
     @Override
     public void signUpSuccess() {
-        startActivity(new Intent(SignUpActivity.this, MainActivity.class));
+        startActivity(new Intent(SignUpActivity.this, LoginActivity.class));
     }
 
     @Override
     public void signUpFail(String error) {
         Toast.makeText(SignUpActivity.this, error, Toast.LENGTH_SHORT).show();
+        progressDialog.dismiss();
     }
 }

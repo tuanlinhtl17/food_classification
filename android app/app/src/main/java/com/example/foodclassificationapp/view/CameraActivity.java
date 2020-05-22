@@ -247,7 +247,9 @@ public class CameraActivity extends AppCompatActivity implements SingleUploadBro
             Intent intent = new Intent(this, FruitInfoActivity.class);
 
             String foodName = keyFood.get(response.getString(Constant.NAME));
+            String path = fileUri.getPath();
             intent.putExtra(Constant.FOOD_CAMERA, foodName);
+            intent.putExtra("imgPath", path);
             startActivity(intent);
         } catch (JSONException e) {
             Log.d("CameraActivity", e.toString());

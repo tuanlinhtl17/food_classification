@@ -139,6 +139,7 @@ public class ExerciseDescriptionActivity extends AppCompatActivity implements Fi
     private void plusTime() {
         time += 1;
         exeTime.setText(String.valueOf(time));
+        reduce.setEnabled(true);
     }
     private void reduceTime() {
         if (time > 1) {
@@ -148,8 +149,9 @@ public class ExerciseDescriptionActivity extends AppCompatActivity implements Fi
 
     }
     private void calculateCaloriesBurn() {
-        time = Integer.parseInt(exeTime.getText().toString());
-        exeCalBurn.setText(String.format("%s kcal", String.valueOf((Math.round(calorieBurn * time * 10.0)) / 10.0)));
+        String timeRef = exeTime.getText().toString().trim();
+        time = timeRef.isEmpty() ? 0 : Integer.parseInt(timeRef);
+        exeCalBurn.setText(String.format("%s kCal", String.valueOf((Math.round(calorieBurn * time * 10.0)) / 10.0)));
     }
 
     private void addToCalendar() {
@@ -205,15 +207,30 @@ public class ExerciseDescriptionActivity extends AppCompatActivity implements Fi
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     private void addExercise() {
-        SharedPreferences sharedPreferencesImg = getApplicationContext().getSharedPreferences(Constant.ACTIVITY_IMG, MODE_PRIVATE);
-        String img = sharedPreferencesImg.getString(Constant.ACTIVITY_IMG, Constant.IMAGE);
-        SharedPreferences sharedPreferencesType = getApplicationContext().getSharedPreferences(Constant.ACTIVITY_TYPE, MODE_PRIVATE);
-        String type = sharedPreferencesType.getString(Constant.ACTIVITY_TYPE, Constant.TYPE);
-        String strCalorieBurn = exeCalBurn.getText().toString().split(" ")[0];
-        FitnessExercise exercise = new FitnessExercise(exeName.getText().toString(),
-                exeTime.getText().toString(), type,
-                img, null, null, strCalorieBurn);
-        presenter.addDailyActivity(exercise);
+        String timeRef = exeTime.getText().toString().trim();
+        if (timeRef.isEmpty() || Integer.parseInt(timeRef) == 0) {
+            AlertDialog.Builder mBuilder = new AlertDialog.Builder(this);
+            mBuilder.setTitle("Error")
+                    .setMessage("Time value invalid!")
+                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            // do nothing
+                        }
+                    });
+            Dialog dialog = mBuilder.create();
+            dialog.show();
+        } else {
+            SharedPreferences sharedPreferencesImg = getApplicationContext().getSharedPreferences(Constant.ACTIVITY_IMG, MODE_PRIVATE);
+            String img = sharedPreferencesImg.getString(Constant.ACTIVITY_IMG, Constant.IMAGE);
+            SharedPreferences sharedPreferencesType = getApplicationContext().getSharedPreferences(Constant.ACTIVITY_TYPE, MODE_PRIVATE);
+            String type = sharedPreferencesType.getString(Constant.ACTIVITY_TYPE, Constant.TYPE);
+            String strCalorieBurn = exeCalBurn.getText().toString().split(" ")[0];
+            FitnessExercise exercise = new FitnessExercise(exeName.getText().toString(),
+                    timeRef, type,
+                    img, null, null, strCalorieBurn);
+            presenter.addDailyActivity(exercise);
+        }
     }
 
     @Override

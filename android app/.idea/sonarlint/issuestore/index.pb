@@ -27,8 +27,6 @@ R
 "app/src/main/res/values/colors.xml,9\6\969faa2a5d9f5e8390e958d2c07f2cfd54676e6b
 x
 Happ/src/main/java/com/example/foodclassificationapp/entity/MyWeight.java,1\e\1e7bd250cdb4174460ae55b0edff176353873df4
-Z
-*app/src/main/res/layout/activity_login.xml,1\f\1f7e901185d74bf05f9fcb38f9ed35ea78cd4c6e
 [
 +app/src/main/res/layout/search_fragment.xml,3\2\32ce3d669e73016928348d3ad351ea50cdb54c70
 v
@@ -37,8 +35,6 @@ Fapp/src/main/java/com/example/foodclassificationapp/util/Constant.java,f\b\fb9
 Napp/src/main/java/com/example/foodclassificationapp/entity/DailyNutrition.java,b\1\b1ce5dc8c48f80e372d96d33da6d5d96a788bb68
 ‹
 [app/src/main/java/com/example/foodclassificationapp/util/SingleUploadBroadcastReceiver.java,f\0\f0e5e6dff6bcb00da8f95ee165a0f54d64a683fc
-S
-#app/src/main/res/values/strings.xml,d\2\d2281fbb3027de2722081a53408dd77628bf080e
 |
 Lapp/src/main/java/com/example/foodclassificationapp/view/CameraActivity.java,b\2\b2f54c081a8421330a5d31c79758d2ba3719cfa3
 
@@ -57,3 +53,13 @@ Qapp/src/main/java/com/example/foodclassificationapp/view/main/SearchFragment.ja
 Yapp/src/main/java/com/example/foodclassificationapp/contract/presenter/HomePresenter.java,f\c\fc2993b26d8e722a6a4aef66deca66a39846e06b
 
 Oapp/src/main/java/com/example/foodclassificationapp/view/main/HomeFragment.java,0\7\0757405b24e15b3e77493e57ce01898bdd1abc26
+Š
+Zapp/src/main/java/com/example/foodclassificationapp/contract/presenter/LoginPresenter.java,f\6\f6a3372497b7b3fab40e1459f6928a34ac25421f
+’
+bapp/src/main/java/com/example/foodclassificationapp/contract/presenter/FitnessListPresenterJr.java,b\3\b36b7e13de7a74d7e9fcbce97d78f324bf286f3c
+Š
+Zapp/src/main/java/com/example/foodclassificationapp/view/authentication/LoginActivity.java,3\c\3c0185c69539804c3e4b69b3190bf4b98481d0f3
+‹
+[app/src/main/java/com/example/foodclassificationapp/view/authentication/SignUpActivity.java,9\2\92afa32473603567a521d5645ec1fbb5941a8ab8
+‹
+[app/src/main/java/com/example/foodclassificationapp/contract/presenter/SignUpPresenter.java,d\8\d8cbfd3d64c6472317543c82381a4c4f629e8c5e

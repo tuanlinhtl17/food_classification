@@ -40,7 +40,7 @@ public class ExerciseListAdapter extends RecyclerView.Adapter<ExerciseListAdapte
     public void onBindViewHolder(@NonNull ListExerciseViewHolder holder, final int position) {
         holder.exerciseName.setText(exerciseList.get(position).getName());
         holder.time.setText(String.format("%s min", exerciseList.get(position).getTime()));
-        holder.caloriesBuned.setText(String.format("%s kcal", exerciseList.get(position).getCaloriesBurned()));
+        holder.caloriesBuned.setText(String.format("%s", exerciseList.get(position).getCaloriesBurned()));
         holder.parentLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

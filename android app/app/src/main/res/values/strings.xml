@@ -65,4 +65,6 @@
     <string name="add_to_calendar">Remind later</string>
     <string name="start">Start</string>
     <string name="add_exercise">Add Exercise</string>
+    <string name="new_food">New Food</string>
+    <string name="camera">Camera</string>
 </resources>
