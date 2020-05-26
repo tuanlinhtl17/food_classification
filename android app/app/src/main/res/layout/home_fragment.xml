@@ -14,6 +14,7 @@
         android:layout_height="@dimen/layout_header"
         android:background="@color/main_activity_background_header"
         android:orientation="horizontal"
+        android:gravity="center_horizontal"
         android:weightSum="10"
         >
 
@@ -45,7 +46,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/camera"
-            android:contentDescription="@string/add_food" />
+            android:contentDescription="@string/add_food"
+            />
 
     </LinearLayout>
 

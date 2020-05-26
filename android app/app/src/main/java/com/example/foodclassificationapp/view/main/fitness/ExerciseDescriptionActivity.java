@@ -268,6 +268,7 @@ public class ExerciseDescriptionActivity extends AppCompatActivity implements Fi
                 });
         Dialog dialog = mBuilder.create();
         dialog.show();
+        start.setEnabled(true);
     }
 
     @Override
@@ -282,6 +283,7 @@ public class ExerciseDescriptionActivity extends AppCompatActivity implements Fi
                         timer = new CountDown(Long.parseLong(exeTime.getText().toString()) * 60 * 1000, 1000);
                         timer.start();
                         isTimer = true;
+                        start.setEnabled(false);
                     }
                 })
                 .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {

@@ -84,6 +84,7 @@ public class UserFragment extends Fragment implements View.OnClickListener {
         setEvent();
         getUserInfo();
         reqUpdateWeight();
+        reviewBMI();
         return userView;
     }
 
@@ -145,6 +146,10 @@ public class UserFragment extends Fragment implements View.OnClickListener {
                                 dateValue = String.valueOf(weightData.child("date").getValue());
                             }
                             weightProfile.setText(weight);
+                            float weightRef = weight.isEmpty() ? 0 : Float.parseFloat(weight);
+                            String heightStr = heightProfile.getText().toString().trim();
+                            float heightRef = heightStr.isEmpty() ? 1 : (Float.parseFloat(heightStr))/100;
+                            float bmi = weightRef/(heightRef * heightRef);
                             initChart(date, entries);
 
                             SharedPreferences sharedPreferences = Objects.requireNonNull(getContext()).getSharedPreferences(Constant.LAST_DATE, Context.MODE_PRIVATE);
@@ -153,6 +158,7 @@ public class UserFragment extends Fragment implements View.OnClickListener {
                             editor.putString("key", key);
                             editor.putString("dateValue", dateValue);
                             editor.putString("lastWeight", weight);
+                            editor.putFloat("bmi", bmi);
                             editor.apply();
                         }
 
@@ -189,6 +195,31 @@ public class UserFragment extends Fragment implements View.OnClickListener {
             AlertDialog dialog = mBuilder.create();
             dialog.show();
         }
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+    private void reviewBMI() {
+        float bmi = calculateBMI();
+        String message = "Your BMI is " + bmi;
+        if (bmi < 18.5)
+            message = "You are underweight! Let's eat more.";
+        else if (bmi >= 18.5 && bmi <= 24.9)
+            message = "Wow!!! You have a good body.";
+        else if (bmi >= 30 && bmi <= 34.9)
+            message = "You are obese! Let's lose weight.";
+        else if (bmi > 35)
+            message = "Oh no!!! You are extremely obese.";
+        AlertDialog.Builder mBuilder = new AlertDialog.Builder(getContext());
+        mBuilder.setTitle("Review")
+                .setMessage(message)
+                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        // do nothing
+                    }
+                });
+        Dialog dialog = mBuilder.create();
+        dialog.show();
     }
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
@@ -322,9 +353,9 @@ public class UserFragment extends Fragment implements View.OnClickListener {
                     @RequiresApi(api = Build.VERSION_CODES.O)
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        String age = mAge.getText().toString();
-                        String height = mHeight.getText().toString();
-                        final String weight = mWeight.getText().toString();
+                        String age = mAge.getText().toString().trim();
+                        String height = mHeight.getText().toString().trim();
+                        final String weight = mWeight.getText().toString().trim();
 
                         if (!age.isEmpty() && !height.isEmpty() && !weight.isEmpty()) {
                             updateInfo(age, height, weight);
@@ -374,9 +405,15 @@ public class UserFragment extends Fragment implements View.OnClickListener {
                 }
             });
         }
-        if (!lastWeight.isEmpty()) {
+        if (lastWeight.isEmpty()) {
             reviewWeight(lastWeight, weight);
-        }
+        } else reviewBMI();
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+    private float calculateBMI() {
+        SharedPreferences sharedPreferences = Objects.requireNonNull(getContext()).getSharedPreferences(Constant.LAST_DATE, Context.MODE_PRIVATE);
+        return sharedPreferences.getFloat("bmi", 0);
     }
 
     private void reviewWeight(String preWeight, String afterWeight) {
@@ -406,9 +443,10 @@ public class UserFragment extends Fragment implements View.OnClickListener {
         mBuilder.setTitle("Review")
                 .setMessage(message)
                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        // do nothing
+                        reviewBMI();
                     }
                 });
         Dialog dialog = mBuilder.create();
