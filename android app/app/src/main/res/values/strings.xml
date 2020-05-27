@@ -68,4 +68,7 @@
     <string name="new_food">New Food</string>
     <string name="camera">Camera</string>
     <string name="activities">Activities</string>
+    <string name="title">Title</string>
+    <string name="carbohydrate">Carbohydrate</string>
+    <string name="description">Description</string>
 </resources>

@@ -73,13 +73,13 @@ public class CameraActivity extends AppCompatActivity implements SingleUploadBro
         captureImage();
     }
 
+    /**
+     * action capture image
+     */
     private void captureImage() {
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-
         fileUri = getOutputMediaFileUri();
-
         intent.putExtra(MediaStore.EXTRA_OUTPUT, fileUri);
-
         startActivityForResult(intent, Constant.CAMERA_IMAGE_REQUEST_CODE);
     }
 
@@ -88,53 +88,37 @@ public class CameraActivity extends AppCompatActivity implements SingleUploadBro
         return Uri.fromFile(getOutputMediaFile());
     }
 
+    /**
+     * get output media file
+     * @return File object
+     */
     private static File getOutputMediaFile() {
-
-        // External sdcard location
         File mediaStorageDir = new File(
-                Environment
-                        .getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES),
+                Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES),
                 IMAGE_DIRECTORY_NAME);
-
-        // Create the storage directory if it does not exist
         if (!mediaStorageDir.exists() && !mediaStorageDir.mkdirs()) {
-            Log.d(IMAGE_DIRECTORY_NAME, "Oops! Failed create "
-                    + IMAGE_DIRECTORY_NAME + " directory");
             return null;
         }
-
-        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss",
-                Locale.getDefault()).format(new Date());
-        File mediaFile;
-
-        mediaFile = new File(mediaStorageDir.getPath() + File.separator
-                + "IMG_" + timeStamp + ".jpg");
-
-        return mediaFile;
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(new Date());
+        return new File(mediaStorageDir.getPath() + File.separator + "IMG_" + timeStamp + ".jpg");
     }
 
-    /*
-     * This is the method responsible for image upload
-     * We need the full image path and the name for the image in this method
-     * */
+    /**
+     * upload image
+     * @param context context
+     */
     public void uploadMultipart(final Context context) {
-
-        //getting the actual path of the image
         String path = fileUri.getPath();
-
-        //Uploading code
         try {
             String uploadId = UUID.randomUUID().toString();
             uploadReceiver.setDelegate(this);
             uploadReceiver.setUploadID(uploadId);
 
-            //Creating a multi part request
             new MultipartUploadRequest(context, uploadId, Constant.CLASSIFY_URL)
                     .addFileToUpload(path, "upload")
                     .setNotificationConfig(new UploadNotificationConfig())
                     .setMaxRetries(2)
                     .startUpload();
-
         } catch (Exception exc) {
             Toast.makeText(this, exc.getMessage(), Toast.LENGTH_SHORT).show();
         }
@@ -151,7 +135,6 @@ public class CameraActivity extends AppCompatActivity implements SingleUploadBro
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == Constant.CAMERA_IMAGE_REQUEST_CODE) {
             if (resultCode == RESULT_OK) {
-                // classify image
                 uploadMultipart(getApplicationContext());
             } else if (resultCode == RESULT_CANCELED) {
                 // cancel

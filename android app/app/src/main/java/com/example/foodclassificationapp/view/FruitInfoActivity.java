@@ -32,7 +32,6 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.Calendar;
 import java.util.Objects;
 
-
 public class FruitInfoActivity extends AppCompatActivity implements View.OnClickListener {
     private static final String FOOD_IMAGE = "FOOD_IMAGE_SHARED";
 
@@ -50,7 +49,6 @@ public class FruitInfoActivity extends AppCompatActivity implements View.OnClick
     String foodNameRe;
     private String imageFood;
     private boolean isUserFood = false;
-    boolean isMyFood;
     SharedPreferences sharedPreferences;
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
@@ -63,6 +61,9 @@ public class FruitInfoActivity extends AppCompatActivity implements View.OnClick
         getFoodIntent();
     }
 
+    /**
+     * init view
+     */
     private void init() {
         imgPreview = findViewById(R.id.imgPreview);
         itemCalos = findViewById(R.id.itemCal);
@@ -77,6 +78,9 @@ public class FruitInfoActivity extends AppCompatActivity implements View.OnClick
         fiAuth = FirebaseAuth.getInstance();
     }
 
+    /**
+     * set event listener
+     */
     private void setEvents() {
         back.setOnClickListener(this);
         addFood.setOnClickListener(this);
@@ -88,27 +92,40 @@ public class FruitInfoActivity extends AppCompatActivity implements View.OnClick
         startActivity(new Intent(this, MainActivity.class));
     }
 
+    /**
+     * get intent
+     */
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     private void getFoodIntent() {
         Intent intent = getIntent();
-        if (getIntent().hasExtra("foodName")) {
-            foodNameRe = intent.getStringExtra("foodName");
-            isMyFood = intent.getBooleanExtra("isMyFood", false);
-        } else if (getIntent().hasExtra(Constant.FOOD_CAMERA)) {
-            foodNameRe = intent.getStringExtra(Constant.FOOD_CAMERA);
-            imageFood = intent.getStringExtra("imgPath");
-            isUserFood = true;
-            isMyFood = false;
-        }
-        getFoodInfo(foodNameRe, isMyFood, new Callback() {
-            @Override
-            public void setFood(FoodItem food) {
-                setupItemValues(food);
+        if (!getIntent().hasExtra("isMyFood")) {
+            if (getIntent().hasExtra("foodName")) {
+                foodNameRe = intent.getStringExtra("foodName");
+            } else if (getIntent().hasExtra(Constant.FOOD_CAMERA)) {
+                foodNameRe = intent.getStringExtra(Constant.FOOD_CAMERA);
+                imageFood = intent.getStringExtra("imgPath");
+                isUserFood = true;
             }
-        });
+            getFoodInfo(foodNameRe, new Callback() {
+                @Override
+                public void setFood(FoodItem food) {
+                    setupItemValues(food);
+                }
+            });
+        } else {
+            Bundle bundle = intent.getExtras();
+            FoodItem foodItem = (FoodItem) Objects.requireNonNull(bundle).getSerializable("foodObj");
+            setupItemValues(Objects.requireNonNull(foodItem));
+            addFood.setVisibility(View.INVISIBLE);
+        }
     }
 
-    private void getFoodInfo(String foodName, final boolean isMyFood, final Callback callback) {
+    /**
+     * get food info
+     * @param foodName food name
+     * @param callback callback
+     */
+    private void getFoodInfo(String foodName, final Callback callback) {
         DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference().child(Constant.FOOD_DB).child(foodName);
         dbRef.addValueEventListener(new ValueEventListener() {
             @Override
@@ -125,8 +142,8 @@ public class FruitInfoActivity extends AppCompatActivity implements View.OnClick
                         (String.valueOf(dataSnapshot.child("fat").getValue())),
                         (String.valueOf(dataSnapshot.child("protein").getValue())),
                         String.valueOf(dataSnapshot.child("image").getValue()),
-                         isMyFood,
-                         foodRecipe.toString()
+                        Boolean.parseBoolean(String.valueOf(dataSnapshot.child("myFood").getValue())),
+                        foodRecipe.toString()
                 );
                 callback.setFood(food);
                 sharedPreferences = getApplicationContext().getSharedPreferences(FOOD_IMAGE, Context.MODE_PRIVATE);
@@ -142,38 +159,44 @@ public class FruitInfoActivity extends AppCompatActivity implements View.OnClick
         });
     }
 
+    /**
+     * show food info
+     * @param foodItem food item
+     */
     public void setupItemValues(FoodItem foodItem) {
         foodName.setText(foodItem.getName());
-        itemCalos.setText(String.valueOf(foodItem.getCalories()));
-        itemCarbs.setText(String.valueOf(foodItem.getCacbohydrat()));
-        itemFats.setText(String.valueOf(foodItem.getFat()));
-        itemProts.setText(String.valueOf(foodItem.getProtein()));
+        itemCalos.setText(String.format("%s kCal", foodItem.getCalories()));
+        itemCarbs.setText(String.format("%s g", foodItem.getCacbohydrat()));
+        itemFats.setText(String.format("%s g", foodItem.getFat()));
+        itemProts.setText(String.format("%s g", foodItem.getProtein()));
         recipe.setText(foodItem.getRecipe());
 
-        if (foodItem.isMyFood()) {
-            addFood.setVisibility(View.GONE);
+        if (!foodItem.isMyFood()) {
+            if (isUserFood) {
+                foodItem.setImage(imageFood);
+            }
+            Glide.with(FruitInfoActivity.this).load(foodItem.getImage()).into(imgPreview);
         }
-        if (isUserFood) {
-            foodItem.setImage(imageFood);
-        }
-        Glide.with(FruitInfoActivity.this).load(foodItem.getImage()).into(imgPreview);
     }
 
+    /**
+     * add food daily
+     */
     @RequiresApi(api = Build.VERSION_CODES.O)
     private void addFoodMyDay() {
         Calendar calendar = Calendar.getInstance();
         sharedPreferences = getApplicationContext().getSharedPreferences(FOOD_IMAGE, MODE_PRIVATE);
         String dateKey = calendar.get(Calendar.DAY_OF_MONTH) + Constant.MONTH.get(calendar.get(Calendar.MONTH));
-        String carbohydrate = (itemCarbs.getText().toString());
-        String calories = (itemCalos.getText().toString());
-        String fat = (itemFats.getText().toString());
+        String carbohydrate = (itemCarbs.getText().toString().split(" ")[0]);
+        String calories = (itemCalos.getText().toString().split(" ")[0]);
+        String fat = (itemFats.getText().toString().split(" ")[0]);
         String img = sharedPreferences.getString(FOOD_IMAGE, Constant.IMAGE);
-        String protein = (itemProts.getText().toString());
+        String protein = (itemProts.getText().toString().split(" ")[0]);
 
         DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference().child(Constant.HASAGI_DB)
             .child(Objects.requireNonNull(fiAuth.getCurrentUser()).getUid()).child(dateKey);
 
-        FoodItem food = new FoodItem(foodNameRe, calories, carbohydrate, fat, protein, img, true, null);
+        FoodItem food = new FoodItem(foodNameRe, calories, carbohydrate, fat, protein, img, false, null);
         dbRef.push().setValue(food).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
@@ -185,6 +208,10 @@ public class FruitInfoActivity extends AppCompatActivity implements View.OnClick
         });
     }
 
+    /**
+     * set event onClick
+     * @param v view
+     */
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public void onClick(View v) {

@@ -18,6 +18,8 @@ public interface LoginContract {
          * navigate home screen
          */
         void navigateHome();
+
+        void showToast(String message);
     }
 
     interface Presenter {
@@ -39,5 +41,11 @@ public interface LoginContract {
          * @param password password
          */
         void handleLogin(String email, String password);
+
+        /**
+         * handle reset password
+         * @param email email
+         */
+        void resetPassword(String email);
     }
 }

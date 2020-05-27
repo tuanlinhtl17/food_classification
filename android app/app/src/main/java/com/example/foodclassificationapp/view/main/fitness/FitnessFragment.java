@@ -22,6 +22,9 @@ public class FitnessFragment extends Fragment implements View.OnClickListener {
         return fitnessView;
     }
 
+    /**
+     * init view
+     */
     private void init() {
         androidx.cardview.widget.CardView exercise = fitnessView.findViewById(R.id.exercise);
         androidx.cardview.widget.CardView outdoor = fitnessView.findViewById(R.id.outdoor);
@@ -32,6 +35,10 @@ public class FitnessFragment extends Fragment implements View.OnClickListener {
         sports.setOnClickListener(this);
     }
 
+    /**
+     * set event onClick
+     * @param v view
+     */
     @Override
     public void onClick(View v) {
         Intent intent = new Intent(getContext(), FitnessActivity.class);

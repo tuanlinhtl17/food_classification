@@ -10,6 +10,8 @@ import com.example.foodclassificationapp.entity.DailyNutrition;
 import com.example.foodclassificationapp.entity.FitnessExercise;
 import com.example.foodclassificationapp.entity.FoodItem;
 import com.example.foodclassificationapp.util.Constant;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -18,6 +20,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Objects;
 
 public class HomePresenter implements HomeContract.Presenter {
@@ -26,6 +29,8 @@ public class HomePresenter implements HomeContract.Presenter {
     private ArrayList<FitnessExercise> fitnessList = new ArrayList<>();
     private FirebaseAuth fiAuth;
     private boolean foodMode = true;
+    private Calendar calendar = Calendar.getInstance();
+    private String dateKey = calendar.get(Calendar.DAY_OF_MONTH) + Constant.MONTH.get(calendar.get(Calendar.MONTH));
 
     public HomePresenter() {
         fiAuth = FirebaseAuth.getInstance();
@@ -53,12 +58,12 @@ public class HomePresenter implements HomeContract.Presenter {
                     FoodItem foodItem = new FoodItem(
                             String.valueOf(item.child(Constant.NAME).getValue()),
                             String.valueOf(item.child(Constant.CALORIES).getValue()),
-                            String.valueOf(item.child(Constant.CACBOHYDRAT).getValue()),
+                            String.valueOf(item.child(Constant.CARBOHYDRATE).getValue()),
                             String.valueOf(item.child(Constant.FAT).getValue()),
                             String.valueOf(item.child(Constant.PROTEIN).getValue()),
                             String.valueOf(item.child(Constant.IMAGE).getValue()),
-                            true,
-                            null
+                            Boolean.parseBoolean(Objects.requireNonNull(item.child("myFood").getValue()).toString()),
+                            String.valueOf(item.child("recipe").getValue())
                     );
                     foodList.add(foodItem);
                 }
@@ -178,5 +183,52 @@ public class HomePresenter implements HomeContract.Presenter {
             totalCalorieBurn += Float.parseFloat(exercise.getCaloriesBurned());
         }
         return (Math.round(totalCalorieBurn * 10.0) / 10.0);
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+    @Override
+    public void addNewFood(FoodItem foodItem) {
+        if (validateInfoFood(foodItem)) {
+            DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference().child(Constant.HASAGI_DB)
+                    .child(Objects.requireNonNull(fiAuth.getCurrentUser()).getUid()).child(dateKey);
+            dbRef.push().setValue(foodItem).addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+                    if (task.isSuccessful()) {
+                        homeView.showToast("Add Successful");
+                    } else {
+                        homeView.showToast("Error!");
+                    }
+                }
+            });
+        } else {
+            homeView.showToast("Value invalid!");
+        }
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+    @Override
+    public void addUserFood(FoodItem foodItem) {
+        if (validateInfoFood(foodItem)) {
+            DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference().child("user_food")
+                    .child(Objects.requireNonNull(fiAuth.getCurrentUser()).getUid());
+            dbRef.push().setValue(foodItem).addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+                    // do nothing
+                }
+            });
+        } else {
+            homeView.showToast("Value invalid!");
+        }
+    }
+
+    @Override
+    public boolean validateInfoFood(FoodItem foodItem) {
+        float calorie = Float.parseFloat(foodItem.getCalories());
+        float fat = Float.parseFloat(foodItem.getFat());
+        float carbohydrate = Float.parseFloat(foodItem.getCacbohydrat());
+        float protein = Float.parseFloat(foodItem.getProtein());
+        return calorie > 0 && fat >= 0 && carbohydrate >=0 && protein >= 0;
     }
 }

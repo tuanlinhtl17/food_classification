@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.foodclassificationapp.R;
 import com.example.foodclassificationapp.contract.SignUpContract;
 import com.example.foodclassificationapp.contract.presenter.SignUpPresenter;
+import com.example.foodclassificationapp.view.main.MainActivity;
 import com.google.firebase.auth.FirebaseAuth;
 
 import android.app.ProgressDialog;
@@ -59,6 +60,9 @@ public class SignUpActivity extends AppCompatActivity implements SignUpContract.
         firebaseAuth.addAuthStateListener(fiAuthStateListener);
     }
 
+    /**
+     * init view
+     */
     private void initView() {
         fullNameET = findViewById(R.id.fullName);
         emailET = findViewById(R.id.userEmail);
@@ -74,16 +78,26 @@ public class SignUpActivity extends AppCompatActivity implements SignUpContract.
         progressDialog = new ProgressDialog(SignUpActivity.this, R.style.AppTheme_Dialog);
     }
 
+    /**
+     * init presenter
+     */
     private void initPresenter() {
         signUpPresenter = new SignUpPresenter();
         signUpPresenter.attachView(this);
     }
 
+    /**
+     * set event listener
+     */
     private void setEvents() {
         alreadyUser.setOnClickListener(this);
         signUp.setOnClickListener(this);
     }
 
+    /**
+     * set event onClick
+     * @param v view
+     */
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -98,6 +112,9 @@ public class SignUpActivity extends AppCompatActivity implements SignUpContract.
         }
     }
 
+    /**
+     * register user
+     */
     private void register() {
         final String fullName = fullNameET.getText().toString().trim();
         final String email = emailET.getText().toString().trim();
@@ -130,7 +147,7 @@ public class SignUpActivity extends AppCompatActivity implements SignUpContract.
 
     @Override
     public void signUpSuccess() {
-        startActivity(new Intent(SignUpActivity.this, LoginActivity.class));
+        startActivity(new Intent(SignUpActivity.this, MainActivity.class));
     }
 
     @Override

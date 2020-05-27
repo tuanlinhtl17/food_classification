@@ -48,7 +48,7 @@ public class SearchPresenter implements SearchContract.Presenter {
                     FoodItem foodItem = new FoodItem(
                             String.valueOf(item.child(Constant.NAME).getValue()),
                             (String.valueOf(item.child(Constant.CALORIES).getValue())),
-                            (String.valueOf(item.child(Constant.CACBOHYDRAT).getValue())),
+                            (String.valueOf(item.child(Constant.CARBOHYDRATE).getValue())),
                             (String.valueOf(item.child(Constant.FAT).getValue())),
                             (String.valueOf(item.child(Constant.PROTEIN).getValue())),
                             String.valueOf(item.child(Constant.IMAGE).getValue()),

@@ -94,6 +94,9 @@ public class UserFragment extends Fragment implements View.OnClickListener {
         fiAuth.addAuthStateListener(fiAuthStateListener);
     }
 
+    /**
+     * init view
+     */
     private void init() {
         nameProfile = userView.findViewById(R.id.profileFullName);
         imgProfile = userView.findViewById(R.id.imgUser);
@@ -106,12 +109,18 @@ public class UserFragment extends Fragment implements View.OnClickListener {
         fiAuth = FirebaseAuth.getInstance();
     }
 
+    /**
+     * set event listener
+     */
     private void setEvent() {
         imgProfile.setOnClickListener(this);
         switchUser.setOnClickListener(this);
         cardView.setOnClickListener(this);
     }
 
+    /**
+     * get user info
+     */
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     private void getUserInfo() {
         fiAuthStateListener = new FirebaseAuth.AuthStateListener() {
@@ -174,6 +183,9 @@ public class UserFragment extends Fragment implements View.OnClickListener {
         };
     }
 
+    /**
+     * dialog requite update weight
+     */
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     private void reqUpdateWeight() {
         if (!checkUpdateStatus()) {
@@ -197,6 +209,9 @@ public class UserFragment extends Fragment implements View.OnClickListener {
         }
     }
 
+    /**
+     * message review BMI
+     */
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     private void reviewBMI() {
         float bmi = calculateBMI();
@@ -222,6 +237,10 @@ public class UserFragment extends Fragment implements View.OnClickListener {
         dialog.show();
     }
 
+    /**
+     * check update weight status
+     * @return update status
+     */
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     private boolean checkUpdateStatus() {
         SharedPreferences sharedPreferences = Objects.requireNonNull(getContext()).getSharedPreferences(Constant.LAST_DATE, Context.MODE_PRIVATE);
@@ -229,6 +248,10 @@ public class UserFragment extends Fragment implements View.OnClickListener {
         return (calculateNumberDay(lastDate) < 7);
     }
 
+    /**
+     * set event onClick
+     * @param v view
+     */
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public void onClick(View v) {
@@ -246,6 +269,11 @@ public class UserFragment extends Fragment implements View.OnClickListener {
         }
     }
 
+    /**
+     * init weight chart
+     * @param date date label
+     * @param entries weight entry
+     */
     private void initChart (final List<String> date, ArrayList<Entry> entries) {
         Collections.reverse(entries);
         Collections.reverse(date);
@@ -313,6 +341,11 @@ public class UserFragment extends Fragment implements View.OnClickListener {
         chart.invalidate();
     }
 
+    /**
+     * set data for weight chart
+     * @param entries weight entry
+     * @return DataSet
+     */
     private static DataSet dataChart(ArrayList<Entry> entries) {
         LineData lineData = new LineData();
         LineDataSet lineDataSet = new LineDataSet(entries, "Your weight");
@@ -331,6 +364,9 @@ public class UserFragment extends Fragment implements View.OnClickListener {
         return lineDataSet;
     }
 
+    /**
+     * show dialog update user info
+     */
     private void showDialog() {
         AlertDialog.Builder mBuilder = new AlertDialog.Builder(getContext());
         @SuppressLint("InflateParams") View view = getLayoutInflater().inflate(R.layout.input_info_dialog, null);
@@ -368,6 +404,12 @@ public class UserFragment extends Fragment implements View.OnClickListener {
         dialog.show();
     }
 
+    /**
+     * action update user infor
+     * @param age age
+     * @param height height
+     * @param weight weight
+     */
     @RequiresApi(api = Build.VERSION_CODES.O)
     private void updateInfo(String age, String height, String weight) {
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child(Constant.USER_DB);
@@ -410,12 +452,21 @@ public class UserFragment extends Fragment implements View.OnClickListener {
         } else reviewBMI();
     }
 
+    /**
+     * get BMI value
+     * @return BMI value
+     */
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     private float calculateBMI() {
         SharedPreferences sharedPreferences = Objects.requireNonNull(getContext()).getSharedPreferences(Constant.LAST_DATE, Context.MODE_PRIVATE);
         return sharedPreferences.getFloat("bmi", 0);
     }
 
+    /**
+     * message review weight
+     * @param preWeight previous weight
+     * @param afterWeight weight now
+     */
     private void reviewWeight(String preWeight, String afterWeight) {
         float pWeight = Float.parseFloat(preWeight);
         float aWeight = Float.parseFloat(afterWeight);
@@ -438,6 +489,10 @@ public class UserFragment extends Fragment implements View.OnClickListener {
         }
     }
 
+    /**
+     * show dialog review weight
+     * @param message message
+     */
     private void showDialogReviewWeight(String message) {
         AlertDialog.Builder mBuilder = new AlertDialog.Builder(getContext());
         mBuilder.setTitle("Review")
@@ -453,6 +508,11 @@ public class UserFragment extends Fragment implements View.OnClickListener {
         dialog.show();
     }
 
+    /**
+     * calculate days to update weight
+     * @param strLastDate last date
+     * @return number day
+     */
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     private float calculateNumberDay(String strLastDate) {
         Date now = new Date();

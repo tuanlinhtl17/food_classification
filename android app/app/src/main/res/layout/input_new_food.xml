@@ -1,0 +1,140 @@
+<LinearLayout xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:padding="15dp">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="10">
+        <TextView
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:text="@string/title"
+            android:textSize="18sp"
+            android:layout_weight="3"/>
+        <EditText
+            android:id="@+id/diaTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="7"
+            android:textSize="18sp"
+            android:inputType="text"
+            tools:ignore="LabelFor"
+            android:autofillHints="" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="10">
+        <TextView
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:text="@string/calories"
+            android:textSize="18sp"
+            android:layout_weight="3"/>
+        <EditText
+            android:id="@+id/diaCalorie"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="numberDecimal|numberSigned"
+            android:layout_weight="7"
+            android:textSize="18sp"
+            android:autofillHints=""
+            tools:ignore="LabelFor" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="10">
+        <TextView
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:text="@string/carbohydrate"
+            android:textSize="18sp"
+            android:layout_weight="3"/>
+        <EditText
+            android:id="@+id/diaCarb"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="numberDecimal|numberSigned"
+            android:layout_weight="7"
+            android:textSize="18sp"
+            android:autofillHints=""
+            tools:ignore="LabelFor" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="10">
+        <TextView
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:text="@string/fats"
+            android:textSize="18sp"
+            android:layout_weight="3"/>
+        <EditText
+            android:id="@+id/diaFat"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="numberDecimal|numberSigned"
+            android:layout_weight="7"
+            android:autofillHints=""
+            android:textSize="18sp"
+            tools:ignore="LabelFor" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="10">
+        <TextView
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:text="@string/proteins"
+            android:textSize="18sp"
+            android:layout_weight="3"/>
+        <EditText
+            android:id="@+id/diaProtein"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="numberDecimal|numberSigned"
+            android:layout_weight="7"
+            android:textSize="18sp"
+            android:autofillHints=""
+            tools:ignore="LabelFor" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="10">
+        <TextView
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:text="@string/description"
+            android:textSize="18sp"
+            android:layout_weight="3"/>
+        <EditText
+            android:id="@+id/diaDes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:maxLines="15"
+            android:inputType="text"
+            android:layout_weight="7"
+            android:textSize="18sp"
+            android:autofillHints=""
+            tools:ignore="LabelFor" />
+    </LinearLayout>
+
+</LinearLayout>

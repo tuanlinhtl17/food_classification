@@ -45,7 +45,7 @@
             android:layout_weight="1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/camera"
+            android:src="@drawable/add_ios"
             android:contentDescription="@string/add_food"
             />
 
@@ -429,20 +429,26 @@
 
     </LinearLayout>
 
-    <ScrollView
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#B1D4FB"
         >
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/foodList"
+        <ScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            />
-    </ScrollView>
+            android:background="#B1D4FB"
+            >
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/foodList"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                />
+        </ScrollView>
 
-    <include layout="@layout/floating_action_button"
-        app:layout_anchor="@id/foodList"
-        app:layout_anchorGravity="bottom|end"
-        />
+        <include layout="@layout/floating_action_button"
+            app:layout_anchor="@id/foodList"
+            app:layout_anchorGravity="bottom|end|right"
+            />
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
 </LinearLayout>

@@ -80,6 +80,10 @@ public class ExerciseListAdapter extends RecyclerView.Adapter<ExerciseListAdapte
             initItemView(itemView);
         }
 
+        /**
+         * init view
+         * @param view view
+         */
         private void initItemView(View view) {
             exerciseName = view.findViewById(R.id.exerciseName);
             exerciseImage = view.findViewById(R.id.imgExe);

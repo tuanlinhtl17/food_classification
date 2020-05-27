@@ -2,6 +2,7 @@ package com.example.foodclassificationapp.control;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -43,15 +44,24 @@ public class FoodListAdapter extends RecyclerView.Adapter<FoodListAdapter.ListFo
         holder.itemFat.setText(String.valueOf(foodList.get(position).getFat()));
         holder.itemProtein.setText((String.valueOf(foodList.get(position).getProtein())));
 
-        Glide.with(context).load(foodList.get(position).getImage()).into(holder.imageFood);
+        final boolean isMyFood = foodList.get(position).isMyFood();
+        if (!isMyFood)
+            Glide.with(context).load(foodList.get(position).getImage()).into(holder.imageFood);
 
         holder.parentLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, FruitInfoActivity.class);
-                intent.putExtra("foodName", foodList.get(position).getName());
-                intent.putExtra("isMyFood", foodList.get(position).isMyFood());
-                context.startActivity(intent);
+                if (!isMyFood) {
+                    intent.putExtra("foodName", foodList.get(position).getName());
+                    context.startActivity(intent);
+                } else {
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable("foodObj", foodList.get(position));
+                    intent.putExtras(bundle);
+                    intent.putExtra("isMyFood", true);
+                    context.startActivity(intent);
+                }
             }
         });
     }
@@ -76,6 +86,10 @@ public class FoodListAdapter extends RecyclerView.Adapter<FoodListAdapter.ListFo
             initItemView(itemView);
         }
 
+        /**
+         * init view
+         * @param view view
+         */
         private void initItemView(View view) {
             imageFood = view.findViewById(R.id.imgFood);
             itemCal = view.findViewById(R.id.itemCals);

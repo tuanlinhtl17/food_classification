@@ -51,6 +51,11 @@ public interface HomeContract {
          * @param activityList FitnessExercise list
          */
         void showActivityList(ArrayList<FitnessExercise> activityList);
+
+        /**
+         * show toast
+         */
+        void showToast(String message);
     }
 
     interface Presenter {
@@ -115,5 +120,24 @@ public interface HomeContract {
          * @return total calories burned
          */
         double calculateCalorieBurnDaily();
+
+        /**
+         * add new food
+         * @param foodItem food item
+         */
+        void addNewFood(FoodItem foodItem);
+
+        /**
+         * add user food
+         * @param foodItem food item
+         */
+        void addUserFood(FoodItem foodItem);
+
+        /**
+         * validate info food
+         * @param foodItem food item
+         * @return validate value
+         */
+        boolean validateInfoFood(FoodItem foodItem);
     }
 }

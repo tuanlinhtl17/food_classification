@@ -13,7 +13,7 @@ public class Constant {
     public static final String HASAGI_DB = "hasagi";
     public static final String FOOD_DB = "food";
     public static final String NAME = "name";
-    public static final String CACBOHYDRAT = "cacbohydrat";
+    public static final String CARBOHYDRATE = "cacbohydrat";
     public static final String CALORIES = "calories";
     public static final String FAT = "fat";
     public static final String IMAGE = "image";

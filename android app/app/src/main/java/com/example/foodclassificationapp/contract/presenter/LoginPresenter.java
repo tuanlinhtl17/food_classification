@@ -28,6 +28,22 @@ public class LoginPresenter implements LoginContract.Presenter {
     }
 
     @Override
+    public void resetPassword(String email) {
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
+        mAuth.sendPasswordResetEmail(email)
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()) {
+                            loginView.showToast("Check email to reset your password!");
+                        } else {
+                            loginView.showToast("Fail to send reset password email!");
+                        }
+                    }
+                });
+    }
+
+    @Override
     public void attachView(LoginContract.View view) {
         this.loginView = view;
     }

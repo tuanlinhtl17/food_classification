@@ -106,11 +106,17 @@ public class ExerciseDescriptionActivity extends AppCompatActivity implements Fi
         }
     }
 
+    /**
+     * init presenter
+     */
     private void initPresenter() {
         presenter = new FitnessDetailPresenterJr();
         presenter.attachView(this);
     }
 
+    /**
+     * set event listener
+     */
     private void setEvent() {
         back.setOnClickListener(this);
         plus.setOnClickListener(this);
@@ -136,24 +142,37 @@ public class ExerciseDescriptionActivity extends AppCompatActivity implements Fi
         });
     }
 
+    /**
+     * action plus time
+     */
     private void plusTime() {
         time += 1;
         exeTime.setText(String.valueOf(time));
         reduce.setEnabled(true);
     }
+
+    /**
+     * action reduce time
+     */
     private void reduceTime() {
         if (time > 1) {
             time -= 1;
             exeTime.setText(String.valueOf(time));
         } else reduce.setEnabled(false);
-
     }
+
+    /**
+     * calculate calorie burned
+     */
     private void calculateCaloriesBurn() {
         String timeRef = exeTime.getText().toString().trim();
         time = timeRef.isEmpty() ? 0 : Integer.parseInt(timeRef);
         exeCalBurn.setText(String.format("%s kCal", String.valueOf((Math.round(calorieBurn * time * 10.0)) / 10.0)));
     }
 
+    /**
+     * action add to calendar
+     */
     private void addToCalendar() {
         Intent intent = new Intent(Intent.ACTION_INSERT)
                 .setData(CalendarContract.Events.CONTENT_URI)
@@ -162,6 +181,10 @@ public class ExerciseDescriptionActivity extends AppCompatActivity implements Fi
         startActivity(intent);
     }
 
+    /**
+     * set event onClick
+     * @param v view
+     */
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public void onClick(View v) {
@@ -191,6 +214,9 @@ public class ExerciseDescriptionActivity extends AppCompatActivity implements Fi
         }
     }
 
+    /**
+     * show exercise timer
+     */
     private void viewTimer() {
         reduce.setVisibility(View.GONE);
         plus.setVisibility(View.GONE);
@@ -198,6 +224,9 @@ public class ExerciseDescriptionActivity extends AppCompatActivity implements Fi
         tvTimer.setVisibility(View.VISIBLE);
     }
 
+    /**
+     * show edit time
+     */
     private void viewEditTime() {
         tvTimer.setVisibility(View.GONE);
         reduce.setVisibility(View.VISIBLE);
@@ -205,6 +234,9 @@ public class ExerciseDescriptionActivity extends AppCompatActivity implements Fi
         exeTime.setVisibility(View.VISIBLE);
     }
 
+    /**
+     * add exercise daily
+     */
     @RequiresApi(api = Build.VERSION_CODES.O)
     private void addExercise() {
         String timeRef = exeTime.getText().toString().trim();
@@ -233,12 +265,16 @@ public class ExerciseDescriptionActivity extends AppCompatActivity implements Fi
         }
     }
 
+    /**
+     * show activity info
+     * @param exercise activity
+     */
     @Override
     public void showFitnessExerciseDetail(final FitnessExercise exercise) {
         exeTitle.setText(exercise.getName());
         exeName.setText(exercise.getName());
         exeTime.setText(exercise.getTime());
-        exeCalBurn.setText(String.format("%s kcal", exercise.getCaloriesBurned()));
+        exeCalBurn.setText(String.format("%s kCal", exercise.getCaloriesBurned()));
         exeDescription.setText(exercise.getDescription());
 
         if ("EXERCISE".equals(activityType)) {
@@ -255,6 +291,9 @@ public class ExerciseDescriptionActivity extends AppCompatActivity implements Fi
         }
     }
 
+    /**
+     * show message calculate calorie burned
+     */
     @Override
     public void showMessageDialog() {
         AlertDialog.Builder mBuilder = new AlertDialog.Builder(this);
@@ -271,6 +310,9 @@ public class ExerciseDescriptionActivity extends AppCompatActivity implements Fi
         start.setEnabled(true);
     }
 
+    /**
+     * show exercise confirm dialog
+     */
     @Override
     public void showConfirmDialog() {
         AlertDialog.Builder mBuilder = new AlertDialog.Builder(this);
@@ -297,6 +339,10 @@ public class ExerciseDescriptionActivity extends AppCompatActivity implements Fi
         dialog.show();
     }
 
+    /**
+     * share image path
+     * @param image image path
+     */
     @Override
     public void shareImage(String image) {
         SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("ACTIVITY_IMG", Context.MODE_PRIVATE);
@@ -305,6 +351,10 @@ public class ExerciseDescriptionActivity extends AppCompatActivity implements Fi
         editor.apply();
     }
 
+    /**
+     * share activity type
+     * @param type activity type
+     */
     @Override
     public void shareType(String type) {
         SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("ACTIVITY_TYPE", Context.MODE_PRIVATE);
@@ -313,6 +363,9 @@ public class ExerciseDescriptionActivity extends AppCompatActivity implements Fi
         editor.apply();
     }
 
+    /**
+     * show toast add successful
+     */
     @Override
     public void showToastAddSuccess() {
         Toast.makeText(ExerciseDescriptionActivity.this, "Add Successful", Toast.LENGTH_SHORT).show();

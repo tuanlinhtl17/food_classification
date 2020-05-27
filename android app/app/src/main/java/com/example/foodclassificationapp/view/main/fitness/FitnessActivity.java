@@ -35,6 +35,9 @@ public class FitnessActivity extends AppCompatActivity implements FitnessContrac
         getFitnessExercise();
     }
 
+    /**
+     * init view
+     */
     private void init() {
         getTypeIntent();
         TextView fitnessLevel = findViewById(R.id.level);
@@ -59,16 +62,25 @@ public class FitnessActivity extends AppCompatActivity implements FitnessContrac
         }
     }
 
+    /**
+     * init presenter
+     */
     private void initPresenter() {
         presenter = new FitnessListPresenterJr();
         presenter.attachView(this);
     }
 
+    /**
+     * get intent
+     */
     private void getTypeIntent() {
         Intent intent = getIntent();
         type = intent.getStringExtra(Constant.TYPE);
     }
 
+    /**
+     * get activity list
+     */
     private void getFitnessExercise() {
         SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences(Constant.WEIGHT, MODE_PRIVATE);
         float weight = sharedPreferences.getFloat(Constant.WEIGHT, 0);
