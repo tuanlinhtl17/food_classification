@@ -339,7 +339,7 @@ public class HomeFragment extends Fragment implements HomeContract.View, View.On
                             || protein.isEmpty() || recipe.isEmpty()) {
                             showToast("Please fill all input!");
                         } else {
-                            homePresenter.addNewFood(new FoodItem(title, calories, carbohydrate, fat, protein, null, true, null));
+                            homePresenter.addNewFood(new FoodItem(title, calories, carbohydrate, fat, protein, null, true, recipe));
                             homePresenter.addUserFood(new FoodItem(title, calories, carbohydrate, fat, protein, null, false, recipe));
                         }
                     }
