@@ -214,16 +214,16 @@ public class UserFragment extends Fragment implements View.OnClickListener {
      */
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     private void reviewBMI() {
-        float bmi = calculateBMI();
+        double bmi = Math.round(calculateBMI() * 100.0) / 100.0;
         String message = "Your BMI is " + bmi;
         if (bmi < 18.5)
-            message = "You are underweight! Let's eat more.";
+            message += "You are underweight! Let's eat more.";
         else if (bmi >= 18.5 && bmi <= 24.9)
-            message = "Wow!!! You have a good body.";
+            message += "Wow!!! You have a good body.";
         else if (bmi >= 30 && bmi <= 34.9)
-            message = "You are obese! Let's lose weight.";
+            message += "You are obese! Let's lose weight.";
         else if (bmi > 35)
-            message = "Oh no!!! You are extremely obese.";
+            message += "Oh no!!! You are extremely obese.";
         AlertDialog.Builder mBuilder = new AlertDialog.Builder(getContext());
         mBuilder.setTitle("Review")
                 .setMessage(message)
