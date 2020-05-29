@@ -65,7 +65,7 @@
                     android:layout_width="1dp"
                     android:layout_height="match_parent"
                     android:background="@color/main_activity_background_header"
-                    android:layout_marginStart="15dp"/>
+                    android:layout_marginStart="10dp"/>
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -73,7 +73,7 @@
                     android:textSize="20sp"
                     android:gravity="center"
                     android:drawableStart="@drawable/fire"
-                    android:layout_marginStart="15dp"
+                    android:layout_marginStart="10dp"
                     android:id="@+id/caloBurn"/>
 
             </LinearLayout>

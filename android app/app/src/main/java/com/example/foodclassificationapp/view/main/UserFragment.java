@@ -215,7 +215,7 @@ public class UserFragment extends Fragment implements View.OnClickListener {
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     private void reviewBMI() {
         double bmi = Math.round(calculateBMI() * 100.0) / 100.0;
-        String message = "Your BMI is " + bmi;
+        String message = "Your BMI is " + bmi + ". ";
         if (bmi < 18.5)
             message += "You are underweight! Let's eat more.";
         else if (bmi >= 18.5 && bmi <= 24.9)
@@ -414,42 +414,49 @@ public class UserFragment extends Fragment implements View.OnClickListener {
     private void updateInfo(String age, String height, String weight) {
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child(Constant.USER_DB);
         final DatabaseReference ref = databaseReference.child(Objects.requireNonNull(fiAuth.getCurrentUser()).getUid());
-        ref.child(Constant.AGE).setValue(age);
-        ref.child(Constant.HEIGHT).setValue(height);
-
-        Calendar calendar = Calendar.getInstance();
-        String time = calendar.get(Calendar.DAY_OF_MONTH) + "/" + (calendar.get(Calendar.MONTH) + 1);
-        String date = time + "/" + calendar.get(Calendar.YEAR);
-        MyWeight myWeight = new MyWeight(time, weight, date);
-
-        SharedPreferences sharedPreferences = Objects.requireNonNull(getContext()).getSharedPreferences(Constant.LAST_DATE, Context.MODE_PRIVATE);
-        String lastDate = sharedPreferences.getString(Constant.LAST_DATE, "");
-        String key = sharedPreferences.getString("key", "");
-        String lastWeight = sharedPreferences.getString("lastWeight", "");
-
-        if (time.equals(lastDate)) {
-            ref.child(Constant.WEIGHT).child(Objects.requireNonNull(key)).child(Constant.VALUE).setValue(weight)
-                    .addOnCompleteListener(new OnCompleteListener<Void>() {
-                        @Override
-                        public void onComplete(@NonNull Task<Void> task) {
-                            if (task.isSuccessful()) {
-                                Toast.makeText(getContext(), "Update Successful", Toast.LENGTH_SHORT).show();
-                            }
-                        }
-                    });
+        float ageRef = Float.parseFloat(age);
+        float heightRef = Float.parseFloat(height);
+        float weightRef = Float.parseFloat(weight);
+        if (ageRef <= 0 || heightRef <1 || weightRef < 1) {
+            Toast.makeText(getContext(), "Value invalid", Toast.LENGTH_SHORT).show();
         } else {
-            ref.child(Constant.WEIGHT).push().setValue(myWeight).addOnCompleteListener(new OnCompleteListener<Void>() {
-                @Override
-                public void onComplete(@NonNull Task<Void> task) {
-                    if (task.isSuccessful()) {
-                        Toast.makeText(getContext(), "Update Successful", Toast.LENGTH_SHORT).show();
+            ref.child(Constant.AGE).setValue(age);
+            ref.child(Constant.HEIGHT).setValue(height);
+
+            Calendar calendar = Calendar.getInstance();
+            String time = calendar.get(Calendar.DAY_OF_MONTH) + "/" + (calendar.get(Calendar.MONTH) + 1);
+            String date = time + "/" + calendar.get(Calendar.YEAR);
+            MyWeight myWeight = new MyWeight(time, weight, date);
+
+            SharedPreferences sharedPreferences = Objects.requireNonNull(getContext()).getSharedPreferences(Constant.LAST_DATE, Context.MODE_PRIVATE);
+            String lastDate = sharedPreferences.getString(Constant.LAST_DATE, "");
+            String key = sharedPreferences.getString("key", "");
+            String lastWeight = sharedPreferences.getString("lastWeight", "");
+
+            if (time.equals(lastDate)) {
+                ref.child(Constant.WEIGHT).child(Objects.requireNonNull(key)).child(Constant.VALUE).setValue(weight)
+                        .addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                if (task.isSuccessful()) {
+                                    Toast.makeText(getContext(), "Update Successful", Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        });
+            } else {
+                ref.child(Constant.WEIGHT).push().setValue(myWeight).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()) {
+                            Toast.makeText(getContext(), "Update Successful", Toast.LENGTH_SHORT).show();
+                        }
                     }
-                }
-            });
+                });
+            }
+            if (lastWeight.isEmpty()) {
+                reviewWeight(lastWeight, weight);
+            } else reviewBMI();
         }
-        if (lastWeight.isEmpty()) {
-            reviewWeight(lastWeight, weight);
-        } else reviewBMI();
     }
 
     /**

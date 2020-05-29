@@ -240,7 +240,7 @@ public class ExerciseDescriptionActivity extends AppCompatActivity implements Fi
     @RequiresApi(api = Build.VERSION_CODES.O)
     private void addExercise() {
         String timeRef = exeTime.getText().toString().trim();
-        if (timeRef.isEmpty() || Integer.parseInt(timeRef) == 0) {
+        if (timeRef.isEmpty() || Float.parseFloat(timeRef) <= 0) {
             AlertDialog.Builder mBuilder = new AlertDialog.Builder(this);
             mBuilder.setTitle("Error")
                     .setMessage("Time value invalid!")

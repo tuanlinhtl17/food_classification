@@ -93,11 +93,9 @@ public class SearchFragment extends Fragment implements SearchContract.View, Vie
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 final int DRAWABLE_RIGHT = 2;
-                if(event.getAction() == MotionEvent.ACTION_UP) {
-                    if(event.getRawX() >= (searchBar.getRight() - searchBar.getCompoundDrawables()[DRAWABLE_RIGHT].getBounds().width())) {
-                        getSpeechInput();
-                        return true;
-                    }
+                if(event.getAction() == MotionEvent.ACTION_UP && (event.getRawX() >= (searchBar.getRight() - searchBar.getCompoundDrawables()[DRAWABLE_RIGHT].getBounds().width()))) {
+                    getSpeechInput();
+                    return true;
                 }
                 return false;
             }
@@ -109,7 +107,6 @@ public class SearchFragment extends Fragment implements SearchContract.View, Vie
      */
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     private void getSpeechInput() {
-
         Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
         intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
         intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault());
@@ -125,11 +122,9 @@ public class SearchFragment extends Fragment implements SearchContract.View, Vie
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == 10) {
-            if (resultCode == RESULT_OK && data != null) {
-                ArrayList<String> result = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
-                searchBar.setText(Objects.requireNonNull(result).get(0));
-            }
+        if (requestCode == 10 && resultCode == RESULT_OK && data != null) {
+            ArrayList<String> result = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
+            searchBar.setText(Objects.requireNonNull(result).get(0));
         }
     }
 

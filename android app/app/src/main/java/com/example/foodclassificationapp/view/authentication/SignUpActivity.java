@@ -134,7 +134,10 @@ public class SignUpActivity extends AppCompatActivity implements SignUpContract.
             progressDialog.setMessage("Registering...");
             progressDialog.show();
             signUpPresenter.handleSignUp(fullName, email, age, height, weight, password, gender);
-        } else {
+        } else if ((Float.parseFloat(age) * Float.parseFloat(height) * Float.parseFloat(weight)) < 1) {
+            signUpFail("Value invalid");
+        }
+        else {
             signUpFail("Please fill all input!");
         }
     }
