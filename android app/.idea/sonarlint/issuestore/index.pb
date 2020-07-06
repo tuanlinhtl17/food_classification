@@ -69,8 +69,6 @@ Papp/src/main/java/com/example/foodclassificationapp/contract/SignUpContract.jav
 Qapp/src/main/java/com/example/foodclassificationapp/contract/FitnessContract.java,3\7\3742f4cbc1a9ca30906692a2be3e9d822000844f
 
 Oapp/src/main/java/com/example/foodclassificationapp/contract/LoginContract.java,a\4\a453de3bae715243d9843a8e1f371f1a8e31c5ef
-‰
-Yapp/src/main/java/com/example/foodclassificationapp/view/main/ScrollAwareFABBehavior.java,8\0\807820ab2b18f1c9f270232b15af4e1268a7873d
 S
 #app/src/main/res/anim/fab_close.xml,b\2\b23de3137e6e338662d0e6302a57a59989dce6af
 R
@@ -85,3 +83,9 @@ f
 6app/src/main/res/layout-v21/floating_action_button.xml,7\d\7d6b7c3d34795e17f93e7990eb9253ce3b381f71
 ~
 Napp/src/main/java/com/example/foodclassificationapp/contract/HomeContract.java,9\d\9db17dced80daa22f6fe69f574a5b738fd9dfc5e
+\
+,app/src/main/res/layout/fitness_exercise.xml,7\5\75f112ef2e15cc2e935d1693a9e1ec90d0950a24
+]
+-app/src/main/res/layout/input_info_dialog.xml,f\2\f2080607b11dd0782504816aa8d613618f8222ae
+Z
+*app/src/main/res/layout/input_new_food.xml,1\d\1d368321878f436365702ef7352f2c4743332dc0

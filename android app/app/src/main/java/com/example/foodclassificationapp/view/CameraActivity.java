@@ -170,7 +170,7 @@ public class CameraActivity extends AppCompatActivity implements SingleUploadBro
         progressDialog.setIndeterminate(true);
         progressDialog.setMessage("Classifying...");
         progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-        progressDialog.setMax(16);
+        progressDialog.setMax(15);
         progressDialog.setCancelable(false);
         progressDialog.setCanceledOnTouchOutside(false);
         progressDialog.show();
@@ -184,7 +184,7 @@ public class CameraActivity extends AppCompatActivity implements SingleUploadBro
             public void run() {
                 try {
                     while (progress < progressDialog.getMax()) {
-                        Thread.sleep(150);
+                        Thread.sleep(1200);
                         handle.sendMessage(handle.obtainMessage());
                     }
                     progressDialog.dismiss();

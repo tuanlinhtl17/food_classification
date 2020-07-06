@@ -72,4 +72,8 @@
     <string name="carbohydrate">Carbohydrate</string>
     <string name="description">Description</string>
     <string name="note">Note</string>
+    <string name="log_out">Log out</string>
+    <string name="bmi">BMI ?</string>
+    <string name="avatar">avatar</string>
+    <string name="bmi_">BMI ?</string>
 </resources>

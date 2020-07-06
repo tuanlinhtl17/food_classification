@@ -16,7 +16,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -67,7 +66,8 @@ public class UserFragment extends Fragment implements View.OnClickListener {
     private TextView ageProfile;
     private TextView heightProfile;
     private TextView weightProfile;
-    private ImageButton switchUser;
+    private TextView logout;
+    private TextView bmiText;
     private androidx.cardview.widget.CardView cardView;
 
     private FirebaseAuth fiAuth;
@@ -84,7 +84,6 @@ public class UserFragment extends Fragment implements View.OnClickListener {
         setEvent();
         getUserInfo();
         reqUpdateWeight();
-        reviewBMI();
         return userView;
     }
 
@@ -103,8 +102,9 @@ public class UserFragment extends Fragment implements View.OnClickListener {
         ageProfile = userView.findViewById(R.id.agePro);
         heightProfile = userView.findViewById(R.id.heightPro);
         weightProfile = userView.findViewById(R.id.weightPro);
-        switchUser = userView.findViewById(R.id.switchUser);
+        logout = userView.findViewById(R.id.logout);
         cardView = userView.findViewById(R.id.cardInfor);
+        bmiText = userView.findViewById(R.id.bmi);
 
         fiAuth = FirebaseAuth.getInstance();
     }
@@ -114,8 +114,9 @@ public class UserFragment extends Fragment implements View.OnClickListener {
      */
     private void setEvent() {
         imgProfile.setOnClickListener(this);
-        switchUser.setOnClickListener(this);
+        logout.setOnClickListener(this);
         cardView.setOnClickListener(this);
+        bmiText.setOnClickListener(this);
     }
 
     /**
@@ -256,7 +257,7 @@ public class UserFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.switchUser:
+            case R.id.logout:
                 if (fiAuth.getCurrentUser() != null) {
                     fiAuth.signOut();
                     startActivity(new Intent(getContext(), LoginActivity.class));
@@ -264,6 +265,9 @@ public class UserFragment extends Fragment implements View.OnClickListener {
                 break;
             case R.id.cardInfor:
                 showDialog();
+                break;
+            case R.id.bmi:
+                reviewBMI();
                 break;
             default: break;
         }
@@ -453,9 +457,7 @@ public class UserFragment extends Fragment implements View.OnClickListener {
                     }
                 });
             }
-            if (lastWeight.isEmpty()) {
-                reviewWeight(lastWeight, weight);
-            } else reviewBMI();
+            reviewWeight(lastWeight, weight);
         }
     }
 
@@ -508,7 +510,7 @@ public class UserFragment extends Fragment implements View.OnClickListener {
                     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        reviewBMI();
+                        // do nothing
                     }
                 });
         Dialog dialog = mBuilder.create();
